@@ -3,8 +3,8 @@ import NavLinks from "./NavLinks";
 
 const HomeNavbar = () => {
   return (
-    <nav className="items-center flex gap-8 max-w-7xl mx-auto w-full py-5 px-8">
-      <NavLogo />
+    <nav className="mx-auto flex w-full max-w-7xl items-center gap-8 px-8 py-5">
+      <NavLogo home={true} />
       <NavLinks />
     </nav>
   );

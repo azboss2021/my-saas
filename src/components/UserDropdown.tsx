@@ -13,8 +13,12 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 import { FaCrown, FaUnlock, FaUser } from "react-icons/fa";
 import { signOut } from "next-auth/react";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 const UserDropdown = ({ image }: { image: string }) => {
+  const [loading, setLoading] = useState(false);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild={!!!image}>
@@ -34,7 +38,7 @@ const UserDropdown = ({ image }: { image: string }) => {
         <DropdownMenuItem className="p-4" asChild>
           <Link
             href="/account"
-            className="flex items-center gap-2 p-4 cursor-pointer"
+            className="flex cursor-pointer items-center gap-2 p-4"
           >
             <FaUser size={14} /> Account
           </Link>
@@ -42,17 +46,24 @@ const UserDropdown = ({ image }: { image: string }) => {
         <DropdownMenuItem className="p-4" asChild>
           <Link
             href="/billing"
-            className="flex items-center gap-2 p-4 cursor-pointer"
+            className="flex cursor-pointer items-center gap-2 p-4"
           >
             <FaCrown size={14} /> Billing
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          onClick={() => signOut()}
-          className="flex items-center gap-2 p-4 cursor-pointer"
+          onClick={async () => {
+            setLoading(true);
+            await signOut();
+          }}
+          className="flex cursor-pointer items-center gap-2 p-4"
         >
-          <FaUnlock size={14} />
+          {loading ? (
+            <Loader2 className="h-4 w-4 animate-spin" size={14} />
+          ) : (
+            <FaUnlock size={14} />
+          )}
           Logout
         </DropdownMenuItem>
       </DropdownMenuContent>

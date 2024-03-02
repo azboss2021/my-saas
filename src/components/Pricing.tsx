@@ -4,7 +4,6 @@ import { useRef } from "react";
 import { useIsVisible } from "@/hooks/hooks";
 import { FaCheckCircle } from "react-icons/fa";
 import { FaCircleXmark } from "react-icons/fa6";
-import LogoImage from "./LogoImage";
 import { Badge } from "./ui/badge";
 import HomeCTAExtraInfo from "./HomeCTAExtraInfo";
 import HomeCTAButton from "./HomeCTAButton";
@@ -88,7 +87,7 @@ const Pricing = ({
       <div className="flex w-full flex-col items-center justify-center gap-8 lg:flex-row">
         {cards.map((card, index) => (
           <div
-            className={`relative max-w-xs rounded-lg border px-6 py-10 transition-shadow hover:shadow-lg ${card.bestChoice && "border-2 border-primary"}`}
+            className={`relative max-w-xs rounded-lg border px-6 py-10 shadow-xl transition-shadow ${card.bestChoice && "border-2 border-primary"} bg-background`}
             key={`price_card_${index}`}
           >
             {card.bestChoice && (

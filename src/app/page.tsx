@@ -13,6 +13,9 @@ import Pricing from "@/components/Pricing";
 import HomeTestimonialWall from "@/components/HomeTestimonialWall";
 import HomeTestimonials from "@/components/HomeTestimonials";
 import HomeSingleTestimonial from "@/components/HomeSingleTestimonial";
+import HomeSideBySide from "@/components/HomeSideBySide";
+import Image from "next/image";
+import HomeBackground from "@/components/HomeBackground";
 
 const HomePage = async () => {
   const session = await getServerSession(options);
@@ -22,11 +25,18 @@ const HomePage = async () => {
   }
 
   return (
-    <main className="flex flex-col">
-      <HomeNavbar />
+    <main className="relative flex flex-col">
+      <HomeBackground />
+
+      <div className="border-b bg-background">
+        <HomeNavbar />
+      </div>
+
       <HomeHero />
 
       <HomeHorizontalScroll />
+
+      <HomeSideBySide />
 
       {/* <section className="bg-primary/5"> */}
       <HomeDemo />
@@ -39,7 +49,9 @@ const HomePage = async () => {
       <HomeCTA />
       {/* </section> */}
 
-      <HomeFooter />
+      <div className="border-t bg-background">
+        <HomeFooter />
+      </div>
     </main>
   );
 };

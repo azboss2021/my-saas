@@ -15,7 +15,9 @@ const DashboardPage = async () => {
           link={"/pro"}
         />
       )}
-      <Navbar />
+      <div className="border-b">
+        <Navbar />
+      </div>
       <section className="mx-auto max-w-7xl p-8">DashboardPage</section>
     </>
   );

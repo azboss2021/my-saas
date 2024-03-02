@@ -85,6 +85,16 @@
   }
 }
 
+@keyframes slow-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-slow-spin {
+  animation: spin 15s linear infinite;
+}
+
 @layer base {
   * {
     @apply border-border;

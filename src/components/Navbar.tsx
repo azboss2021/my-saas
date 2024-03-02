@@ -16,7 +16,7 @@ const Navbar = async () => {
           Dashboard
         </Link>
         <ModeToggle />
-        <UserDropdown image={session?.user?.image as string} />
+        <UserDropdown image={session?.user?.image!} />
       </div>
     </nav>
   );

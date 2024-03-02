@@ -15,7 +15,7 @@ const HomeCTAButton = ({ className }: { className?: string }) => {
   return (
     <LoadingButton
       loading={loading}
-      className={`flex gap-2 py-7 w-fit px-24 group text-base rounded-lg font-semibold ${className}`}
+      className={`group flex w-fit gap-2 rounded-lg px-24 py-7 text-base font-semibold ${className}`}
       onClick={async () => {
         if (loading) return;
         setLoading(true);
@@ -32,7 +32,7 @@ const HomeCTAButton = ({ className }: { className?: string }) => {
       }}
     >
       {!loading && (
-        <span className="group-hover:-rotate-12 transition-transform">
+        <span className="transition-transform group-hover:-rotate-12">
           <LogoImage />
         </span>
       )}
