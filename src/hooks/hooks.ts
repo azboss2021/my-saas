@@ -1,4 +1,4 @@
-import { HTMLFactory, MutableRefObject, useEffect, useState } from "react";
+import { MutableRefObject, useEffect, useState } from "react";
 
 export const useIsVisible = ({
   ref,

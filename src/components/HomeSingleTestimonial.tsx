@@ -17,7 +17,7 @@ const badgeText = "Premium Member";
 
 const HomeSingleTestimonial = () => {
   return (
-    <section className="flex flex-col gap-2">
+    <section className="flex flex-col gap-2 items-center lg:items-start">
       <FaQuoteLeft className="text-green-500/40" size={22} />
       <span className="font-semibold text-primary/90">{testimonial}</span>
       <div className="flex items-center gap-2">
