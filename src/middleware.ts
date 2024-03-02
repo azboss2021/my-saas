@@ -8,5 +8,5 @@ export default withAuth({
 
 // EDIT THIS
 export const config = {
-  matcher: ["/dashboard", "/account"],
+  matcher: ["/dashboard", "/account", "/billing", "/pro"],
 };
