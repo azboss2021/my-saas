@@ -12,64 +12,76 @@ const more = false;
 
 const HomeFooter = () => {
   return (
-    <section className="mx-auto max-w-7xl w-full py-24 text-center flex flex-col lg:flex-row items-center lg:items-start lg:text-left lg:justify-evenly flex-wrap gap-10">
-      <div className="flex flex-col gap-2 items-center lg:items-start">
-        <span className="flex gap-2 items-center text-lg font-bold">
+    <section className="mx-auto flex w-full max-w-7xl flex-col flex-wrap items-center gap-10 px-8 py-24 text-center lg:flex-row lg:items-start lg:justify-between lg:pb-48 lg:text-left">
+      <div className="flex flex-col items-center gap-2 lg:items-start">
+        <span className="flex items-center gap-2 text-lg font-bold">
           <LogoImage /> {saasName}
         </span>
         <div className="flex flex-col text-primary/70">
           <span>{slogan}</span>
-          <span className="flex gap-1 items-center">
+          <span className="flex items-center gap-1">
             Copyright <FaCopyright /> {copyrightYear} - All rights reserved
           </span>
         </div>
       </div>
 
-      <div className="flex flex-col gap-1 items-center font-bold lg:hidden">
-        Join the community!
-        <Link
-          href={discordLink}
-          className="bg-[#7289da] text-white rounded-lg items-center gap-2 px-3 py-1 flex w-fit"
-        >
-          <FaDiscord /> Join Us
-        </Link>
-      </div>
-
-      <div className="flex flex-col gap-3 lg:text-left text-center">
-        <h3 className="text-primary/60 font-extrabold tracking-wide">LINKS</h3>
-        <div className="flex flex-col gap-1.5 ">
-          <Link href="#pricing">Pricing</Link>
-          <Link href={supportLink}>Support</Link>
+      {discordLink && (
+        <div className="flex flex-col items-center gap-1 font-bold lg:hidden">
+          Join the community!
           <Link
             href={discordLink}
-            target="_blank"
-            className="bg-[#7289da] text-white rounded-lg items-center gap-2 px-3 py-1 font-bold lg:flex hidden"
+            className="flex w-fit items-center gap-2 rounded-lg bg-[#7289da] px-3 py-1 text-white"
           >
             <FaDiscord /> Join Us
           </Link>
         </div>
-      </div>
+      )}
 
-      <div className="flex flex-col gap-3 lg:text-left text-center">
-        <h3 className="text-primary/60 font-extrabold tracking-wide">LEGAL</h3>
-        <div className="flex flex-col gap-1.5 ">
-          <Link href="/tos" target="_blank">
-            Terms of services
-          </Link>
-          <Link href="privacy-policy" target="_blank">
-            Privacy policy
-          </Link>
-        </div>
-      </div>
-
-      {more && (
-        <div className="flex flex-col gap-3 lg:text-left text-center">
-          <h3 className="text-primary/60 font-extrabold tracking-wide">MORE</h3>
+      <div className="flex flex-col gap-10 lg:flex-row lg:gap-24">
+        <div className="flex flex-col gap-3 text-center lg:text-left">
+          <h3 className="font-extrabold tracking-wide text-primary/60">
+            LINKS
+          </h3>
           <div className="flex flex-col gap-1.5 ">
-            <Link href="">[MORE LINKS HERE]</Link>
+            <Link href="#pricing">Pricing</Link>
+            <Link href={supportLink}>Support</Link>
+            {discordLink && (
+              <Link
+                href={discordLink}
+                target="_blank"
+                className="hidden items-center gap-2 rounded-lg bg-[#7289da] px-3 py-1 font-bold text-white lg:flex"
+              >
+                <FaDiscord /> Join Us
+              </Link>
+            )}
           </div>
         </div>
-      )}
+
+        <div className="flex flex-col gap-3 text-center lg:text-left">
+          <h3 className="font-extrabold tracking-wide text-primary/60">
+            LEGAL
+          </h3>
+          <div className="flex flex-col gap-1.5 ">
+            <Link href="/tos" target="_blank">
+              Terms of services
+            </Link>
+            <Link href="privacy-policy" target="_blank">
+              Privacy policy
+            </Link>
+          </div>
+        </div>
+
+        {more && (
+          <div className="flex flex-col gap-3 text-center lg:text-left">
+            <h3 className="font-extrabold tracking-wide text-primary/60">
+              MORE
+            </h3>
+            <div className="flex flex-col gap-1.5 ">
+              <Link href="">[MORE LINKS HERE]</Link>
+            </div>
+          </div>
+        )}
+      </div>
     </section>
   );
 };

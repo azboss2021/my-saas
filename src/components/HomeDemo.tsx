@@ -14,16 +14,16 @@ const HomeDemo = () => {
   return (
     <section
       id="demo"
-      className={`mx-auto max-w-7xl w-full py-20 flex flex-col gap-6 transition-all duration-700 ease-in-out ${isVisible ? "opacity-100" : "opacity-0"}`}
+      className={`mx-auto flex w-full max-w-7xl flex-col gap-6 py-20 transition-all duration-700 ease-in-out lg:py-48 ${isVisible ? "opacity-100" : "opacity-0"}`}
       ref={ref}
     >
-      <h2 className="text-3xl font-extrabold w-full text-center">Demo</h2>
+      <h2 className="w-full text-center text-3xl font-extrabold">Demo</h2>
 
       <iframe
         src={videoLink}
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        className="w-full aspect-video max-w-3xl mx-auto"
+        className="mx-auto aspect-video w-full max-w-3xl"
       ></iframe>
     </section>
   );

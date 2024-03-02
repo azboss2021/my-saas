@@ -40,6 +40,14 @@ const questions = [
     question: "What is the question?",
     answer: "This is the answer to your question 6!",
   },
+  {
+    question: "What is the question?",
+    answer: "This is the answer to your question 7!",
+  },
+  {
+    question: "What is the question?",
+    answer: "This is the answer to your question 8!",
+  },
 ];
 
 const HomeFAQ = () => {
@@ -49,17 +57,17 @@ const HomeFAQ = () => {
   return (
     <section
       id="faq"
-      className={`mx-auto max-w-7xl w-full py-20 px-8 lg:py-24 flex flex-col lg:flex-row gap-6 transition-all duration-700 ease-in-out ${isVisible ? "opacity-100" : "opacity-0"}`}
+      className={`mx-auto flex w-full max-w-7xl flex-col gap-6 px-8 py-20 transition-all duration-700 ease-in-out lg:flex-row lg:py-48 ${isVisible ? "opacity-100" : "opacity-0"}`}
       ref={ref}
     >
-      <div className="flex flex-col gap-2 basis-1/2">
+      <div className="flex basis-1/2 flex-col gap-2">
         <h2 className="text-3xl font-extrabold">Frequently Asked Questions</h2>
         <p className="text-primary/80">
           Have another question? Contact me on{" "}
           <Link
             href={twitterLink}
             target="_blank"
-            className="underline text-primary"
+            className="text-primary underline"
           >
             Twitter
           </Link>{" "}
@@ -67,7 +75,7 @@ const HomeFAQ = () => {
           <Link
             href={mailLink}
             target="_blank"
-            className="underline text-primary"
+            className="text-primary underline"
           >
             email
           </Link>
@@ -79,10 +87,10 @@ const HomeFAQ = () => {
             value={`faq_item_${index}`}
             key={`accordian_question_${index}`}
           >
-            <AccordionTrigger className="font-bold text-lg">
+            <AccordionTrigger className="text-lg font-bold">
               {question.question}
             </AccordionTrigger>
-            <AccordionContent className="text-primary/80 font-semibold">
+            <AccordionContent className="font-semibold text-primary/80">
               {question.answer}
             </AccordionContent>
           </AccordionItem>

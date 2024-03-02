@@ -4,11 +4,11 @@ import { redirect } from "next/navigation";
 import HomeNavbar from "@/components/HomeNavbar";
 import HomeHero from "@/components/HomeHero";
 import HomeHorizontalScroll from "@/components/HomeHorizontalScroll";
-import HomePricing from "@/components/HomePricing";
 import HomeFAQ from "@/components/HomeFAQ";
 import HomeCTA from "@/components/HomeCTA";
 import HomeFooter from "@/components/HomeFooter";
 import HomeDemo from "@/components/HomeDemo";
+import Pricing from "@/components/Pricing";
 
 import HomeTestimonialWall from "@/components/HomeTestimonialWall";
 import HomeTestimonials from "@/components/HomeTestimonials";
@@ -25,18 +25,19 @@ const HomePage = async () => {
     <main className="flex flex-col">
       <HomeNavbar />
       <HomeHero />
+
       <HomeHorizontalScroll />
 
-      <section className="bg-primary/5">
-        <HomeDemo />
-      </section>
+      {/* <section className="bg-primary/5"> */}
+      <HomeDemo />
+      {/* </section> */}
 
-      <HomePricing />
+      <Pricing />
       <HomeFAQ />
 
-      <section className="bg-primary/5">
-        <HomeCTA />
-      </section>
+      {/* <section className="bg-primary/5"> */}
+      <HomeCTA />
+      {/* </section> */}
 
       <HomeFooter />
     </main>

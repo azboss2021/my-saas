@@ -6,12 +6,12 @@ const ctaDescription =
 
 const HomeCTA = () => {
   return (
-    <section className="mx-auto max-w-7xl w-full py-20 px-8 flex flex-col gap-10 items-center">
+    <section className="mx-auto flex w-full max-w-7xl flex-col items-center gap-10 px-8 py-20 lg:py-48">
       <div className="flex flex-col gap-4">
-        <h2 className="font-bold text-3xl lg:text-5xl text-center tracking-tight">
+        <h2 className="text-center text-3xl font-bold tracking-tight lg:text-5xl">
           {ctaMain}
         </h2>
-        <p className="text-center text-primary/80 text-lg">{ctaDescription}</p>
+        <p className="text-center text-lg text-primary/80">{ctaDescription}</p>
       </div>
       <HomeCTAButton />
     </section>

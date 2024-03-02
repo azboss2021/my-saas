@@ -1,16 +1,22 @@
 import InfoBanner from "@/components/InfoBanner";
 import Navbar from "@/components/Navbar";
+import { getPlanNum } from "@/lib/action";
 
-const DashboardPage = () => {
+const DashboardPage = async () => {
+  const planNum = await getPlanNum();
+  const showBanner = planNum === 1;
+
   return (
     <>
-      <InfoBanner
-        content={"🚀 Check out more features here"}
-        buttonContent={"Go Pro"}
-        link={"/pro"}
-      />
+      {showBanner && (
+        <InfoBanner
+          content={"🚀 Check out more features here"}
+          buttonContent={"Go Pro"}
+          link={"/pro"}
+        />
+      )}
       <Navbar />
-      <section className="p-8 max-w-7xl mx-auto">DashboardPage</section>
+      <section className="mx-auto max-w-7xl p-8">DashboardPage</section>
     </>
   );
 };

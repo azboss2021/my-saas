@@ -12,11 +12,11 @@ const InfoBanner = ({
   link: string;
 }) => {
   return (
-    <section className="p-2 border-b flex items-center gap-2 justify-center">
+    <section className="flex items-center justify-center gap-2 border-b p-2">
       {content}
-      <Button asChild={!link} size="sm" className="px-4 rounded-full text-sm">
+      <Button asChild size="sm" className="rounded-full px-4 text-sm">
         {link && (
-          <Link href={link} className="font-semibold flex items-center gap-2">
+          <Link href={link} className="flex items-center gap-2 font-semibold">
             {buttonContent} <FaArrowRight size={12} />
           </Link>
         )}
