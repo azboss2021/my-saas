@@ -6,7 +6,7 @@ import HomeSingleTestimonial from "./HomeSingleTestimonial";
 const HomeHeroLeft = () => {
   return (
     <div className="flex flex-col items-center justify-center gap-10 text-center lg:items-start lg:text-left">
-      {/* <HomeSingleTestimonial /> */}
+      <HomeSingleTestimonial />
       <h1 className="text-4xl font-extrabold tracking-tight lg:text-6xl">
         Main slogan right here, right now
       </h1>

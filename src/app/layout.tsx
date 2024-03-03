@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Lato } from "next/font/google";
+import { Lato, Montserrat } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import AuthProvider from "@/components/auth-provider";
@@ -9,6 +9,10 @@ const lato = Lato({
   display: "swap",
   variable: "--font-poppins",
   weight: ["100", "300", "400", "700", "900"],
+});
+
+const montserrat = Montserrat({
+  subsets: ["cyrillic"],
 });
 
 export const metadata: Metadata = {
@@ -23,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={lato.className}>
+      <body className={montserrat.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <AuthProvider>{children}</AuthProvider>
         </ThemeProvider>

@@ -91,6 +91,14 @@
   }
 }
 
+.title {
+  @apply text-center text-xs font-semibold uppercase text-blue-500;
+}
+
+.subtitle {
+  @apply max-w-xl text-center text-3xl font-bold lg:text-4xl;
+}
+
 .animate-slow-spin {
   animation: spin 15s linear infinite;
 }

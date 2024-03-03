@@ -9,13 +9,14 @@ import HomeCTA from "@/components/HomeCTA";
 import HomeFooter from "@/components/HomeFooter";
 import HomeDemo from "@/components/HomeDemo";
 import Pricing from "@/components/Pricing";
+import HomeSideBySide from "@/components/HomeSideBySide";
+import HomeBackground from "@/components/HomeBackground";
 
 import HomeTestimonialWall from "@/components/HomeTestimonialWall";
 import HomeTestimonials from "@/components/HomeTestimonials";
 import HomeSingleTestimonial from "@/components/HomeSingleTestimonial";
-import HomeSideBySide from "@/components/HomeSideBySide";
-import Image from "next/image";
-import HomeBackground from "@/components/HomeBackground";
+import HeroImageDescription from "@/components/HeroImageDescription";
+import HomeFeatures from "@/components/HomeFeatures";
 
 const HomePage = async () => {
   const session = await getServerSession(options);
@@ -41,6 +42,8 @@ const HomePage = async () => {
       {/* <section className="bg-primary/5"> */}
       <HomeDemo />
       {/* </section> */}
+
+      <HomeFeatures />
 
       <Pricing />
       <HomeFAQ />

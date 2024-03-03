@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { FaArrowRight, FaQuoteLeft } from "react-icons/fa";
+import { FaQuoteLeft } from "react-icons/fa";
 import { Badge } from "./ui/badge";
 
 type userType = {
@@ -8,7 +8,7 @@ type userType = {
 };
 
 const user: userType = {
-  // image: "/pikachu.jpg",
+  image: "/pikachu.jpg",
   name: "Pika Chu",
 };
 const testimonial =
@@ -17,10 +17,10 @@ const badgeText = "Premium Member";
 
 const HomeSingleTestimonial = () => {
   return (
-    <section className="flex flex-col gap-2 items-center lg:items-start max-w-xs">
-      <FaQuoteLeft className="text-green-500/40 hidden lg:block" size={22} />
-      <span className="font-semibold text-primary/90 flex gap-4 items-center text-left">
-        <FaQuoteLeft className="text-green-500/40 lg:hidden block" size={36} />
+    <section className="flex max-w-xs flex-col items-center gap-2 lg:items-start">
+      {/* <FaQuoteLeft className="text-green-500/40 hidden lg:block" size={22} /> */}
+      <span className="flex items-center gap-4 text-left font-semibold text-primary/90">
+        <FaQuoteLeft className="block text-green-500/60" size={36} />
         {testimonial}
       </span>
       <div className="flex items-center gap-2">
@@ -36,7 +36,7 @@ const HomeSingleTestimonial = () => {
             <span className="text-primary/80">{user.name}</span>
           </>
         ) : (
-          <span className="text-primary/80 text-sm">-{user.name}</span>
+          <span className="text-sm text-primary/80">-{user.name}</span>
         )}
 
         <Badge

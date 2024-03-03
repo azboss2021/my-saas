@@ -60,9 +60,10 @@ const HomeFAQ = () => {
       className={`mx-auto flex w-full max-w-7xl flex-col gap-6 px-8 py-20 transition-all duration-700 ease-in-out lg:flex-row lg:py-48 ${isVisible ? "opacity-100" : "opacity-0"}`}
       ref={ref}
     >
-      <div className="flex basis-1/2 flex-col gap-2">
-        <h2 className="text-3xl font-extrabold">Frequently Asked Questions</h2>
-        <p className="text-primary/80">
+      <div className="flex basis-1/2 flex-col items-start gap-2">
+        {/* <h2 className="text-3xl font-extrabold">Frequently Asked Questions</h2> */}
+        <h3 className="title">Frequently Asked Questions</h3>
+        <p className="max-w-xl text-4xl font-bold">
           Have another question? Contact me on{" "}
           <Link
             href={twitterLink}

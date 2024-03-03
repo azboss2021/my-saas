@@ -8,7 +8,7 @@ const remainingCustomers = firstCount - totalCustomers;
 
 const HomeCTAExtraInfo = () => {
   return (
-    <div className="flex justify-center items-center gap-2 text-sm md:text-base font-semibold">
+    <div className="flex items-center justify-center gap-2 whitespace-nowrap text-sm font-semibold md:text-base">
       <FaGift className="animate-pulse text-green-500" />
       <span>
         <span className="text-green-500">{sale}</span> for the first{" "}
