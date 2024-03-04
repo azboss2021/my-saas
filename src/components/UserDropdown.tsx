@@ -55,7 +55,7 @@ const UserDropdown = ({ image }: { image: string }) => {
         <DropdownMenuItem
           onClick={async () => {
             setLoading(true);
-            await signOut();
+            await signOut({ callbackUrl: "/" });
           }}
           className="flex cursor-pointer items-center gap-2 p-4"
         >

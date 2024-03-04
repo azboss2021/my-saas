@@ -1,46 +1,38 @@
-import { createUser, getUser } from "@/lib/action";
+import prisma from "@/lib/prisma";
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
 export const options: NextAuthOptions = {
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
   ],
+  pages: {
+    signIn: process.env.NEXTAUTH_URL,
+  },
   callbacks: {
     async signIn({ user }) {
       try {
-        const userExist = await getUser({ email: user?.email! });
-        if (userExist) return true;
-
-        const response = await createUser({
-          email: user?.email!,
-          image: user?.image!,
-          name: user?.name!,
+        const userExists = await prisma.user.findUnique({
+          where: { email: user.email as string },
         });
 
-        if (!response.ok) {
-          throw Error("Status code: " + response.status);
-        }
+        if (userExists) return true;
+
+        await prisma.user.create({
+          data: {
+            email: user.email as string,
+            name: user.name as string,
+            image: user.image as string,
+          },
+        });
 
         return true;
       } catch (error) {
-        console.error(error);
         return false;
       }
     },
-    // async redirect({ url, baseUrl }) {
-    //   return baseUrl;
-    //   // Allows relative callback URLs
-    //   // if (url.startsWith("/")) return `${baseUrl}${url}`
-    //   // // Allows callback URLs on the same origin
-    //   // else if (new URL(url).origin === baseUrl) return url
-    //   // return baseUrl
-    // },
-  },
-  pages: {
-    signIn: "/",
   },
 };

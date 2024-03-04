@@ -19,12 +19,9 @@ const HomeCTAButton = ({ className }: { className?: string }) => {
       onClick={async () => {
         if (loading) return;
         setLoading(true);
-        try {
-          const response = await signIn("google", { redirect: false });
 
-          if (response && !response.error) {
-            router.push(loginRedirect);
-          }
+        try {
+          await signIn("google", { callbackUrl: "/dashboard" });
         } catch (error) {
           console.error(error);
           alert("Something went wrong while logging in. Please try again");

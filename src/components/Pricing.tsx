@@ -76,7 +76,7 @@ const Pricing = ({
     <section
       id="pricing"
       className={cn(
-        `mx-auto flex w-full max-w-7xl flex-col gap-16 px-8 py-20 transition-all duration-700 ease-in-out lg:gap-24 lg:py-36 ${isVisible ? "opacity-100" : "translate-y-10 opacity-0"}`,
+        `mx-auto flex w-full max-w-7xl flex-col gap-16 px-8 py-20 transition-all duration-700 ease-in-out lg:gap-24 lg:py-36 ${isVisible ? "opacity-100" : "opacity-0"}`,
         className,
       )}
       ref={ref}

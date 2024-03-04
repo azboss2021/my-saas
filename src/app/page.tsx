@@ -1,5 +1,3 @@
-import { getServerSession } from "next-auth";
-import { options } from "./api/auth/[...nextauth]/options";
 import { redirect } from "next/navigation";
 import HomeNavbar from "@/components/HomeNavbar";
 import HomeHero from "@/components/HomeHero";
@@ -11,19 +9,19 @@ import HomeDemo from "@/components/HomeDemo";
 import Pricing from "@/components/Pricing";
 import HomeSideBySide from "@/components/HomeSideBySide";
 import HomeBackground from "@/components/HomeBackground";
+import HomeFeatures from "@/components/HomeFeatures";
 
 import HomeTestimonialWall from "@/components/HomeTestimonialWall";
 import HomeTestimonials from "@/components/HomeTestimonials";
 import HomeSingleTestimonial from "@/components/HomeSingleTestimonial";
 import HeroImageDescription from "@/components/HeroImageDescription";
-import HomeFeatures from "@/components/HomeFeatures";
 
 const HomePage = async () => {
-  const session = await getServerSession(options);
+  // const session = await getServerSession(options);
 
-  if (session) {
-    redirect("/dashboard");
-  }
+  // if (session) {
+  //   redirect("/dashboard");
+  // }
 
   return (
     <main className="relative flex flex-col">

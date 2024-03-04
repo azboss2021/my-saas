@@ -8,7 +8,7 @@ const ProPage = () => {
         <Navbar />
       </div>
       <section className="mx-auto max-w-7xl p-8">
-        <Pricing className="lg:py-12" />
+        <Pricing className="lg:gap-12 lg:py-8" />
       </section>
     </>
   );
