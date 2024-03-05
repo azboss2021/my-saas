@@ -1,9 +1,12 @@
+import { options } from "@/app/api/auth/[...nextauth]/options";
 import InfoBanner from "@/components/InfoBanner";
 import Navbar from "@/components/Navbar";
 import { getPlanNum } from "@/lib/actions";
+import { getServerSession } from "next-auth";
 
 const DashboardPage = async () => {
-  const planNum = await getPlanNum();
+  const session = await getServerSession(options);
+  const planNum = await getPlanNum(session?.user?.email as string);
   const showBanner = planNum === 1;
 
   return (
