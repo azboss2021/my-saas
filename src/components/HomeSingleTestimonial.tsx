@@ -20,7 +20,10 @@ const HomeSingleTestimonial = () => {
     <section className="flex max-w-xs flex-col items-center gap-2 lg:items-start">
       {/* <FaQuoteLeft className="text-green-500/40 hidden lg:block" size={22} /> */}
       <span className="flex items-center gap-4 text-left font-semibold text-primary/90">
-        <FaQuoteLeft className="block text-green-500/60" size={36} />
+        <FaQuoteLeft
+          className="block text-green-500/80 dark:text-green-500/60"
+          size={36}
+        />
         {testimonial}
       </span>
       <div className="flex items-center gap-2">

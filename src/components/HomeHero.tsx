@@ -1,5 +1,3 @@
-"use client";
-
 import HomeHeroGraphic from "./HomeHeroGraphic";
 import HomeHeroLeft from "./HomeHeroLeft";
 

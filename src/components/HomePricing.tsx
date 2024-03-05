@@ -1,3 +1,7 @@
+"use client";
+
+import { useRef } from "react";
+import { useIsVisible } from "@/hooks/hooks";
 import { FaCheckCircle } from "react-icons/fa";
 import { FaCircleXmark } from "react-icons/fa6";
 import { Badge } from "./ui/badge";
@@ -65,13 +69,17 @@ const Pricing = ({
   className?: string;
   payLink?: string;
 }) => {
+  const ref = useRef(null);
+  const isVisible = useIsVisible({ ref });
+
   return (
     <section
       id="pricing"
       className={cn(
-        `mx-auto flex w-full max-w-7xl flex-col gap-16 px-8 py-20 lg:gap-24 lg:py-36`,
+        `mx-auto flex w-full max-w-7xl flex-col gap-16 px-8 py-20 transition-all duration-700 ease-in-out lg:gap-24 lg:py-28 ${isVisible ? "opacity-100" : "opacity-0"}`,
         className,
       )}
+      ref={ref}
     >
       <div className="flex flex-col items-center gap-4">
         <div className="mx-auto flex flex-col gap-2">

@@ -3,14 +3,13 @@
 import LogoImage from "./LogoImage";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import LoadingButton from "./LoadingButton";
 
-const loginRedirect = "/dashboard";
+// EDIT THIS
+const loginCallback = "/dashboard";
 
 const HomeCTAButton = ({ className }: { className?: string }) => {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   return (
     <LoadingButton
@@ -21,7 +20,7 @@ const HomeCTAButton = ({ className }: { className?: string }) => {
         setLoading(true);
 
         try {
-          await signIn("google", { callbackUrl: "/dashboard" });
+          await signIn("google", { callbackUrl: loginCallback });
         } catch (error) {
           console.error(error);
           alert("Something went wrong while logging in. Please try again");

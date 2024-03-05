@@ -11,7 +11,7 @@ const items = [
   {
     image: "/pikachu.jpg",
     alt: "image alt",
-    width: 100,
+    width: 150,
     height: 100,
   },
   {
@@ -23,7 +23,7 @@ const items = [
   {
     image: "/pikachu.jpg",
     alt: "image alt",
-    width: 100,
+    width: 125,
     height: 100,
   },
   {
@@ -35,11 +35,11 @@ const items = [
   {
     image: "/pikachu.jpg",
     alt: "image alt",
-    width: 100,
+    width: 200,
     height: 100,
   },
 ];
-const speed = 50000;
+const speed = 15000;
 
 const HomeHorizontalScroll = () => {
   return (
@@ -60,6 +60,7 @@ const HomeHorizontalScroll = () => {
                 width={width}
                 height={height}
                 className="h-16 max-w-36 object-cover px-4"
+                draggable={false}
               />
             ))}
           </section>
@@ -75,6 +76,7 @@ const HomeHorizontalScroll = () => {
                 width={width}
                 height={height}
                 className="h-16 max-w-36 object-cover px-4"
+                draggable={false}
               />
             ))}
           </section>
@@ -90,6 +92,7 @@ const HomeHorizontalScroll = () => {
                 width={width}
                 height={height}
                 className="h-16 max-w-36 object-cover px-4"
+                draggable={false}
               />
             ))}
           </section>

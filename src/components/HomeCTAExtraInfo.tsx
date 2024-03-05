@@ -1,4 +1,3 @@
-import { cn } from "@/lib/utils";
 import { FaGift } from "react-icons/fa";
 
 const sale = "%50 off";

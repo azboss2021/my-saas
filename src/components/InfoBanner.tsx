@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Button } from "./ui/button";
 import { FaArrowRight } from "react-icons/fa";
 import Image from "next/image";
 

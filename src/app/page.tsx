@@ -6,7 +6,7 @@ import HomeFAQ from "@/components/HomeFAQ";
 import HomeCTA from "@/components/HomeCTA";
 import HomeFooter from "@/components/HomeFooter";
 import HomeDemo from "@/components/HomeDemo";
-import Pricing from "@/components/Pricing";
+import Pricing from "@/components/HomePricing";
 import HomeSideBySide from "@/components/HomeSideBySide";
 import HomeBackground from "@/components/HomeBackground";
 import HomeFeatures from "@/components/HomeFeatures";
@@ -25,7 +25,7 @@ const HomePage = async () => {
 
   return (
     <main className="relative flex flex-col">
-      <HomeBackground />
+      {/* <HomeBackground /> */}
 
       <div className="border-b bg-background">
         <HomeNavbar />

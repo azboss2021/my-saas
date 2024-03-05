@@ -22,7 +22,7 @@ const HeroImageDescription = ({
             width={1920}
             height={1080}
             alt={imageName ?? "feature image"}
-            className="aspect-video basis-3/5 rounded-xl border border-secondary shadow-xl"
+            className="aspect-video basis-3/5 rounded-xl object-cover shadow-xl"
           />
           <div className="flex basis-2/5 flex-col gap-2 text-left">
             <h3 className="font-semibold text-blue-500">{imageName}</h3>
@@ -42,7 +42,7 @@ const HeroImageDescription = ({
             width={1920}
             height={1080}
             alt={imageName ?? "feature image"}
-            className="aspect-video basis-2/5 rounded-xl border border-secondary shadow-xl lg:basis-3/5"
+            className="aspect-video basis-2/5 rounded-xl object-cover shadow-xl lg:basis-3/5"
           />
           <div className="flex basis-3/5 flex-col gap-2 text-left lg:hidden">
             <h3 className="font-semibold text-blue-500">{imageName}</h3>

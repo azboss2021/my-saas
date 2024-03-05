@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
 
@@ -30,8 +28,8 @@ const userCount = 80;
 
 const HeroUserCount = () => {
   return (
-    <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-4 lg:mr-auto">
-      <div className="flex -space-x-4 flex-grow-0">
+    <div className="flex flex-col items-center gap-2 lg:mr-auto lg:flex-row lg:gap-4">
+      <div className="flex flex-grow-0 -space-x-4">
         {users.map((user) => (
           <Image
             src={user.image}
@@ -43,7 +41,7 @@ const HeroUserCount = () => {
           />
         ))}
       </div>
-      <div className="flex flex-col gap-1 items-center lg:items-start">
+      <div className="flex flex-col items-center gap-1 lg:items-start">
         <div className="flex space-x-0.5 text-yellow-400">
           <FaStar />
           <FaStar />
