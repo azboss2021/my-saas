@@ -1,19 +1,24 @@
 import { options } from "@/app/api/auth/[...nextauth]/options";
+import ConfettiComponent from "@/components/ConfettiComponent";
 import InfoBanner from "@/components/InfoBanner";
 import Navbar from "@/components/Navbar";
-import { getPlanNum } from "@/lib/actions";
+import { getUserByEmail } from "@/lib/actions";
 import { getServerSession } from "next-auth";
-
 const DashboardPage = async () => {
   const session = await getServerSession(options);
-  const planNum = await getPlanNum(session?.user?.email as string);
-  const showBanner = planNum === 1;
+
+  const user = await getUserByEmail(session?.user?.email as string);
+
+  const showBanner = user.planId === 1;
+  const newUser =
+    user.createdAt && Date.now() - new Date(user.createdAt).getTime() <= 10000;
 
   return (
     <>
+      {newUser && <ConfettiComponent />}
       {showBanner && (
         <InfoBanner
-          content={"🚀 Check out more features here"}
+          content={"🚀 More features on Pro"}
           buttonContent={"Go Pro"}
           link={"/pro"}
         />

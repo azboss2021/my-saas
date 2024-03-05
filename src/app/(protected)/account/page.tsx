@@ -13,7 +13,7 @@ const AccountPage = async () => {
     <>
       {showBanner && (
         <InfoBanner
-          content={"🚀 Check out more features here"}
+          content={"🚀 More features on Pro"}
           buttonContent={"Go Pro"}
           link={"/pro"}
         />
