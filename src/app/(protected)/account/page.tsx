@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import InfoBanner from "@/components/InfoBanner";
-import { getPlanNum } from "@/lib/action";
+import { getPlanNum } from "@/lib/actions";
 
 const AccountPage = async () => {
   const planNum = await getPlanNum();

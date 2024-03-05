@@ -1,6 +1,6 @@
 import InfoBanner from "@/components/InfoBanner";
 import Navbar from "@/components/Navbar";
-import { getPlanNum } from "@/lib/action";
+import { getPlanNum } from "@/lib/actions";
 
 const DashboardPage = async () => {
   const planNum = await getPlanNum();

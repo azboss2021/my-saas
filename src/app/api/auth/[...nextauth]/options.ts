@@ -1,6 +1,6 @@
-import prisma from "@/lib/prisma";
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import { checkUserExists, createUser } from "@/lib/actions";
 
 export const options: NextAuthOptions = {
   providers: [
@@ -10,23 +10,19 @@ export const options: NextAuthOptions = {
     }),
   ],
   pages: {
-    signIn: process.env.NEXTAUTH_URL,
+    signIn: process.env.PRODUCTION_URL,
   },
   callbacks: {
     async signIn({ user }) {
       try {
-        const userExists = await prisma.user.findUnique({
-          where: { email: user.email as string },
-        });
+        const userExists = await checkUserExists(user.email as string);
 
         if (userExists) return true;
 
-        await prisma.user.create({
-          data: {
-            email: user.email as string,
-            name: user.name as string,
-            image: user.image as string,
-          },
+        await createUser({
+          name: user.name as string,
+          email: user.email as string,
+          image: user.image as string,
         });
 
         return true;
