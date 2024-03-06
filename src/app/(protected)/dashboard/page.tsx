@@ -10,12 +10,10 @@ const DashboardPage = async () => {
   const user = await getUserByEmail(session?.user?.email as string);
 
   const showBanner = user.planId === 1;
-  const newUser =
-    user.createdAt && Date.now() - new Date(user.createdAt).getTime() <= 10000;
 
   return (
     <>
-      {newUser && <ConfettiComponent />}
+      <ConfettiComponent createdAt={user.createdAt} />
       {showBanner && (
         <InfoBanner
           content={"🚀 More features on Pro"}
