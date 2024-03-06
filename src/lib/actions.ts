@@ -4,9 +4,12 @@ import { revalidatePath } from "next/cache";
 
 import { connectToDatabase } from "./mongoose";
 import { handleError } from "./utils";
-import { User } from "./models";
+import { Transaction, User } from "./models";
 import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
+import Stripe from "stripe";
+import { redirect } from "next/navigation";
+import { CheckoutTransactionParams, CreateTransactionParams } from "./types";
 
 // CREATE
 export async function createUser({
@@ -129,6 +132,56 @@ export async function updateCredits(email: string, creditFee: number) {
     if (!updatedUserCredits) throw new Error("User credits update failed");
 
     return JSON.parse(JSON.stringify(updatedUserCredits));
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+// STRIPE
+export async function checkoutCredits(transaction: CheckoutTransactionParams) {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+  const amount = Number(transaction.amount) * 100;
+
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        price_data: {
+          currency: "usd",
+          unit_amount: amount,
+          product_data: {
+            name: transaction.plan,
+          },
+        },
+        quantity: 1,
+      },
+    ],
+    metadata: {
+      plan: transaction.plan,
+      credits: transaction.credits,
+      buyerId: transaction.buyerId,
+    },
+    mode: "payment",
+    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/profile`,
+    cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
+  });
+
+  redirect(session.url!);
+}
+
+export async function createTransaction(transaction: CreateTransactionParams) {
+  try {
+    await connectToDatabase();
+
+    // create a new transaction with a buyerId
+    const newTransaction = await Transaction.create({
+      ...transaction,
+      buyer: transaction.buyerId,
+    });
+
+    await updateCredits(transaction.buyerId, transaction.credits);
+
+    return JSON.parse(JSON.stringify(newTransaction));
   } catch (error) {
     handleError(error);
   }
