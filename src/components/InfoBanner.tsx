@@ -19,6 +19,7 @@ const InfoBanner = ({
         width={2000}
         alt="banner background"
         className="animate-slow-spin absolute -z-10 opacity-80"
+        priority={true}
       />
       {content}
 

@@ -4,6 +4,10 @@ import { Badge } from "./ui/badge";
 import HomeCTAExtraInfo from "./HomeCTAExtraInfo";
 import HomeCTAButton from "./HomeCTAButton";
 import { cn } from "@/lib/utils";
+import Checkout from "./Checkout";
+import { getServerSession } from "next-auth";
+import { options } from "@/app/api/auth/[...nextauth]/options";
+import { getUserByEmail } from "@/lib/actions";
 
 // EDIT THESE
 const cards = [
@@ -11,6 +15,7 @@ const cards = [
     name: "Basic",
     prevPrice: 16,
     price: 8,
+    credits: 1000,
     bestChoice: false,
     monthly: true,
     description: "Essential features you need to get started",
@@ -27,6 +32,7 @@ const cards = [
     name: "Pro",
     prevPrice: 24,
     price: 12,
+    credits: 5000,
     bestChoice: true,
     monthly: true,
     description: "Essential features you need to get started",
@@ -58,13 +64,16 @@ const cards = [
 ];
 const subtitle = "Affordable Pricing For The Best SaaS You Can Get";
 
-const Pricing = ({
+const Pricing = async ({
   className,
   payLink,
 }: {
   className?: string;
   payLink?: string;
 }) => {
+  const session = await getServerSession(options);
+  const user = await getUserByEmail(session?.user?.email as string);
+
   return (
     <section
       id="pricing"
@@ -138,7 +147,13 @@ const Pricing = ({
                   ))}
                 </div>
 
-                <HomeCTAButton className="w-full" />
+                {/* <HomeCTAButton className="w-full" /> */}
+                <Checkout
+                  plan={card.name}
+                  amount={card.price}
+                  credits={card.credits}
+                  buyerId={user.id}
+                />
 
                 <span className="text-center text-sm font-semibold text-primary/80">
                   {card.buttonExtra}

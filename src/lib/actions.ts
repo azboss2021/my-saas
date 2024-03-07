@@ -5,8 +5,6 @@ import { revalidatePath } from "next/cache";
 import { connectToDatabase } from "./mongoose";
 import { handleError } from "./utils";
 import { Transaction, User } from "./models";
-import { getServerSession } from "next-auth";
-import { options } from "@/app/api/auth/[...nextauth]/options";
 import Stripe from "stripe";
 import { redirect } from "next/navigation";
 import { CheckoutTransactionParams, CreateTransactionParams } from "./types";
@@ -139,7 +137,7 @@ export async function updateCredits(email: string, creditFee: number) {
 
 // STRIPE
 export async function checkoutCredits(transaction: CheckoutTransactionParams) {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
   const amount = Number(transaction.amount) * 100;
 
@@ -162,7 +160,7 @@ export async function checkoutCredits(transaction: CheckoutTransactionParams) {
       buyerId: transaction.buyerId,
     },
     mode: "payment",
-    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/profile`,
+    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/billing`,
     cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
   });
 
