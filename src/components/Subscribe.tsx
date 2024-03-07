@@ -1,11 +1,10 @@
 "use client";
 
-import { loadStripe } from "@stripe/stripe-js";
-import { useEffect } from "react";
-
-import { useToast } from "@/components/ui/use-toast";
-import { checkoutCredits } from "@/lib/actions";
+import { subscribe } from "@/lib/actions";
 import { Button } from "./ui/button";
+import { useEffect } from "react";
+import { loadStripe } from "@stripe/stripe-js";
+import { useToast } from "@/components/ui/use-toast";
 
 const Checkout = ({
   plan,
@@ -21,18 +20,17 @@ const Checkout = ({
   const { toast } = useToast();
 
   useEffect(() => {
-    loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+    loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
   }, []);
 
   useEffect(() => {
-    // Check to see if this is a redirect back from Checkout
     const query = new URLSearchParams(window.location.search);
+
     if (query.get("success")) {
       toast({
         title: "Order placed!",
         description: "You will receive an email confirmation",
         duration: 5000,
-        className: "success-toast",
       });
     }
 
@@ -41,7 +39,6 @@ const Checkout = ({
         title: "Order canceled!",
         description: "Continue to shop around and checkout when you're ready",
         duration: 5000,
-        className: "error-toast",
       });
     }
   }, []);
@@ -54,22 +51,19 @@ const Checkout = ({
       buyerId,
     };
 
-    await checkoutCredits(transaction);
+    await subscribe(transaction);
   };
 
   return (
-    <form action={onCheckout} method="POST">
-      <section>
-        <Button
-          type="submit"
-          role="link"
-          className="w-full rounded-full font-semibold"
-        >
-          Buy Credit
-        </Button>
-      </section>
+    <form action={onCheckout}>
+      <Button
+        type="submit"
+        role="link"
+        className="w-full rounded-full font-semibold"
+      >
+        Buy Credit
+      </Button>
     </form>
   );
 };
-
 export default Checkout;
