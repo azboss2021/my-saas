@@ -1,24 +1,18 @@
 // STRIPE
-export type CheckoutCreditsTransactionParams = {
-  plan: string;
-  credits: number;
+export type TransactionParams = {
+  product: string;
   amount: number;
   buyerId: string;
-};
-
-export type CheckoutSubscriptionTransactionParams = {
-  plan: string;
-  amount: number;
-  buyerId: string;
+  credits?: number;
   monthly?: boolean;
 };
 
 export type CreateTransactionParams = {
   stripeId: string;
-  subscriptionId?: string;
-  amount: number;
-  credits?: number;
-  plan: string;
   buyerId: string;
+  amount: number;
+  product: string;
+  subscriptionId?: string;
+  credits?: number;
   createdAt: Date;
 };

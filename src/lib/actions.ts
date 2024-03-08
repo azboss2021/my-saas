@@ -7,12 +7,8 @@ import { handleError } from "./utils";
 import { Transaction, User } from "./models";
 import Stripe from "stripe";
 import { redirect } from "next/navigation";
-import {
-  CheckoutCreditsTransactionParams,
-  CheckoutSubscriptionTransactionParams,
-  CreateTransactionParams,
-} from "./types";
-import { PAYMENT_TYPE } from "./constants";
+import { CreateTransactionParams, TransactionParams } from "./types";
+import { PRODUCT_TYPE } from "./constants";
 
 // CREATE
 export async function createUser({
@@ -158,42 +154,35 @@ export async function updatePlan(id: string, plan: string) {
 }
 
 // STRIPE
-export async function checkoutCredits(
-  transaction: CheckoutCreditsTransactionParams,
-) {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
-
-  const amount = Number(transaction.amount) * 100;
-
-  const session = await stripe.checkout.sessions.create({
-    line_items: [
-      {
-        price_data: {
-          currency: "usd",
-          unit_amount: amount,
-          product_data: {
-            name: transaction.plan,
-          },
-        },
-        quantity: 1,
-      },
-    ],
-    metadata: {
-      plan: transaction.plan,
-      credits: transaction.credits,
-      buyerId: transaction.buyerId,
-    },
-    mode: "payment",
-    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/plan`,
-    cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
-  });
-
-  redirect(session.url!);
+export async function checkoutCredits(transaction: TransactionParams) {
+  // const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+  // const amount = Number(transaction.amount) * 100;
+  // const session = await stripe.checkout.sessions.create({
+  //   line_items: [
+  //     {
+  //       price_data: {
+  //         currency: "usd",
+  //         unit_amount: amount,
+  //         product_data: {
+  //           name: transaction.plan,
+  //         },
+  //       },
+  //       quantity: 1,
+  //     },
+  //   ],
+  //   metadata: {
+  //     product: transaction.plan,
+  //     credits: transaction.credits,
+  //     buyerId: transaction.buyerId,
+  //   },
+  //   mode: "payment",
+  //   success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/plan`,
+  //   cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
+  // });
+  // redirect(session.url!);
 }
 
-export async function checkoutSubscription(
-  transaction: CheckoutSubscriptionTransactionParams,
-) {
+export async function checkoutSubscription(transaction: TransactionParams) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
   const amount = Number(transaction.amount) * 100;
@@ -205,7 +194,7 @@ export async function checkoutSubscription(
           currency: "usd",
           unit_amount: amount,
           product_data: {
-            name: transaction.plan,
+            name: transaction.product,
           },
           recurring: {
             interval: transaction.monthly ? "month" : "year",
@@ -216,16 +205,22 @@ export async function checkoutSubscription(
       },
     ],
     metadata: {
-      plan: transaction.plan,
+      product: transaction.product,
       buyerId: transaction.buyerId,
     },
     mode: "subscription",
-    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/billing`,
-    cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
+    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/plan`,
+    cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/plan`,
   });
 
   redirect(session.url!);
 }
+
+export async function checkoutOneTime(transaction: TransactionParams) {}
+
+export async function checkoutPhysicalProduct(transaction: TransactionParams) {}
+
+export async function checkoutDigitalProduct(transaction: TransactionParams) {}
 
 export async function cancelSubscription({
   subscriptionId,
@@ -276,18 +271,20 @@ export async function createTransaction(transaction: CreateTransactionParams) {
   try {
     await connectToDatabase();
 
-    // create a new transaction with a buyerId
     const newTransaction = await Transaction.create({
       ...transaction,
-      buyer: transaction.buyerId,
     });
 
-    if (PAYMENT_TYPE === "credits") {
-      await updateCredits(transaction.buyerId, transaction.credits as number);
-    } else if (PAYMENT_TYPE === "subscription") {
-      console.log("HERE");
-      await updatePlan(transaction.buyerId, transaction.plan);
+    if (PRODUCT_TYPE === "subscription") {
+      await updatePlan(transaction.buyerId, transaction.product);
     }
+
+    // if (PRODUCT_TYPE === "credits") {
+    //   await updateCredits(transaction.buyerId, transaction.credits as number);
+    // } else if (PRODUCT_TYPE === "subscription") {
+    //   console.log("HERE");
+    //   await updatePlan(transaction.buyerId, transaction.plan);
+    // }
 
     return JSON.parse(JSON.stringify(newTransaction));
   } catch (error) {

@@ -33,6 +33,7 @@ const HomeSingleTestimonial = () => {
               height={30}
               alt={user.name}
               className="rounded-full"
+              priority={true}
             />
             <span className="text-primary/80">{user.name}</span>
           </>

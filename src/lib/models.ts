@@ -20,9 +20,9 @@ const UserSchema = new Schema(
       type: String,
       default: "Free",
     },
-    creditBalance: {
+    credits: {
       type: Number,
-      default: 10,
+      default: 0,
     },
   },
   { timestamps: true },
@@ -35,8 +35,10 @@ const TransactionSchema = new Schema({
     required: true,
     unique: true,
   },
-  subscriptionId: {
-    type: String,
+  buyerId: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
   },
   amount: {
     type: Number,
@@ -45,12 +47,11 @@ const TransactionSchema = new Schema({
   product: {
     type: String,
   },
+  subscriptionId: {
+    type: String,
+  },
   credits: {
     type: Number,
-  },
-  buyer: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
   },
   createdAt: {
     type: Date,

@@ -10,13 +10,13 @@ const image = {
 
 const HomeHeroGraphic = () => {
   return (
-    <div className="relative max-md:-m-4 w-full">
+    <div className="relative w-full basis-1/2 max-md:-m-4">
       <Image
         src={image.link}
         width={image.width}
         height={image.height}
         alt={image.alt}
-        className="w-full max-w-xl ml-auto mx-auto rounded-xl"
+        className="mx-auto ml-auto w-full max-w-xl rounded-xl"
         fetchPriority="high"
         decoding="async"
       />

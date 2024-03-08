@@ -38,8 +38,13 @@ export const SIDE_BY_SIDE_BAD = {
 export const ANNUAL_DISCOUNT = 0.2;
 export const DISCOUNT = 0.5;
 
-type PaymentType = "credits" | "one_time" | "subscription" | "product";
-export const PAYMENT_TYPE: PaymentType = "subscription";
+type ProductType =
+  | "credits"
+  | "one_time"
+  | "subscription"
+  | "physical_product"
+  | "digital_product";
+export const PRODUCT_TYPE: ProductType = "subscription";
 
 export const SUBSCRIPTION_PLANS = [
   {
@@ -102,3 +107,10 @@ export const SUBSCRIPTION_PLANS = [
 
 export const PRICING_SUBTITLE =
   "Affordable Pricing For The Best SaaS You Can Get";
+
+export const INFO_BANNER = {
+  show: true,
+  content: "🚀 More features on Pro",
+  buttonContent: "Go Pro",
+  link: "/plan",
+};

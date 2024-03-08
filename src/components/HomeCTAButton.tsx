@@ -4,7 +4,7 @@ import LogoImage from "./LogoImage";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import LoadingButton from "./LoadingButton";
-import { LOGIN_CALLBACK } from "@/lib/constants";
+import { LOGIN_CALLBACK, SAAS_NAME } from "@/lib/constants";
 
 const HomeCTAButton = ({ className }: { className?: string }) => {
   const [loading, setLoading] = useState(false);
@@ -30,7 +30,7 @@ const HomeCTAButton = ({ className }: { className?: string }) => {
           <LogoImage />
         </span>
       )}
-      Get Saas
+      Get {SAAS_NAME}
     </LoadingButton>
   );
 };

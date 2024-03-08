@@ -15,11 +15,7 @@ const DashboardPage = async () => {
   return (
     <>
       {/* <ConfettiComponent createdAt={user.createdAt} /> */}
-      <InfoBanner
-        content={"🚀 More features on Pro"}
-        buttonContent={"Go Pro"}
-        link={"/pro"}
-      />
+      <InfoBanner />
       <div className="border-b">
         <Navbar />
       </div>

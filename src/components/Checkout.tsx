@@ -4,24 +4,28 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useEffect } from "react";
 
 import { useToast } from "@/components/ui/use-toast";
-import { checkoutCredits, checkoutSubscription } from "@/lib/actions";
+import {
+  checkoutCredits,
+  checkoutDigitalProduct,
+  checkoutOneTime,
+  checkoutPhysicalProduct,
+  checkoutSubscription,
+} from "@/lib/actions";
 import { Button } from "./ui/button";
-import { PAYMENT_TYPE } from "@/lib/constants";
+import { PRODUCT_TYPE } from "@/lib/constants";
 
 const Checkout = ({
-  plan,
+  product,
   amount,
   credits,
   buyerId,
   monthly,
-  paymentType,
 }: {
-  plan: string;
+  product: string;
   amount: number;
-  credits?: number;
   buyerId: string;
+  credits?: number;
   monthly?: boolean;
-  paymentType: string;
 }) => {
   const { toast } = useToast();
 
@@ -52,24 +56,48 @@ const Checkout = ({
   }, []);
 
   const onCheckout = async () => {
-    if (PAYMENT_TYPE === "credits") {
+    if (PRODUCT_TYPE === "credits") {
       const transaction = {
-        plan,
+        product,
         amount,
         credits,
         buyerId,
       };
 
       await checkoutCredits(transaction);
-    } else if (PAYMENT_TYPE === "subscription") {
+    } else if (PRODUCT_TYPE === "subscription") {
       const transaction = {
-        plan,
+        product,
         amount,
         monthly,
         buyerId,
       };
 
       await checkoutSubscription(transaction);
+    } else if (PRODUCT_TYPE === "one_time") {
+      const transaction = {
+        product,
+        amount,
+        buyerId,
+      };
+
+      await checkoutOneTime(transaction);
+    } else if (PRODUCT_TYPE === "physical_product") {
+      const transaction = {
+        product,
+        amount,
+        buyerId,
+      };
+
+      await checkoutPhysicalProduct(transaction);
+    } else {
+      const transaction = {
+        product,
+        amount,
+        buyerId,
+      };
+
+      await checkoutDigitalProduct(transaction);
     }
   };
 

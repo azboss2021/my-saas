@@ -6,7 +6,7 @@ import HomeSingleTestimonial from "./HomeSingleTestimonial";
 
 const HomeHeroLeft = () => {
   return (
-    <div className="flex flex-col items-center justify-center gap-10 text-center lg:items-start lg:text-left">
+    <div className="flex basis-1/2 flex-col items-center justify-center gap-10 text-center lg:items-start lg:text-left">
       <HomeSingleTestimonial />
       <h1 className="text-4xl font-extrabold tracking-tight lg:text-6xl">
         {SAAS_SLOGAN}
@@ -21,7 +21,7 @@ const HomeHeroLeft = () => {
         {/* <HomeCTAExtraInfo /> */}
       </div>
 
-      <HeroUserCount />
+      {/* <HeroUserCount /> */}
     </div>
   );
 };

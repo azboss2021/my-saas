@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { getUserByEmail } from "@/lib/actions";
-import { PAYMENT_TYPE, PRICING_SUBTITLE } from "@/lib/constants";
+import { PRICING_SUBTITLE, PRODUCT_TYPE } from "@/lib/constants";
 import SubscriptionPricing from "./SubscriptionPricing";
 import SubscriptionPlan from "./SubscriptionPlan";
 
@@ -26,13 +26,13 @@ const Pricing = async ({ className }: { className?: string }) => {
         </div>
       </div>
       <HomeCTAExtraInfo /> */}
-      {PAYMENT_TYPE === "subscription" && (
+      {PRODUCT_TYPE === "subscription" && (
         <div className="flex flex-col gap-16">
-          <SubscriptionPlan plan={user.plan} email={user.email} />
+          <SubscriptionPlan id={user._id} />
           <SubscriptionPricing id={user._id} />
         </div>
       )}
-      {/* {PAYMENT_TYPE === "credits" && (
+      {/* {PRODUCT_TYPE === "credits" && (
         <div>
           <SubscriptionPlan />
           <SubscriptionPricing id={user._id} />

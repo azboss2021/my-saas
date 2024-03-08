@@ -44,10 +44,10 @@ const UserDropdown = ({ image }: { image: string }) => {
         </DropdownMenuItem>
         <DropdownMenuItem className="p-4" asChild>
           <Link
-            href="/billing"
+            href="/plan"
             className="flex cursor-pointer items-center gap-2 p-4"
           >
-            <FaCrown size={14} /> Billing
+            <FaCrown size={14} /> Plan
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
