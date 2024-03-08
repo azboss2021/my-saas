@@ -4,19 +4,24 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useEffect } from "react";
 
 import { useToast } from "@/components/ui/use-toast";
-import { checkoutCredits } from "@/lib/actions";
+import { checkoutCredits, checkoutSubscription } from "@/lib/actions";
 import { Button } from "./ui/button";
+import { PAYMENT_TYPE } from "@/lib/constants";
 
 const Checkout = ({
   plan,
   amount,
   credits,
   buyerId,
+  monthly,
+  paymentType,
 }: {
   plan: string;
   amount: number;
-  credits: number;
+  credits?: number;
   buyerId: string;
+  monthly?: boolean;
+  paymentType: string;
 }) => {
   const { toast } = useToast();
 
@@ -47,18 +52,29 @@ const Checkout = ({
   }, []);
 
   const onCheckout = async () => {
-    const transaction = {
-      plan,
-      amount,
-      credits,
-      buyerId,
-    };
+    if (PAYMENT_TYPE === "credits") {
+      const transaction = {
+        plan,
+        amount,
+        credits,
+        buyerId,
+      };
 
-    await checkoutCredits(transaction);
+      await checkoutCredits(transaction);
+    } else if (PAYMENT_TYPE === "subscription") {
+      const transaction = {
+        plan,
+        amount,
+        monthly,
+        buyerId,
+      };
+
+      await checkoutSubscription(transaction);
+    }
   };
 
   return (
-    <form action={onCheckout} method="POST">
+    <form action={onCheckout}>
       <section>
         <Button
           type="submit"

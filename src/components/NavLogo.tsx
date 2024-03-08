@@ -1,13 +1,12 @@
 import Link from "next/link";
 import LogoImage from "./LogoImage";
-
-const saasName = "MySaaS";
+import { SAAS_NAME } from "@/lib/constants";
 
 const NavLogo = ({ home }: { home?: boolean }) => {
   return home ? (
     <div className="flex items-center gap-2 text-xl font-bold">
       <LogoImage />
-      {saasName}
+      {SAAS_NAME}
     </div>
   ) : (
     <Link
@@ -15,7 +14,7 @@ const NavLogo = ({ home }: { home?: boolean }) => {
       className="flex items-center gap-2 text-xl font-bold"
     >
       <LogoImage />
-      {saasName}
+      {SAAS_NAME}
     </Link>
   );
 };

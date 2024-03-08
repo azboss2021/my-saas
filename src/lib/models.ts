@@ -16,9 +16,9 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
-    planId: {
-      type: Number,
-      default: 1,
+    plan: {
+      type: String,
+      default: "Free",
     },
     creditBalance: {
       type: Number,
@@ -35,11 +35,14 @@ const TransactionSchema = new Schema({
     required: true,
     unique: true,
   },
+  subscriptionId: {
+    type: String,
+  },
   amount: {
     type: Number,
     required: true,
   },
-  plan: {
+  product: {
     type: String,
   },
   credits: {

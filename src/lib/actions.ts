@@ -7,7 +7,12 @@ import { handleError } from "./utils";
 import { Transaction, User } from "./models";
 import Stripe from "stripe";
 import { redirect } from "next/navigation";
-import { CheckoutTransactionParams, CreateTransactionParams } from "./types";
+import {
+  CheckoutCreditsTransactionParams,
+  CheckoutSubscriptionTransactionParams,
+  CreateTransactionParams,
+} from "./types";
+import { PAYMENT_TYPE } from "./constants";
 
 // CREATE
 export async function createUser({
@@ -45,7 +50,7 @@ export async function getUserByEmail(email: string) {
   }
 }
 
-export async function getPlanNum(email: string) {
+export async function getPlan(email: string) {
   try {
     await connectToDatabase();
 
@@ -53,7 +58,7 @@ export async function getPlanNum(email: string) {
 
     if (!user) throw new Error("User not found");
 
-    return user.planId;
+    return user.plan;
   } catch (error) {
     handleError(error);
   }
@@ -116,13 +121,12 @@ export async function deleteUser(email: string) {
   }
 }
 
-// USE CREDITS
 export async function updateCredits(id: string, creditFee: number) {
   try {
     await connectToDatabase();
 
     const updatedUserCredits = await User.findOneAndUpdate(
-      { id },
+      { _id: id },
       { $inc: { creditBalance: creditFee } },
       { new: true },
     );
@@ -135,8 +139,28 @@ export async function updateCredits(id: string, creditFee: number) {
   }
 }
 
+export async function updatePlan(id: string, plan: string) {
+  try {
+    await connectToDatabase();
+
+    const updatedUserPlan = await User.findOneAndUpdate(
+      { _id: id },
+      { plan },
+      { new: true },
+    );
+
+    if (!updatedUserPlan) throw new Error("User plan update failed");
+
+    return JSON.parse(JSON.stringify(updatedUserPlan));
+  } catch (error) {
+    handleError(error);
+  }
+}
+
 // STRIPE
-export async function checkoutCredits(transaction: CheckoutTransactionParams) {
+export async function checkoutCredits(
+  transaction: CheckoutCreditsTransactionParams,
+) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
   const amount = Number(transaction.amount) * 100;
@@ -160,14 +184,16 @@ export async function checkoutCredits(transaction: CheckoutTransactionParams) {
       buyerId: transaction.buyerId,
     },
     mode: "payment",
-    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/billing`,
+    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/plan`,
     cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
   });
 
   redirect(session.url!);
 }
 
-export async function subscribe(transaction: CheckoutTransactionParams) {
+export async function checkoutSubscription(
+  transaction: CheckoutSubscriptionTransactionParams,
+) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
   const amount = Number(transaction.amount) * 100;
@@ -181,16 +207,69 @@ export async function subscribe(transaction: CheckoutTransactionParams) {
           product_data: {
             name: transaction.plan,
           },
+          recurring: {
+            interval: transaction.monthly ? "month" : "year",
+            interval_count: 1,
+          },
         },
         quantity: 1,
       },
     ],
+    metadata: {
+      plan: transaction.plan,
+      buyerId: transaction.buyerId,
+    },
     mode: "subscription",
     success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/billing`,
     cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
   });
 
   redirect(session.url!);
+}
+
+export async function cancelSubscription({
+  subscriptionId,
+}: {
+  subscriptionId: string;
+}) {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+
+  const canceledSubscription = await stripe.subscriptions.update(
+    subscriptionId,
+    {
+      cancel_at_period_end: true, // Cancels the subscription at the end of the current period
+    },
+  );
+
+  revalidatePath("/plan");
+
+  return canceledSubscription;
+}
+
+export async function getLatestSubscription({ email }: { email: string }) {
+  try {
+    await connectToDatabase();
+
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+
+    const user = await getUserByEmail(email);
+
+    const latestTransaction = await Transaction.findOne({ buyer: user._id })
+      .sort({ createdAt: -1 })
+      .exec();
+
+    console.log(latestTransaction);
+
+    if (latestTransaction && latestTransaction.subscriptionId) {
+      const subscription = await stripe.subscriptions.retrieve(
+        latestTransaction.subscriptionId,
+      );
+
+      return subscription;
+    } else return null;
+  } catch (error) {
+    handleError(error);
+  }
 }
 
 export async function createTransaction(transaction: CreateTransactionParams) {
@@ -203,7 +282,12 @@ export async function createTransaction(transaction: CreateTransactionParams) {
       buyer: transaction.buyerId,
     });
 
-    await updateCredits(transaction.buyerId, transaction.credits);
+    if (PAYMENT_TYPE === "credits") {
+      await updateCredits(transaction.buyerId, transaction.credits as number);
+    } else if (PAYMENT_TYPE === "subscription") {
+      console.log("HERE");
+      await updatePlan(transaction.buyerId, transaction.plan);
+    }
 
     return JSON.parse(JSON.stringify(newTransaction));
   } catch (error) {

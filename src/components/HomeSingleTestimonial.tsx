@@ -2,12 +2,10 @@ import Image from "next/image";
 import { FaQuoteLeft } from "react-icons/fa";
 import { Badge } from "./ui/badge";
 
-type userType = {
-  image?: string | null;
+const user: {
+  image: string | null;
   name: string;
-};
-
-const user: userType = {
+} = {
   image: "/pikachu.jpg",
   name: "Pika Chu",
 };

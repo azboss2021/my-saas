@@ -1,13 +1,11 @@
 import { Button } from "@/components/ui/button";
+import { SAAS_NAME } from "@/lib/constants";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
 
-// EDIT THESE
-const saasName = "MySaaS";
-
 const PrivacyPage = () => {
   return (
-    <section className="max-w-prose p-8 flex flex-col gap-6 items-start pb-32 mx-auto">
+    <section className="mx-auto flex max-w-prose flex-col items-start gap-6 p-8 pb-32">
       <Button asChild variant="ghost">
         <Link href="/" className="flex items-center gap-2">
           <FaArrowLeft /> Back
@@ -16,7 +14,7 @@ const PrivacyPage = () => {
       <h1 className="text-3xl font-bold">Privacy Policy</h1>
 
       <p>
-        Your privacy is important to us. It is {saasName}'s policy to respect
+        Your privacy is important to us. It is {SAAS_NAME}'s policy to respect
         your privacy regarding any information we may collect from you across
         our website, and other sites we own and operate.
       </p>
@@ -27,7 +25,7 @@ const PrivacyPage = () => {
         how it will be used.
       </p>
       <p>
-        You can sign up with your Google account so your {saasName}'s account
+        You can sign up with your Google account so your {SAAS_NAME}'s account
         username will be prefilled with your name and your public profile
         picture.
       </p>
@@ -43,7 +41,7 @@ const PrivacyPage = () => {
       </p>
       <p>
         We act in the capacity of a data controller and a data processor with
-        regard to the personal data processed through {saasName} and the
+        regard to the personal data processed through {SAAS_NAME} and the
         services in terms of the applicable data protection laws, including the
         EU General Data Protection Regulation (GDPR).
       </p>

@@ -4,9 +4,7 @@ import LogoImage from "./LogoImage";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import LoadingButton from "./LoadingButton";
-
-// EDIT THIS
-const loginCallback = "/dashboard";
+import { LOGIN_CALLBACK } from "@/lib/constants";
 
 const HomeCTAButton = ({ className }: { className?: string }) => {
   const [loading, setLoading] = useState(false);
@@ -20,7 +18,7 @@ const HomeCTAButton = ({ className }: { className?: string }) => {
         setLoading(true);
 
         try {
-          await signIn("google", { callbackUrl: loginCallback });
+          await signIn("google", { callbackUrl: LOGIN_CALLBACK });
         } catch (error) {
           console.error(error);
           alert("Something went wrong while logging in. Please try again");

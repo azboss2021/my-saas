@@ -1,3 +1,4 @@
+import { SAAS_DESCRIPTION, SAAS_SLOGAN } from "@/lib/constants";
 import HeroUserCount from "./HeroUserCount";
 import HomeCTAButton from "./HomeCTAButton";
 import HomeCTAExtraInfo from "./HomeCTAExtraInfo";
@@ -8,12 +9,11 @@ const HomeHeroLeft = () => {
     <div className="flex flex-col items-center justify-center gap-10 text-center lg:items-start lg:text-left">
       <HomeSingleTestimonial />
       <h1 className="text-4xl font-extrabold tracking-tight lg:text-6xl">
-        Main slogan right here, right now
+        {SAAS_SLOGAN}
       </h1>
 
       <p className="text-lg leading-relaxed text-primary/80">
-        Give the customers the most concise accurate description of your saas
-        here. Keep it short as well, people have short attention spans nowadays.
+        {SAAS_DESCRIPTION}
       </p>
 
       <div className="flex flex-col items-center gap-2 lg:items-start">
