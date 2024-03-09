@@ -8,7 +8,7 @@ import { Transaction, User } from "./models";
 import Stripe from "stripe";
 import { redirect } from "next/navigation";
 import { CreateTransactionParams, TransactionParams } from "./types";
-import { PRODUCT_TYPE } from "./constants";
+import { PRODUCT_TYPE, UPDATE_SUBSCRIPTION_REVALIDATE_PATH } from "./constants";
 
 // CREATE
 export async function createUser({
@@ -135,24 +135,6 @@ export async function updateCredits(id: string, creditFee: number) {
   }
 }
 
-export async function updatePlan(id: string, plan: string) {
-  try {
-    await connectToDatabase();
-
-    const updatedUserPlan = await User.findOneAndUpdate(
-      { _id: id },
-      { plan },
-      { new: true },
-    );
-
-    if (!updatedUserPlan) throw new Error("User plan update failed");
-
-    return JSON.parse(JSON.stringify(updatedUserPlan));
-  } catch (error) {
-    handleError(error);
-  }
-}
-
 // STRIPE
 export async function checkoutCredits(transaction: TransactionParams) {
   // const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
@@ -222,46 +204,83 @@ export async function checkoutPhysicalProduct(transaction: TransactionParams) {}
 
 export async function checkoutDigitalProduct(transaction: TransactionParams) {}
 
-export async function cancelSubscription({
-  subscriptionId,
-}: {
-  subscriptionId: string;
-}) {
+export async function endSubscription(subscriptionId: string) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
   const canceledSubscription = await stripe.subscriptions.update(
     subscriptionId,
     {
-      cancel_at_period_end: true, // Cancels the subscription at the end of the current period
+      cancel_at_period_end: true,
     },
   );
-
-  revalidatePath("/plan");
 
   return canceledSubscription;
 }
 
-export async function getLatestSubscription({ email }: { email: string }) {
+export async function continueSubscription(subscriptionId: string) {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+
+  const continueSubscription = await stripe.subscriptions.update(
+    subscriptionId,
+    {
+      cancel_at_period_end: false,
+    },
+  );
+
+  return continueSubscription;
+}
+
+export async function getSubscription(subscriptionId: string) {
+  try {
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+    const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+    if (subscription) return subscription;
+    else return null;
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+export async function getTransactionBySubscriptionId(subscriptionId: string) {
   try {
     await connectToDatabase();
+    const transaction = await Transaction.findOne({ subscriptionId });
+    if (transaction) return transaction;
+    else return null;
+  } catch (error) {
+    handleError(error);
+  }
+}
 
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+// export async function updatePlan(id: string, plan: string) {
+//   try {
+//     await connectToDatabase();
+//     const updatedUserPlan = await User.findOneAndUpdate(
+//       { _id: id },
+//       { plan },
+//       { new: true },
+//     );
+//     if (!updatedUserPlan) throw new Error("User plan update failed");
+//     return JSON.parse(JSON.stringify(updatedUserPlan));
+//   } catch (error) {
+//     handleError(error);
+//   }
+// }
 
-    const user = await getUserByEmail(email);
-
-    const latestTransaction = await Transaction.findOne({ buyer: user._id })
-      .sort({ createdAt: -1 })
-      .exec();
-
-    console.log(latestTransaction);
-
-    if (latestTransaction && latestTransaction.subscriptionId) {
-      const subscription = await stripe.subscriptions.retrieve(
-        latestTransaction.subscriptionId,
-      );
-
-      return subscription;
-    } else return null;
+export async function updateSubscription(
+  id: string,
+  subscriptionId: string,
+  plan: string,
+) {
+  try {
+    await connectToDatabase();
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: id },
+      { plan, subscriptionId },
+      { new: true },
+    );
+    if (!updatedUser) throw new Error("User plan update failed");
+    return JSON.parse(JSON.stringify(updatedUser));
   } catch (error) {
     handleError(error);
   }
@@ -274,18 +293,20 @@ export async function createTransaction(transaction: CreateTransactionParams) {
     const newTransaction = await Transaction.create({
       ...transaction,
     });
-
-    if (PRODUCT_TYPE === "subscription") {
-      await updatePlan(transaction.buyerId, transaction.product);
+    // console.log(newTransaction);
+    if (PRODUCT_TYPE === "subscription" && transaction.subscriptionId) {
+      await updateSubscription(
+        transaction.buyerId,
+        transaction.subscriptionId,
+        transaction.product,
+      );
     }
-
     // if (PRODUCT_TYPE === "credits") {
     //   await updateCredits(transaction.buyerId, transaction.credits as number);
     // } else if (PRODUCT_TYPE === "subscription") {
     //   console.log("HERE");
     //   await updatePlan(transaction.buyerId, transaction.plan);
     // }
-
     return JSON.parse(JSON.stringify(newTransaction));
   } catch (error) {
     handleError(error);

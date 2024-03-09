@@ -20,6 +20,9 @@ const UserSchema = new Schema(
       type: String,
       default: "Free",
     },
+    subscriptionId: {
+      type: String,
+    },
     credits: {
       type: Number,
       default: 0,

@@ -6,30 +6,29 @@ import { getUserByEmail } from "@/lib/actions";
 import { PRICING_SUBTITLE, PRODUCT_TYPE } from "@/lib/constants";
 import SubscriptionPricing from "./SubscriptionPricing";
 import SubscriptionPlan from "./SubscriptionPlan";
+import CreditPlan from "./CreditPlan";
+import CreditPricing from "./CreditPricing";
 
 const Pricing = async ({ className }: { className?: string }) => {
   const session = await getServerSession(options);
   const user = await getUserByEmail(session?.user?.email as string);
 
   return (
-    <section
-      id="pricing"
-      // className={cn(
-      //   `mx-auto flex w-full max-w-7xl flex-col gap-4 px-8 py-4`,
-      //   className,
-      // )}
-    >
-      {/* <div className="flex flex-col items-center gap-4">
-        <div className="mx-auto flex flex-col gap-2">
-          <h3 className="title">Pricing</h3>
-          <p className="subtitle">{PRICING_SUBTITLE}</p>
-        </div>
-      </div>
-      <HomeCTAExtraInfo /> */}
+    <section className="pb-16">
       {PRODUCT_TYPE === "subscription" && (
         <div className="flex flex-col gap-16">
-          <SubscriptionPlan id={user._id} />
-          <SubscriptionPricing id={user._id} />
+          <SubscriptionPlan
+            id={user._id}
+            plan={user.plan}
+            subscriptionId={user.subscriptionId}
+          />
+          <SubscriptionPricing id={user._id} subscriptionPlan={user.plan} />
+        </div>
+      )}
+      {PRODUCT_TYPE === "credits" && (
+        <div className="flex flex-col gap-16">
+          <CreditPlan />
+          <CreditPricing />
         </div>
       )}
       {/* {PRODUCT_TYPE === "credits" && (

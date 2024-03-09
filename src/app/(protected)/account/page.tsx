@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import InfoBanner from "@/components/InfoBanner";
-import { getPlan } from "@/lib/actions";
+import { getPlan, getUserByEmail } from "@/lib/actions";
 import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import type { Metadata } from "next";
@@ -12,6 +12,9 @@ export const metadata: Metadata = {
 };
 
 const AccountPage = async () => {
+  const session = await getServerSession(options);
+  const user = await getUserByEmail(session?.user?.email as string);
+
   return (
     <>
       <InfoBanner />
@@ -19,7 +22,7 @@ const AccountPage = async () => {
         <Navbar />
       </div>
 
-      <section className="mx-auto max-w-7xl p-8">Account</section>
+      <section className="mx-auto flex max-w-3xl flex-col gap-8 p-8"></section>
     </>
   );
 };

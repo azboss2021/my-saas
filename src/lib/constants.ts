@@ -13,6 +13,10 @@ export const LOGIN_CALLBACK = "/dashboard";
 
 export const DISCORD_LINK = "";
 
+export const LOGO_LINK = "/dashboard";
+
+export const UPDATE_SUBSCRIPTION_REVALIDATE_PATH = "/plan";
+
 export const SIDE_BY_SIDE_GOOD = {
   title: `With ${SAAS_NAME}`,
   features: [
@@ -39,9 +43,9 @@ export const ANNUAL_DISCOUNT = 0.2;
 export const DISCOUNT = 0.5;
 
 type ProductType =
+  | "subscription"
   | "credits"
   | "one_time"
-  | "subscription"
   | "physical_product"
   | "digital_product";
 export const PRODUCT_TYPE: ProductType = "subscription";
@@ -104,6 +108,8 @@ export const SUBSCRIPTION_PLANS = [
     buttonExtra: "Do this now!",
   },
 ];
+
+export const BACK_BUTTON_GOTO = "/dashboard";
 
 export const PRICING_SUBTITLE =
   "Affordable Pricing For The Best SaaS You Can Get";

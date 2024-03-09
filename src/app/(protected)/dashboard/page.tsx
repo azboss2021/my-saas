@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import { getPlan } from "@/lib/actions";
 import { getServerSession } from "next-auth";
 import type { Metadata } from "next";
-import { SAAS_DESCRIPTION, SAAS_NAME, SUBSCRIPTIONS } from "@/lib/constants";
+import { SAAS_DESCRIPTION, SAAS_NAME } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: `${SAAS_NAME} - Dashboard`,
@@ -17,7 +17,7 @@ const DashboardPage = async () => {
       {/* <ConfettiComponent createdAt={user.createdAt} /> */}
       <InfoBanner />
       <div className="border-b">
-        <Navbar />
+        <Navbar home={true} />
       </div>
 
       <section className="mx-auto max-w-7xl p-8">DashboardPage</section>

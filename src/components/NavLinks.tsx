@@ -7,7 +7,7 @@ const NavLinks = () => {
       <Link href="#pricing" className="hover:underline">
         Pricing
       </Link>
-      <Link href="#demo" className="hover:underline hidden lg:block">
+      <Link href="#demo" className="hover:underline">
         Demo
       </Link>
       <Link href="#faq" className="hover:underline">

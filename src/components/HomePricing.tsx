@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { useIsVisible } from "@/hooks/hooks";
+import { useIsVisible } from "@/lib/hooks";
 import { FaCheckCircle } from "react-icons/fa";
 import { FaCircleXmark } from "react-icons/fa6";
 import { Badge } from "./ui/badge";

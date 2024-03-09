@@ -1,20 +1,15 @@
 import Link from "next/link";
 import LogoImage from "./LogoImage";
-import { SAAS_NAME } from "@/lib/constants";
+import { LOGO_LINK, SAAS_NAME } from "@/lib/constants";
 
-const NavLogo = ({ home }: { home?: boolean }) => {
-  return home ? (
-    <div className="flex items-center gap-2 text-xl font-bold">
-      <LogoImage />
-      {SAAS_NAME}
-    </div>
-  ) : (
+const NavLogo = () => {
+  return (
     <Link
-      href="/dashboard"
+      href={LOGO_LINK}
       className="flex items-center gap-2 text-xl font-bold"
     >
       <LogoImage />
-      {SAAS_NAME}
+      <span className="hidden md:block">{SAAS_NAME}</span>
     </Link>
   );
 };
