@@ -1,8 +1,5 @@
-import { options } from "@/app/api/auth/[...nextauth]/options";
 import InfoBanner from "@/components/InfoBanner";
 import Navbar from "@/components/Navbar";
-import { getPlan } from "@/lib/actions";
-import { getServerSession } from "next-auth";
 import type { Metadata } from "next";
 import { SAAS_DESCRIPTION, SAAS_NAME } from "@/lib/constants";
 

@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import InfoBanner from "@/components/InfoBanner";
-import { getPlan, getUserByEmail } from "@/lib/actions";
+import { getUserByEmail } from "@/lib/actions";
 import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import type { Metadata } from "next";
