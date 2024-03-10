@@ -17,7 +17,7 @@ const DashboardPage = async () => {
       {/* <ConfettiComponent createdAt={user.createdAt} /> */}
       <InfoBanner />
       <div className="border-b">
-        <Navbar home={true} />
+        <Navbar />
       </div>
 
       <section className="mx-auto max-w-7xl p-8">DashboardPage</section>
