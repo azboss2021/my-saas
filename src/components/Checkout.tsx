@@ -78,6 +78,7 @@ const Checkout = ({
 
   const onCheckout = async () => {
     setLoading(true);
+
     if (PRODUCT_TYPE === "subscription") {
       const transaction = {
         product,
@@ -88,6 +89,14 @@ const Checkout = ({
 
       await checkoutSubscription(transaction);
     } else if (PRODUCT_TYPE === "credits") {
+      const transaction = {
+        product,
+        amount,
+        credits,
+        buyerId,
+      };
+
+      await checkoutCredits(transaction);
     } else if (PRODUCT_TYPE === "one_time") {
     }
 

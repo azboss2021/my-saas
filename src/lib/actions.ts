@@ -117,13 +117,13 @@ export async function deleteUser(email: string) {
   }
 }
 
-export async function updateCredits(id: string, creditFee: number) {
+export async function increaseCredits(id: string, creditFee: number) {
   try {
     await connectToDatabase();
 
     const updatedUserCredits = await User.findOneAndUpdate(
       { _id: id },
-      { $inc: { creditBalance: creditFee } },
+      { $inc: { credits: creditFee } },
       { new: true },
     );
 
@@ -137,37 +137,39 @@ export async function updateCredits(id: string, creditFee: number) {
 
 // STRIPE
 export async function checkoutCredits(transaction: TransactionParams) {
-  // const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
-  // const amount = Number(transaction.amount) * 100;
-  // const session = await stripe.checkout.sessions.create({
-  //   line_items: [
-  //     {
-  //       price_data: {
-  //         currency: "usd",
-  //         unit_amount: amount,
-  //         product_data: {
-  //           name: transaction.plan,
-  //         },
-  //       },
-  //       quantity: 1,
-  //     },
-  //   ],
-  //   metadata: {
-  //     product: transaction.plan,
-  //     credits: transaction.credits,
-  //     buyerId: transaction.buyerId,
-  //   },
-  //   mode: "payment",
-  //   success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/plan`,
-  //   cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
-  // });
-  // redirect(session.url!);
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+
+  const amount = Number(transaction.amount);
+
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        price_data: {
+          currency: "usd",
+          unit_amount: amount,
+          product_data: {
+            name: transaction.product,
+          },
+        },
+        quantity: 1,
+      },
+    ],
+    metadata: {
+      product: transaction.product,
+      credits: transaction.credits as number,
+      buyerId: transaction.buyerId,
+    },
+    mode: "payment",
+    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/plan`,
+    cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/plan`,
+  });
+  redirect(session.url!);
 }
 
 export async function checkoutSubscription(transaction: TransactionParams) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
-  const amount = Number(transaction.amount) * 100;
+  const amount = Number(transaction.amount);
 
   const session = await stripe.checkout.sessions.create({
     line_items: [
@@ -279,6 +281,22 @@ export async function updateSubscription(
       { plan, subscriptionId },
       { new: true },
     );
+    if (!updatedUser)
+      throw new Error("User plan and subscription update failed");
+    return JSON.parse(JSON.stringify(updatedUser));
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+export async function updatePlan(id: string, plan: string) {
+  try {
+    await connectToDatabase();
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: id },
+      { plan },
+      { new: true },
+    );
     if (!updatedUser) throw new Error("User plan update failed");
     return JSON.parse(JSON.stringify(updatedUser));
   } catch (error) {
@@ -293,20 +311,17 @@ export async function createTransaction(transaction: CreateTransactionParams) {
     const newTransaction = await Transaction.create({
       ...transaction,
     });
-    // console.log(newTransaction);
     if (PRODUCT_TYPE === "subscription" && transaction.subscriptionId) {
       await updateSubscription(
         transaction.buyerId,
         transaction.subscriptionId,
         transaction.product,
       );
+    } else if (PRODUCT_TYPE === "credits" && transaction.credits) {
+      await increaseCredits(transaction.buyerId, transaction.credits as number);
+    } else if (PRODUCT_TYPE === "one_time") {
+      await updatePlan(transaction.buyerId, transaction.product);
     }
-    // if (PRODUCT_TYPE === "credits") {
-    //   await updateCredits(transaction.buyerId, transaction.credits as number);
-    // } else if (PRODUCT_TYPE === "subscription") {
-    //   console.log("HERE");
-    //   await updatePlan(transaction.buyerId, transaction.plan);
-    // }
     return JSON.parse(JSON.stringify(newTransaction));
   } catch (error) {
     handleError(error);

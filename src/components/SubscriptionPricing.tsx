@@ -23,10 +23,10 @@ const SubscriptionPricing = ({
         </TabsTrigger>
       </TabsList>
       <TabsContent value="monthly">
-        <section className="flex flex-col gap-4 md:flex-row">
+        <section className="flex w-full flex-col justify-center gap-4 md:flex-row">
           {SUBSCRIPTION_PLANS.map((plan, index) => (
             <div
-              className={`relative max-w-xs rounded-lg border px-6 py-10 shadow-xl transition-shadow ${plan.bestChoice && "border-2 border-primary"} bg-background`}
+              className={`relative w-full max-w-xs rounded-lg border px-6 py-10 shadow-xl transition-shadow ${plan.bestChoice && "border-2 border-primary"} bg-background`}
               key={`price_card_${index}`}
             >
               {plan.bestChoice && (
@@ -34,7 +34,7 @@ const SubscriptionPricing = ({
                   POPULAR
                 </div>
               )}
-              <div className="flex flex-col gap-3">
+              <div className="flex w-full flex-col gap-3">
                 <div className="flex w-full items-center justify-between">
                   <span className="text-lg font-semibold text-primary/90">
                     {plan.name}
@@ -42,7 +42,22 @@ const SubscriptionPricing = ({
                   {plan.useBadge && (
                     <Badge variant={plan.bestChoice ? "default" : "secondary"}>
                       Save $
-                      {plan.price - Math.round(plan.price * (1 - DISCOUNT))}
+                      {(plan.price -
+                        plan.price * (1 - DISCOUNT) * (1 - ANNUAL_DISCOUNT)) %
+                        100 ===
+                      0
+                        ? (plan.price -
+                            plan.price *
+                              (1 - DISCOUNT) *
+                              (1 - ANNUAL_DISCOUNT)) /
+                          100
+                        : (
+                            (plan.price -
+                              plan.price *
+                                (1 - DISCOUNT) *
+                                (1 - ANNUAL_DISCOUNT)) /
+                            100
+                          ).toFixed(2)}
                     </Badge>
                   )}
                 </div>
@@ -50,13 +65,27 @@ const SubscriptionPricing = ({
                 <div>
                   {!plan.useBadge && DISCOUNT > 0 && (
                     <span className="mr-2 text-lg font-bold text-primary/70 line-through">
-                      ${plan.price}
+                      $
+                      {plan.price % 100 === 0
+                        ? plan.price / 100
+                        : (plan.price / 100).toFixed(2)}
                     </span>
                   )}
                   <span className="text-4xl font-extrabold tracking-tight">
-                    ${Math.round(plan.price * (1 - DISCOUNT))}
+                    $
+                    {(plan.price * (1 - DISCOUNT) * (1 - ANNUAL_DISCOUNT)) %
+                      100 ===
+                    0
+                      ? (plan.price * (1 - DISCOUNT) * (1 - ANNUAL_DISCOUNT)) /
+                        100
+                      : (
+                          (plan.price *
+                            (1 - DISCOUNT) *
+                            (1 - ANNUAL_DISCOUNT)) /
+                          100
+                        ).toFixed(2)}
                   </span>
-                  <span className="ml-2 font-semibold">USD/mo</span>
+                  <span className="ml-2 font-semibold">/ month</span>
                 </div>
 
                 {plan.description && (
@@ -78,15 +107,22 @@ const SubscriptionPricing = ({
 
                 <Checkout
                   product={plan.name}
-                  amount={Math.round(plan.price * (1 - DISCOUNT))}
+                  amount={
+                    parseFloat(
+                      (
+                        (plan.price * (1 - DISCOUNT) * (1 - ANNUAL_DISCOUNT)) /
+                        100
+                      ).toFixed(2),
+                    ) * 100
+                  }
                   buyerId={id}
                   monthly={true}
                   subscriptionPlan={subscriptionPlan}
                 />
 
-                <span className="text-center text-sm font-semibold text-primary/80">
+                {/* <span className="text-center text-sm font-semibold text-primary/80">
                   {plan.buttonExtra}
-                </span>
+                </span> */}
               </div>
             </div>
           ))}
@@ -112,13 +148,27 @@ const SubscriptionPricing = ({
                   {plan.useBadge && (
                     <Badge variant={plan.bestChoice ? "default" : "secondary"}>
                       Save $
-                      {plan.price * 12 -
-                        Math.round(
-                          plan.price *
-                            12 *
-                            (1 - DISCOUNT) *
-                            (1 - ANNUAL_DISCOUNT),
-                        )}
+                      {(plan.price * 12 -
+                        plan.price *
+                          12 *
+                          (1 - DISCOUNT) *
+                          (1 - ANNUAL_DISCOUNT)) %
+                        100 ===
+                      0
+                        ? (plan.price * 12 -
+                            plan.price *
+                              12 *
+                              (1 - DISCOUNT) *
+                              (1 - ANNUAL_DISCOUNT)) /
+                          100
+                        : (
+                            (plan.price * 12 -
+                              plan.price *
+                                12 *
+                                (1 - DISCOUNT) *
+                                (1 - ANNUAL_DISCOUNT)) /
+                            100
+                          ).toFixed(2)}
                     </Badge>
                   )}
                 </div>
@@ -126,16 +176,34 @@ const SubscriptionPricing = ({
                 <div>
                   {!plan.useBadge && (DISCOUNT > 0 || ANNUAL_DISCOUNT > 0) && (
                     <span className="mr-2 text-lg font-bold text-primary/70 line-through">
-                      ${plan.price * 12}
+                      $
+                      {(plan.price * 12) % 100 === 0
+                        ? (plan.price * 12) / 100
+                        : ((plan.price * 12) / 100).toFixed(2)}
                     </span>
                   )}
                   <span className="text-4xl font-extrabold tracking-tight">
                     $
-                    {Math.round(
-                      plan.price * 12 * (1 - DISCOUNT) * (1 - ANNUAL_DISCOUNT),
-                    )}
+                    {(plan.price *
+                      12 *
+                      (1 - DISCOUNT) *
+                      (1 - ANNUAL_DISCOUNT)) %
+                      100 ===
+                    0
+                      ? (plan.price *
+                          12 *
+                          (1 - DISCOUNT) *
+                          (1 - ANNUAL_DISCOUNT)) /
+                        100
+                      : (
+                          (plan.price *
+                            12 *
+                            (1 - DISCOUNT) *
+                            (1 - ANNUAL_DISCOUNT)) /
+                          100
+                        ).toFixed(2)}
                   </span>
-                  <span className="ml-2 font-semibold">USD/yr</span>
+                  <span className="ml-2 font-semibold">/ year</span>
                 </div>
 
                 {plan.description && (
@@ -157,17 +225,25 @@ const SubscriptionPricing = ({
 
                 <Checkout
                   product={plan.name}
-                  amount={Math.round(
-                    plan.price * 12 * (1 - DISCOUNT) * (1 - ANNUAL_DISCOUNT),
-                  )}
+                  amount={
+                    parseFloat(
+                      (
+                        (plan.price *
+                          12 *
+                          (1 - DISCOUNT) *
+                          (1 - ANNUAL_DISCOUNT)) /
+                        100
+                      ).toFixed(2),
+                    ) * 100
+                  }
                   buyerId={id}
                   monthly={false}
                   subscriptionPlan={subscriptionPlan}
                 />
 
-                <span className="text-center text-sm font-semibold text-primary/80">
+                {/* <span className="text-center text-sm font-semibold text-primary/80">
                   {plan.buttonExtra}
-                </span>
+                </span> */}
               </div>
             </div>
           ))}

@@ -16,7 +16,7 @@ const Pricing = async ({ className }: { className?: string }) => {
   return (
     <section className="pb-16">
       {PRODUCT_TYPE === "subscription" && (
-        <div className="flex flex-col gap-16">
+        <div className="flex flex-col gap-8">
           <SubscriptionPlan
             id={user._id}
             plan={user.plan}
@@ -26,9 +26,9 @@ const Pricing = async ({ className }: { className?: string }) => {
         </div>
       )}
       {PRODUCT_TYPE === "credits" && (
-        <div className="flex flex-col gap-16">
-          <CreditPlan />
-          <CreditPricing />
+        <div className="flex flex-col gap-8">
+          <CreditPlan credits={user.credits} />
+          <CreditPricing id={user._id} />
         </div>
       )}
       {/* {PRODUCT_TYPE === "credits" && (

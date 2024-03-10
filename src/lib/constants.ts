@@ -15,6 +15,8 @@ export const DISCORD_LINK = "";
 
 export const LOGO_LINK = "/dashboard";
 
+export const NAVBAR_BADGE_LINK = "/plan";
+
 export const UPDATE_SUBSCRIPTION_REVALIDATE_PATH = "/plan";
 
 export const SIDE_BY_SIDE_GOOD = {
@@ -39,8 +41,8 @@ export const SIDE_BY_SIDE_BAD = {
   ],
 };
 
-export const ANNUAL_DISCOUNT = 0.2;
-export const DISCOUNT = 0.5;
+export const ANNUAL_DISCOUNT = 0;
+export const DISCOUNT = 0.1;
 
 type ProductType =
   | "subscription"
@@ -48,15 +50,73 @@ type ProductType =
   | "one_time"
   | "physical_product"
   | "digital_product";
-export const PRODUCT_TYPE: ProductType = "subscription";
+export const PRODUCT_TYPE: ProductType = "credits";
+
+export const CREDIT_PLANS = [
+  {
+    _id: 1,
+    name: "Some Credits",
+    description: "All you need to get started.",
+    price: 1000,
+    credits: 1000,
+    bestChoice: false,
+    useBadge: false,
+    inclusions: [
+      {
+        label: "Feature 1",
+        isIncluded: true,
+      },
+      {
+        label: "Feature 2",
+        isIncluded: true,
+      },
+      {
+        label: "Feature 3",
+        isIncluded: true,
+      },
+      {
+        label: "Feature 4",
+        isIncluded: true,
+      },
+    ],
+    buttonExtra: "Do this now!",
+  },
+  {
+    _id: 1,
+    name: "More Credits",
+    description: "For the people who want more",
+    price: 3000,
+    credits: 5000,
+    bestChoice: false,
+    useBadge: false,
+    inclusions: [
+      {
+        label: "Feature 1",
+        isIncluded: true,
+      },
+      {
+        label: "Feature 2",
+        isIncluded: true,
+      },
+      {
+        label: "Feature 3",
+        isIncluded: true,
+      },
+      {
+        label: "Feature 4",
+        isIncluded: true,
+      },
+    ],
+    buttonExtra: "Do this now!",
+  },
+];
 
 export const SUBSCRIPTION_PLANS = [
   {
     _id: 1,
     name: "Basic",
     description: "Essential features you need to get started",
-    price: 8,
-    credits: null,
+    price: 800,
     bestChoice: false,
     useBadge: false,
     inclusions: [
@@ -83,7 +143,7 @@ export const SUBSCRIPTION_PLANS = [
     _id: 2,
     name: "Pro",
     description: "Essential features you need to get started",
-    price: 20,
+    price: 2000,
     credits: null,
     bestChoice: true,
     useBadge: false,

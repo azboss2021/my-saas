@@ -20,7 +20,7 @@ const UserDropdown = ({ image }: { image: string }) => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild={!!!image}>
+      <DropdownMenuTrigger asChild={!!!image} className="select-none">
         {image ? (
           <Image
             src={image}

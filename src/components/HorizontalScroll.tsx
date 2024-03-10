@@ -43,8 +43,8 @@ const speed = 20000;
 const HorizontalScroll = () => {
   return (
     <div className="relative mx-auto h-16 w-full max-w-7xl overflow-hidden">
-      <div className="absolute inset-y-0 left-0 z-10 w-1/5 bg-gradient-to-r from-background to-transparent" />
-      <div className="absolute inset-y-0 right-0 z-10 w-1/5 bg-gradient-to-l from-background to-transparent" />
+      <div className="absolute inset-y-0 left-0 z-10 w-1/6 bg-gradient-to-r from-background to-transparent" />
+      <div className="absolute inset-y-0 right-0 z-10 w-1/6 bg-gradient-to-l from-background to-transparent" />
       <div className="absolute flex">
         <section
           className="flex"
