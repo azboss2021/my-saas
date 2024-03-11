@@ -41,8 +41,8 @@ export const SIDE_BY_SIDE_BAD = {
   ],
 };
 
-export const ANNUAL_DISCOUNT = 0;
-export const DISCOUNT = 0.4;
+export const ANNUAL_DISCOUNT = 0.2;
+export const DISCOUNT = 0;
 
 export const PRICE_HIERARCHY = ["Free", "Basic", "Pro"];
 
@@ -52,7 +52,7 @@ type ProductType =
   | "one_time"
   | "physical_product"
   | "digital_product";
-export const PRODUCT_TYPE: ProductType = "one_time";
+export const PRODUCT_TYPE: ProductType = "subscription";
 
 export const ONE_TIME_PLAN = {
   _id: 1,

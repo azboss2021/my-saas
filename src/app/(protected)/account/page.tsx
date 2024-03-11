@@ -1,11 +1,13 @@
 import Navbar from "@/components/Navbar";
 import InfoBanner from "@/components/InfoBanner";
-import { getUserByEmail } from "@/lib/actions";
+import { getTransactionsByUserId, getUserByEmail } from "@/lib/actions";
 import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import type { Metadata } from "next";
 import { SAAS_DESCRIPTION, SAAS_NAME } from "@/lib/constants";
 import LeaveButton from "@/components/LeaveButton";
+import AccountTransactions from "@/components/AccountTransactions";
+import { DatabaseTransaction } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: `${SAAS_NAME} - Dashboard`,
@@ -15,6 +17,7 @@ export const metadata: Metadata = {
 const AccountPage = async () => {
   const session = await getServerSession(options);
   const user = await getUserByEmail(session?.user?.email as string);
+  const transactions = await getTransactionsByUserId(user._id);
 
   return (
     <>
@@ -25,6 +28,7 @@ const AccountPage = async () => {
 
       <section className="mx-auto flex max-w-3xl flex-col gap-8 p-8">
         <LeaveButton />
+        <AccountTransactions transactions={transactions!} />
       </section>
     </>
   );

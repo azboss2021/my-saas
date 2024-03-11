@@ -16,3 +16,13 @@ export type CreateTransactionParams = {
   credits?: number;
   createdAt: Date;
 };
+
+export type DatabaseTransaction = {
+  stripeId: string;
+  buyerId: string;
+  amount: number;
+  product?: string;
+  subscriptionId?: string;
+  credits?: number;
+  createdAt: Date;
+};

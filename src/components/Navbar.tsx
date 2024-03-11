@@ -6,7 +6,7 @@ import Link from "next/link";
 import { getUserByEmail } from "@/lib/actions";
 import { badgeVariants } from "@/components/ui/badge";
 import { NAVBAR_BADGE_LINK, PRODUCT_TYPE } from "@/lib/constants";
-import { FaCoins, FaStar } from "react-icons/fa";
+import { FaCoins, FaCrown } from "react-icons/fa";
 
 const Navbar = async () => {
   const session = await getServerSession(options);
@@ -16,9 +16,6 @@ const Navbar = async () => {
     <nav className="mx-auto flex w-full max-w-7xl items-center justify-between gap-8 p-6">
       <NavLogo />
       <div className="flex items-center gap-3">
-        {/* <Link href="/dashboard" className="hover:underline">
-          Dashboard
-        </Link> */}
         {(PRODUCT_TYPE === "subscription" || PRODUCT_TYPE === "one_time") &&
           user.plan !== "Free" && (
             <Link
@@ -26,7 +23,7 @@ const Navbar = async () => {
               href={NAVBAR_BADGE_LINK}
             >
               <span className="flex items-center gap-2 px-1 text-base">
-                <FaStar /> {user.plan}
+                <FaCrown /> {user.plan}
               </span>
             </Link>
           )}
@@ -41,7 +38,6 @@ const Navbar = async () => {
             </span>
           </Link>
         )}
-        {/* <ModeToggle /> */}
         <UserDropdown image={session?.user?.image!} />
       </div>
     </nav>

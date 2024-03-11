@@ -42,20 +42,10 @@ const SubscriptionPricing = ({
                   {plan.useBadge && (
                     <Badge variant={plan.bestChoice ? "default" : "secondary"}>
                       Save $
-                      {(plan.price -
-                        plan.price * (1 - DISCOUNT) * (1 - ANNUAL_DISCOUNT)) %
-                        100 ===
-                      0
-                        ? (plan.price -
-                            plan.price *
-                              (1 - DISCOUNT) *
-                              (1 - ANNUAL_DISCOUNT)) /
-                          100
+                      {(plan.price - plan.price * (1 - DISCOUNT)) % 100 === 0
+                        ? (plan.price - plan.price * (1 - DISCOUNT)) / 100
                         : (
-                            (plan.price -
-                              plan.price *
-                                (1 - DISCOUNT) *
-                                (1 - ANNUAL_DISCOUNT)) /
+                            (plan.price - plan.price * (1 - DISCOUNT)) /
                             100
                           ).toFixed(2)}
                     </Badge>
@@ -73,17 +63,9 @@ const SubscriptionPricing = ({
                   )}
                   <span className="text-4xl font-extrabold tracking-tight">
                     $
-                    {(plan.price * (1 - DISCOUNT) * (1 - ANNUAL_DISCOUNT)) %
-                      100 ===
-                    0
-                      ? (plan.price * (1 - DISCOUNT) * (1 - ANNUAL_DISCOUNT)) /
-                        100
-                      : (
-                          (plan.price *
-                            (1 - DISCOUNT) *
-                            (1 - ANNUAL_DISCOUNT)) /
-                          100
-                        ).toFixed(2)}
+                    {(plan.price * (1 - DISCOUNT)) % 100 === 0
+                      ? (plan.price * (1 - DISCOUNT)) / 100
+                      : ((plan.price * (1 - DISCOUNT)) / 100).toFixed(2)}
                   </span>
                   <span className="ml-2 font-semibold">/ month</span>
                 </div>

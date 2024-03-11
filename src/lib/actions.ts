@@ -7,7 +7,11 @@ import { handleError } from "./utils";
 import { Transaction, User } from "./models";
 import Stripe from "stripe";
 import { redirect } from "next/navigation";
-import { CreateTransactionParams, TransactionParams } from "./types";
+import {
+  CreateTransactionParams,
+  DatabaseTransaction,
+  TransactionParams,
+} from "./types";
 import { PRODUCT_TYPE, UPDATE_SUBSCRIPTION_REVALIDATE_PATH } from "./constants";
 
 // CREATE
@@ -275,6 +279,19 @@ export async function getTransactionBySubscriptionId(subscriptionId: string) {
     await connectToDatabase();
     const transaction = await Transaction.findOne({ subscriptionId });
     if (transaction) return transaction;
+    else return null;
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+export async function getTransactionsByUserId(userId: string) {
+  try {
+    await connectToDatabase();
+    const transactions: DatabaseTransaction[] = await Transaction.find({
+      buyerId: userId,
+    });
+    if (transactions) return transactions;
     else return null;
   } catch (error) {
     handleError(error);

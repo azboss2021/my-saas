@@ -22,6 +22,14 @@ export const handleError = (error: unknown) => {
   }
 };
 
+export const dateToShortDate = (date: Date): string => {
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const year = date.getFullYear();
+
+  return `${month}/${day}/${year}`;
+};
+
 export const convertToMonthDayYear = (timestamp: number) => {
   const date = new Date(timestamp * 1000);
 
