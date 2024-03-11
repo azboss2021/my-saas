@@ -7,10 +7,10 @@ import { INFO_BANNER, PRODUCT_TYPE } from "@/lib/constants";
 import { getPlan } from "@/lib/actions";
 
 const InfoBanner = async () => {
-  let showBanner;
+  let showBanner = false;
   const session = await getServerSession(options);
 
-  if (PRODUCT_TYPE === "subscription") {
+  if (PRODUCT_TYPE === "subscription" || PRODUCT_TYPE === "one_time") {
     const plan = await getPlan(session?.user?.email as string);
     if (!plan) return null;
     showBanner = plan === "Free";

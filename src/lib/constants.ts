@@ -42,7 +42,9 @@ export const SIDE_BY_SIDE_BAD = {
 };
 
 export const ANNUAL_DISCOUNT = 0;
-export const DISCOUNT = 0.1;
+export const DISCOUNT = 0.4;
+
+export const PRICE_HIERARCHY = ["Free", "Basic", "Pro"];
 
 type ProductType =
   | "subscription"
@@ -50,7 +52,34 @@ type ProductType =
   | "one_time"
   | "physical_product"
   | "digital_product";
-export const PRODUCT_TYPE: ProductType = "credits";
+export const PRODUCT_TYPE: ProductType = "one_time";
+
+export const ONE_TIME_PLAN = {
+  _id: 1,
+  name: "Pro",
+  description: "All you need to get started.",
+  price: 1999,
+  bestChoice: false,
+  useBadge: true,
+  inclusions: [
+    {
+      label: "Feature 1",
+      isIncluded: true,
+    },
+    {
+      label: "Feature 2",
+      isIncluded: true,
+    },
+    {
+      label: "Feature 3",
+      isIncluded: true,
+    },
+    {
+      label: "Feature 4",
+      isIncluded: true,
+    },
+  ],
+};
 
 export const CREDIT_PLANS = [
   {
@@ -144,7 +173,6 @@ export const SUBSCRIPTION_PLANS = [
     name: "Pro",
     description: "Essential features you need to get started",
     price: 2000,
-    credits: null,
     bestChoice: true,
     useBadge: false,
     inclusions: [

@@ -200,7 +200,34 @@ export async function checkoutSubscription(transaction: TransactionParams) {
   redirect(session.url!);
 }
 
-export async function checkoutOneTime(transaction: TransactionParams) {}
+export async function checkoutOneTime(transaction: TransactionParams) {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+
+  const amount = Number(transaction.amount);
+
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        price_data: {
+          currency: "usd",
+          unit_amount: amount,
+          product_data: {
+            name: transaction.product,
+          },
+        },
+        quantity: 1,
+      },
+    ],
+    metadata: {
+      product: transaction.product,
+      buyerId: transaction.buyerId,
+    },
+    mode: "payment",
+    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/plan`,
+    cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/plan`,
+  });
+  redirect(session.url!);
+}
 
 export async function checkoutPhysicalProduct(transaction: TransactionParams) {}
 

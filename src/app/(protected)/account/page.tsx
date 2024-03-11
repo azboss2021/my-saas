@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import type { Metadata } from "next";
 import { SAAS_DESCRIPTION, SAAS_NAME } from "@/lib/constants";
+import LeaveButton from "@/components/LeaveButton";
 
 export const metadata: Metadata = {
   title: `${SAAS_NAME} - Dashboard`,
@@ -22,7 +23,9 @@ const AccountPage = async () => {
         <Navbar />
       </div>
 
-      <section className="mx-auto flex max-w-3xl flex-col gap-8 p-8"></section>
+      <section className="mx-auto flex max-w-3xl flex-col gap-8 p-8">
+        <LeaveButton />
+      </section>
     </>
   );
 };

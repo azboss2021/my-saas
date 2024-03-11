@@ -55,7 +55,7 @@ const HomeFAQ = () => {
       <div className="flex basis-1/2 flex-col items-start gap-2">
         {/* <h2 className="text-3xl font-extrabold">Frequently Asked Questions</h2> */}
         <h3 className="title">Frequently Asked Questions</h3>
-        <p className="max-w-xl text-4xl font-bold">
+        <p className="max-w-xl text-xl font-bold">
           Have another question? Contact me on{" "}
           <Link
             href={twitterLink}

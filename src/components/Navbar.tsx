@@ -2,7 +2,6 @@ import { getServerSession } from "next-auth";
 import NavLogo from "./NavLogo";
 import UserDropdown from "./UserDropdown";
 import { options } from "@/app/api/auth/[...nextauth]/options";
-import { ModeToggle } from "./theme-toggle";
 import Link from "next/link";
 import { getUserByEmail } from "@/lib/actions";
 import { badgeVariants } from "@/components/ui/badge";
@@ -20,16 +19,17 @@ const Navbar = async () => {
         {/* <Link href="/dashboard" className="hover:underline">
           Dashboard
         </Link> */}
-        {PRODUCT_TYPE === "subscription" && user.plan !== "Free" && (
-          <Link
-            className={badgeVariants({ variant: "default" })}
-            href={NAVBAR_BADGE_LINK}
-          >
-            <span className="flex items-center gap-2 px-1 text-base">
-              <FaStar /> {user.plan}
-            </span>
-          </Link>
-        )}
+        {(PRODUCT_TYPE === "subscription" || PRODUCT_TYPE === "one_time") &&
+          user.plan !== "Free" && (
+            <Link
+              className={badgeVariants({ variant: "default" })}
+              href={NAVBAR_BADGE_LINK}
+            >
+              <span className="flex items-center gap-2 px-1 text-base">
+                <FaStar /> {user.plan}
+              </span>
+            </Link>
+          )}
 
         {PRODUCT_TYPE === "credits" && (
           <Link
@@ -41,7 +41,7 @@ const Navbar = async () => {
             </span>
           </Link>
         )}
-        <ModeToggle />
+        {/* <ModeToggle /> */}
         <UserDropdown image={session?.user?.image!} />
       </div>
     </nav>

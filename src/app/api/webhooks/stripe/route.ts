@@ -57,6 +57,19 @@ export async function POST(request: Request) {
 
       return NextResponse.json({ message: "OK", transaction: newTransaction });
     } else if (PRODUCT_TYPE === "one_time") {
+      const transaction = {
+        stripeId: id,
+        amount: amount_total ? amount_total : 0,
+        product: metadata?.product || "",
+        buyerId: metadata?.buyerId || "",
+        createdAt: new Date(),
+      };
+
+      const newTransaction = await createTransaction(transaction);
+
+      revalidatePath("/plan");
+
+      return NextResponse.json({ message: "OK", transaction: newTransaction });
     } else {
     }
   }

@@ -11,10 +11,9 @@ import {
   checkoutPhysicalProduct,
   checkoutSubscription,
 } from "@/lib/actions";
-import { PRODUCT_TYPE } from "@/lib/constants";
+import { PRICE_HIERARCHY, PRODUCT_TYPE } from "@/lib/constants";
 import LoadingButton from "./LoadingButton";
-
-const PRICE_HIERARCHY = ["Free", "Basic", "Pro"];
+import { FaPaperPlane } from "react-icons/fa";
 
 const Checkout = ({
   product,
@@ -98,6 +97,14 @@ const Checkout = ({
 
       await checkoutCredits(transaction);
     } else if (PRODUCT_TYPE === "one_time") {
+      const transaction = {
+        product,
+        amount,
+        credits,
+        buyerId,
+      };
+
+      await checkoutOneTime(transaction);
     }
 
     setLoading(false);
@@ -160,7 +167,7 @@ const Checkout = ({
               PRICE_HIERARCHY.indexOf(product)
           }
         >
-          {output}
+          {output} <FaPaperPlane className="ml-2" />
         </LoadingButton>
       </section>
     </form>
