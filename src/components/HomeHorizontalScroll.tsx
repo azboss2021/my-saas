@@ -65,7 +65,7 @@ const HomeHorizontalScroll = () => {
                   alt={alt}
                   width={width}
                   height={height}
-                  className="mx-8 max-w-36 object-cover"
+                  className="mx-8 max-w-36 object-cover grayscale"
                   draggable={false}
                 />
               ))}
@@ -81,7 +81,7 @@ const HomeHorizontalScroll = () => {
                   alt={alt}
                   width={width}
                   height={height}
-                  className="mx-8 max-w-36 object-cover"
+                  className="mx-8 max-w-36 object-cover grayscale"
                   draggable={false}
                 />
               ))}
@@ -97,7 +97,7 @@ const HomeHorizontalScroll = () => {
                   alt={alt}
                   width={width}
                   height={height}
-                  className="mx-8 max-w-36 object-cover"
+                  className="mx-8 max-w-36 object-cover grayscale"
                   draggable={false}
                 />
               ))}

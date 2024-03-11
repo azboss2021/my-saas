@@ -57,19 +57,11 @@ const HomeFAQ = () => {
         <h3 className="title">Frequently Asked Questions</h3>
         <p className="max-w-xl text-xl font-bold">
           Have another question? Contact me on{" "}
-          <Link
-            href={twitterLink}
-            target="_blank"
-            className="text-primary underline"
-          >
+          <Link href={twitterLink} target="_blank" className="underline">
             Twitter
           </Link>{" "}
           or by{" "}
-          <Link
-            href={mailLink}
-            target="_blank"
-            className="text-primary underline"
-          >
+          <Link href={mailLink} target="_blank" className="underline">
             email
           </Link>
         </p>
@@ -83,7 +75,7 @@ const HomeFAQ = () => {
             <AccordionTrigger className="text-lg font-bold">
               {question.question}
             </AccordionTrigger>
-            <AccordionContent className="font-semibold text-primary/80">
+            <AccordionContent className="font-semibold text-opacity-80">
               {question.answer}
             </AccordionContent>
           </AccordionItem>

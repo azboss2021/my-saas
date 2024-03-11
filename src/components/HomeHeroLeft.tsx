@@ -12,7 +12,7 @@ const HomeHeroLeft = () => {
         {SAAS_SLOGAN}
       </h1>
 
-      <p className="text-lg leading-relaxed text-primary/80">
+      <p className="text-lg leading-relaxed text-opacity-80">
         {SAAS_DESCRIPTION}
       </p>
 

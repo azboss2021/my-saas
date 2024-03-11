@@ -11,7 +11,7 @@ const HomeCTA = () => {
         <h2 className="text-center text-3xl font-extrabold tracking-tight lg:text-5xl">
           {ctaMain}
         </h2>
-        <p className="text-center text-lg text-primary/80">{ctaDescription}</p>
+        <p className="text-center text-lg text-opacity-80">{ctaDescription}</p>
       </div>
       <HomeCTAButton />
     </section>

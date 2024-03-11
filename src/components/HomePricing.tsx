@@ -103,7 +103,7 @@ const Pricing = ({
               )}
               <div className="flex flex-col gap-3">
                 <div className="flex w-full items-center justify-between">
-                  <span className="text-lg font-semibold text-primary/90">
+                  <span className="text-lg font-semibold text-opacity-90">
                     {card.name}
                   </span>
                   {card.useBadge && (
@@ -116,39 +116,39 @@ const Pricing = ({
 
                 <div>
                   {!card.useBadge && (
-                    <span className="mr-2 text-lg font-bold text-primary/70 line-through">
+                    <span className="mr-2 text-lg font-bold text-opacity-70 line-through">
                       ${card.prevPrice}
                     </span>
                   )}
                   <span className="text-4xl font-extrabold tracking-tight">
                     ${card.price}
                   </span>
-                  <span className="ml-2 font-bold text-primary/70">USD</span>
+                  <span className="ml-2 font-bold text-opacity-70">USD</span>
                   <span className="font-semibold">
                     {card.monthly ? "/mo" : "/yr"}
                   </span>
                 </div>
 
                 {card.description && (
-                  <span className="text-primary/80">{card.description}</span>
+                  <span className="text-opacity-80">{card.description}</span>
                 )}
 
                 <div className="mb-4 mt-4 flex flex-col gap-1.5">
                   {card.features.map((feature, index) => (
-                    <div className="flex items-center gap-1.5" key={index}>
+                    <div className="flex items-center gap-2" key={index}>
                       {feature.has ? (
                         <FaCheckCircle className="text-green-500" />
                       ) : (
                         <FaCircleXmark className="text-red-500" />
                       )}
-                      <span className="text-primary/90">{feature.text}</span>
+                      <span className="text-opacity-90">{feature.text}</span>
                     </div>
                   ))}
                 </div>
 
                 <HomeCTAButton className="w-full" />
 
-                <span className="text-center text-sm font-semibold text-primary/80">
+                <span className="text-center text-sm font-semibold text-opacity-80">
                   {card.buttonExtra}
                 </span>
               </div>

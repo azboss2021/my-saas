@@ -10,7 +10,7 @@ import {
 import Image from "next/image";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { FaCrown, FaHome, FaUnlock, FaUser } from "react-icons/fa";
+import { FaCrown, FaHome, FaTools, FaUnlock, FaUser } from "react-icons/fa";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
@@ -59,6 +59,14 @@ const UserDropdown = ({ image }: { image: string }) => {
             className="flex cursor-pointer items-center gap-2 p-4 font-semibold"
           >
             <FaCrown size={14} /> Plan
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem className="p-4" asChild>
+          <Link
+            href="/support"
+            className="flex cursor-pointer items-center gap-2 p-4 font-semibold"
+          >
+            <FaTools size={14} /> Support
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />

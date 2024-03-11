@@ -27,7 +27,7 @@ const HeroImageDescription = ({
           <div className="flex basis-2/5 flex-col gap-2 text-left">
             <h3 className="font-semibold text-blue-500">{imageName}</h3>
             <p className="text-2xl font-bold">{imageSubtitle}</p>
-            <p className="text-primary/80">{imageDescription}</p>
+            <p className="text-opacity-80">{imageDescription}</p>
           </div>
         </>
       ) : (
@@ -35,7 +35,7 @@ const HeroImageDescription = ({
           <div className="hidden basis-2/5 flex-col gap-2 text-left lg:flex">
             <h3 className="font-semibold text-blue-500">{imageName}</h3>
             <p className="text-2xl font-bold">{imageSubtitle}</p>
-            <p className="text-primary/80">{imageDescription}</p>
+            <p className="text-opacity-80">{imageDescription}</p>
           </div>
           <Image
             src={imageSrc}
@@ -47,7 +47,7 @@ const HeroImageDescription = ({
           <div className="flex basis-3/5 flex-col gap-2 text-left lg:hidden">
             <h3 className="font-semibold text-blue-500">{imageName}</h3>
             <p className="text-2xl font-bold">{imageSubtitle}</p>
-            <p className="text-primary/80">{imageDescription}</p>
+            <p className="text-opacity-80">{imageDescription}</p>
           </div>
         </>
       )}

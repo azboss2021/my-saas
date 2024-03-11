@@ -12,7 +12,9 @@ import {
   DatabaseTransaction,
   TransactionParams,
 } from "./types";
-import { PRODUCT_TYPE, UPDATE_SUBSCRIPTION_REVALIDATE_PATH } from "./constants";
+import { PRODUCT_TYPE } from "./constants";
+import EmailTemplate from "@/components/EmailTemplate";
+import { Resend } from "resend";
 
 // CREATE
 export async function createUser({
@@ -369,5 +371,27 @@ export async function createTransaction(transaction: CreateTransactionParams) {
     return JSON.parse(JSON.stringify(newTransaction));
   } catch (error) {
     handleError(error);
+  }
+}
+
+// RESEND EMAIL
+export async function sendEmail({
+  data,
+}: {
+  data: { name: string; email: string; subject: string; message: string };
+}) {
+  try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
+    const emailResponse = await resend.emails.send({
+      from: "Caleb <support@cwilson.fun>",
+      to: data.email,
+      subject: data.subject,
+      react: EmailTemplate({ name: data.name }),
+    });
+
+    return { success: true, emailResponse };
+  } catch (error) {
+    return { success: false, error };
   }
 }

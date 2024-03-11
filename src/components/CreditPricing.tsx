@@ -19,7 +19,7 @@ const CreditPricing = ({ id }: { id: string }) => {
           )}
           <div className="flex w-full flex-col gap-3">
             <div className="flex w-full items-center justify-between">
-              <span className="text-lg font-semibold text-primary/90">
+              <span className="text-lg font-semibold text-opacity-90">
                 {plan.name}
               </span>
               {plan.useBadge && (
@@ -37,7 +37,7 @@ const CreditPricing = ({ id }: { id: string }) => {
 
             <div>
               {!plan.useBadge && DISCOUNT > 0 && (
-                <span className="mr-2 text-lg font-bold text-primary/70 line-through">
+                <span className="mr-2 text-lg font-bold text-opacity-80 line-through">
                   $
                   {plan.price % 100 === 0
                     ? plan.price / 100
@@ -53,7 +53,7 @@ const CreditPricing = ({ id }: { id: string }) => {
             </div>
 
             {plan.description && (
-              <span className="text-primary/80">{plan.description}</span>
+              <span className="text-opacity-80">{plan.description}</span>
             )}
 
             {plan.credits && (
@@ -65,13 +65,13 @@ const CreditPricing = ({ id }: { id: string }) => {
             {plan.inclusions.length > 0 && (
               <div className="mb-2 mt-2 flex flex-col gap-1.5">
                 {plan.inclusions.map((inclusion, index) => (
-                  <div className="flex items-center gap-1.5" key={index}>
+                  <div className="flex items-center gap-2" key={index}>
                     {inclusion.isIncluded ? (
                       <FaCheckCircle className="text-green-500" />
                     ) : (
                       <FaCircleXmark className="text-red-500" />
                     )}
-                    <span className="text-primary/90">{inclusion.label}</span>
+                    <span className="text-opacity-90">{inclusion.label}</span>
                   </div>
                 ))}
               </div>
@@ -86,10 +86,6 @@ const CreditPricing = ({ id }: { id: string }) => {
               buyerId={id}
               credits={plan.credits}
             />
-
-            {/* <span className="text-center text-sm font-semibold text-primary/80">
-              {plan.buttonExtra}
-            </span> */}
           </div>
         </div>
       ))}
