@@ -17,7 +17,7 @@ const HomeSingleTestimonial = () => {
   return (
     <section className="flex max-w-xs flex-col items-center gap-2 lg:items-start">
       {/* <FaQuoteLeft className="text-green-500/40 hidden lg:block" size={22} /> */}
-      <span className="flex items-center gap-4 text-left font-semibold text-opacity-90">
+      <span className="flex items-center gap-4 text-left font-semibold text-muted-foreground">
         <FaQuoteLeft
           className="block text-green-500/80 dark:text-green-500/60"
           size={36}
@@ -35,10 +35,10 @@ const HomeSingleTestimonial = () => {
               className="rounded-full"
               priority={true}
             />
-            <span className="text-opacity-80">{user.name}</span>
+            <span className="text-muted-foreground">{user.name}</span>
           </>
         ) : (
-          <span className="text-sm text-opacity-80">-{user.name}</span>
+          <span className="text-sm text-muted-foreground">-{user.name}</span>
         )}
 
         <Badge

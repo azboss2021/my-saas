@@ -75,7 +75,7 @@ const HomeFAQ = () => {
             <AccordionTrigger className="text-lg font-bold">
               {question.question}
             </AccordionTrigger>
-            <AccordionContent className="font-semibold text-opacity-80">
+            <AccordionContent className="font-semibold text-muted-foreground">
               {question.answer}
             </AccordionContent>
           </AccordionItem>

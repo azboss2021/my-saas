@@ -13,13 +13,13 @@ const CreditPricing = ({ id }: { id: string }) => {
           key={`price_card_${index}`}
         >
           {plan.bestChoice && (
-            <div className="absolute -top-3 left-[124px] rounded-full bg-primary px-2 py-0.5 text-xs font-semibold text-secondary">
+            <div className="absolute -top-3 left-[124px] rounded-full bg-primary px-2 py-0.5 text-xs font-semibold text-white">
               POPULAR
             </div>
           )}
           <div className="flex w-full flex-col gap-3">
             <div className="flex w-full items-center justify-between">
-              <span className="text-lg font-semibold text-opacity-90">
+              <span className="text-lg font-semibold text-muted-foreground">
                 {plan.name}
               </span>
               {plan.useBadge && (
@@ -37,7 +37,7 @@ const CreditPricing = ({ id }: { id: string }) => {
 
             <div>
               {!plan.useBadge && DISCOUNT > 0 && (
-                <span className="mr-2 text-lg font-bold text-opacity-80 line-through">
+                <span className="mr-2 text-lg font-bold text-muted-foreground line-through">
                   $
                   {plan.price % 100 === 0
                     ? plan.price / 100
@@ -53,7 +53,7 @@ const CreditPricing = ({ id }: { id: string }) => {
             </div>
 
             {plan.description && (
-              <span className="text-opacity-80">{plan.description}</span>
+              <span className="text-muted-foreground">{plan.description}</span>
             )}
 
             {plan.credits && (
@@ -71,7 +71,9 @@ const CreditPricing = ({ id }: { id: string }) => {
                     ) : (
                       <FaCircleXmark className="text-red-500" />
                     )}
-                    <span className="text-opacity-90">{inclusion.label}</span>
+                    <span className="text-muted-foreground">
+                      {inclusion.label}
+                    </span>
                   </div>
                 ))}
               </div>

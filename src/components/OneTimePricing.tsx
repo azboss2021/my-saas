@@ -10,13 +10,13 @@ const OneTimePricing = ({ id }: { id: string }) => {
       className={`relative mx-auto w-full max-w-[300px] rounded-lg border px-6 py-6 shadow-xl transition-shadow ${ONE_TIME_PLAN.bestChoice && "border-2 border-primary"} bg-background`}
     >
       {ONE_TIME_PLAN.bestChoice && (
-        <div className="absolute -top-3 left-[124px] rounded-full bg-primary px-2 py-0.5 text-xs font-semibold text-secondary">
+        <div className="absolute -top-3 left-[124px] rounded-full bg-primary px-2 py-0.5 text-xs font-semibold text-white">
           POPULAR
         </div>
       )}
       <div className="flex w-full flex-col gap-3">
         <div className="flex w-full items-center justify-between">
-          <span className="text-lg font-semibold text-opacity-90">
+          <span className="text-lg font-semibold text-muted-foreground">
             {ONE_TIME_PLAN.name}
           </span>
           {ONE_TIME_PLAN.useBadge && DISCOUNT > 0 && (
@@ -38,7 +38,7 @@ const OneTimePricing = ({ id }: { id: string }) => {
 
         <div className="flex items-end justify-center">
           {!ONE_TIME_PLAN.useBadge && DISCOUNT > 0 && (
-            <span className="mr-2 text-lg font-bold text-opacity-70 line-through">
+            <span className="mr-2 text-lg font-bold text-muted-foreground line-through">
               $
               {ONE_TIME_PLAN.price % 100 === 0
                 ? ONE_TIME_PLAN.price / 100
@@ -54,7 +54,7 @@ const OneTimePricing = ({ id }: { id: string }) => {
         </div>
 
         {ONE_TIME_PLAN.description && (
-          <span className="text-center text-opacity-80">
+          <span className="text-center text-muted-foreground">
             {ONE_TIME_PLAN.description}
           </span>
         )}
@@ -68,7 +68,7 @@ const OneTimePricing = ({ id }: { id: string }) => {
                 ) : (
                   <FaCircleXmark className="text-red-500" />
                 )}
-                <span className="text-opacity-90">{inclusion.label}</span>
+                <span className="text-muted-foreground">{inclusion.label}</span>
               </div>
             ))}
           </div>

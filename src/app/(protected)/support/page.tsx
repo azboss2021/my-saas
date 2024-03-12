@@ -20,8 +20,8 @@ const SupportPage = () => {
         <LeaveButton />
         <h2 className="text-3xl font-extrabold">Support Form</h2>
         <p>
-          If you have any questions, concerns, bug reports, etc. leave it below
-          and it will be read within 48 hours.
+          If you have any questions, concerns, feedback, bug reports, etc. leave
+          it below and it will be read within 48 hours.
         </p>
         <SupportForm />
       </section>

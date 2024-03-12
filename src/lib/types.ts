@@ -26,3 +26,14 @@ export type DatabaseTransaction = {
   credits?: number;
   createdAt: Date;
 };
+
+export type DatabaseUser = {
+  name: string;
+  email: string;
+  image: string;
+  plan?: string;
+  subscriptionId?: string;
+  credits?: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+};

@@ -97,13 +97,13 @@ const Pricing = ({
               key={`price_card_${index}`}
             >
               {card.bestChoice && (
-                <div className="absolute -top-3 left-[124px] rounded-full bg-primary px-2 py-0.5 text-xs font-semibold text-secondary">
+                <div className="absolute -top-3 left-[124px] rounded-full bg-primary px-2 py-0.5 text-xs font-semibold text-white">
                   POPULAR
                 </div>
               )}
               <div className="flex flex-col gap-3">
                 <div className="flex w-full items-center justify-between">
-                  <span className="text-lg font-semibold text-opacity-90">
+                  <span className="text-lg font-semibold text-muted-foreground">
                     {card.name}
                   </span>
                   {card.useBadge && (
@@ -116,21 +116,25 @@ const Pricing = ({
 
                 <div>
                   {!card.useBadge && (
-                    <span className="mr-2 text-lg font-bold text-opacity-70 line-through">
+                    <span className="mr-2 text-lg font-bold text-muted-foreground line-through">
                       ${card.prevPrice}
                     </span>
                   )}
                   <span className="text-4xl font-extrabold tracking-tight">
                     ${card.price}
                   </span>
-                  <span className="ml-2 font-bold text-opacity-70">USD</span>
+                  <span className="ml-2 font-bold text-muted-foreground">
+                    USD
+                  </span>
                   <span className="font-semibold">
                     {card.monthly ? "/mo" : "/yr"}
                   </span>
                 </div>
 
                 {card.description && (
-                  <span className="text-opacity-80">{card.description}</span>
+                  <span className="text-muted-foreground">
+                    {card.description}
+                  </span>
                 )}
 
                 <div className="mb-4 mt-4 flex flex-col gap-1.5">
@@ -141,14 +145,16 @@ const Pricing = ({
                       ) : (
                         <FaCircleXmark className="text-red-500" />
                       )}
-                      <span className="text-opacity-90">{feature.text}</span>
+                      <span className="text-muted-foreground">
+                        {feature.text}
+                      </span>
                     </div>
                   ))}
                 </div>
 
                 <HomeCTAButton className="w-full" />
 
-                <span className="text-center text-sm font-semibold text-opacity-80">
+                <span className="text-center text-sm font-semibold text-muted-foreground">
                   {card.buttonExtra}
                 </span>
               </div>
