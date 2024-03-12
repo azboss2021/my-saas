@@ -12,7 +12,7 @@ import {
   DatabaseTransaction,
   TransactionParams,
 } from "./types";
-import { PRODUCT_TYPE } from "./constants";
+import { PRODUCT_TYPE, SAAS_NAME } from "./constants";
 import EmailTemplate from "@/components/EmailTemplate";
 import { Resend } from "resend";
 
@@ -376,19 +376,27 @@ export async function createTransaction(transaction: CreateTransactionParams) {
 
 // RESEND EMAIL
 export async function sendEmail({
-  data,
+  name,
+  subject,
+  message,
+  email,
 }: {
-  data: { name: string; email: string; subject: string; message: string };
+  name: string;
+  subject: string;
+  message: string;
+  email: string;
 }) {
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     const emailResponse = await resend.emails.send({
-      from: "Caleb <support@cwilson.fun>",
-      to: data.email,
-      subject: data.subject,
-      react: EmailTemplate({ name: data.name }),
+      from: `${SAAS_NAME} SUPPORT <support@cwilson.fun>`,
+      to: "calebjwilson14@gmail.com",
+      subject: subject,
+      react: EmailTemplate({ name, message, email }),
     });
+
+    console.log(emailResponse);
 
     return { success: true, emailResponse };
   } catch (error) {

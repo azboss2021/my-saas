@@ -21,7 +21,10 @@ const AccountTransactions = ({
         {transactions.map((transaction, index) => (
           <Card key={`transaction_index_${index}`}>
             <CardHeader>
-              <CardTitle>{transaction.product}</CardTitle>
+              <CardTitle className="flex justify-between">
+                {transaction.product}{" "}
+                <span>${(transaction.amount / 100).toFixed(2)}</span>
+              </CardTitle>
               <CardDescription>
                 {dateToShortDate(transaction.createdAt)}
               </CardDescription>
@@ -33,15 +36,6 @@ const AccountTransactions = ({
             <p>Card Footer</p>
           </CardFooter> */}
           </Card>
-
-          // <div
-          //   key={`transaction_index_${index}`}
-          //   className="rounded-xl border-2 p-4"
-          // >
-          //   <span>{transaction.product}</span>
-          //   <span>{dateToShortDate(transaction.createdAt)}</span>
-          //   {/* Transaction */}
-          // </div>
         ))}
       </div>
     </section>

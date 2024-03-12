@@ -40,7 +40,7 @@ const SubscriptionButtons = ({
   };
 
   return (
-    <div className="flex flex-col justify-end gap-2 lg:flex-row">
+    <div className="flex justify-end gap-2">
       {cancel ? (
         <LoadingButton
           loading={continueLoading}

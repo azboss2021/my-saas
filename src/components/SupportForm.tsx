@@ -15,23 +15,24 @@ import { z } from "zod";
 import LoadingButton from "./LoadingButton";
 import { FaPaperPlane } from "react-icons/fa";
 import { Textarea } from "./ui/textarea";
+import { sendEmail } from "@/lib/actions";
 
 const formSchema = z.object({
   name: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
-  email: z
-    .string()
-    .min(10, {
-      message: "Email must be at least 2 characters.",
-    })
-    .email(),
   subject: z.string().min(2, {
     message: "Subject must be at least 2 characters.",
   }),
   message: z.string().min(10, {
     message: "Message must be at least 10 characters.",
   }),
+  email: z
+    .string()
+    .min(2, {
+      message: "Email must be at least 2 characters.",
+    })
+    .email(),
 });
 
 const SupportForm = () => {
@@ -39,15 +40,23 @@ const SupportForm = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      email: "",
       subject: "",
       message: "",
+      email: "",
     },
     mode: "onChange",
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    const emailResponse = await sendEmail({
+      name: values.name,
+      subject: values.subject,
+      message: values.message,
+      email: values.email,
+    });
+
+    if (emailResponse.success) alert("DID WELL!");
+    else alert("SOMETHING WENT WRONG...");
   };
 
   return (
@@ -55,13 +64,13 @@ const SupportForm = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col gap-4"
+          className="flex w-full flex-col items-center gap-4"
         >
           <FormField
             control={form.control}
             name="name"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="w-full">
                 <FormLabel>Name</FormLabel>
                 <FormControl>
                   <Input placeholder="John Smith" {...field} />
@@ -74,14 +83,10 @@ const SupportForm = () => {
             control={form.control}
             name="email"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="w-full">
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="johnsmith@mail.com"
-                    {...field}
-                    type="email"
-                  />
+                  <Input placeholder="johnsmith@mail.com" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -91,7 +96,7 @@ const SupportForm = () => {
             control={form.control}
             name="subject"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="w-full">
                 <FormLabel>Subject</FormLabel>
                 <FormControl>
                   <Input placeholder="Reporting a Bug" {...field} />
@@ -104,7 +109,7 @@ const SupportForm = () => {
             control={form.control}
             name="message"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="w-full">
                 <FormLabel>Message</FormLabel>
                 <FormControl>
                   <Textarea
@@ -118,7 +123,7 @@ const SupportForm = () => {
           />
           <LoadingButton
             loading={form.formState.isSubmitting}
-            className="font-semibold"
+            className="ml-auto mt-4 font-semibold"
           >
             Submit <FaPaperPlane className="ml-2" />
           </LoadingButton>
