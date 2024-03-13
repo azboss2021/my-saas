@@ -71,9 +71,9 @@ const SupportForm = () => {
             name="name"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>Name</FormLabel>
+                <FormLabel className="font-semibold">Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="John Smith" {...field} />
+                  <Input placeholder="John Smith" {...field} autoFocus />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -84,7 +84,7 @@ const SupportForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="font-semibold">Email</FormLabel>
                 <FormControl>
                   <Input placeholder="johnsmith@mail.com" {...field} />
                 </FormControl>
@@ -97,7 +97,7 @@ const SupportForm = () => {
             name="subject"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>Subject</FormLabel>
+                <FormLabel className="font-semibold">Subject</FormLabel>
                 <FormControl>
                   <Input placeholder="Reporting a Bug" {...field} />
                 </FormControl>
@@ -110,7 +110,7 @@ const SupportForm = () => {
             name="message"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>Message</FormLabel>
+                <FormLabel className="font-semibold">Message</FormLabel>
                 <FormControl>
                   <Textarea
                     placeholder="Leave a message about a bug, a problem, criticism, anything!"

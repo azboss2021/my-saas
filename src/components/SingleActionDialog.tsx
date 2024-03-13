@@ -22,13 +22,23 @@ const SingleActionDialog = ({
   open,
   onOpenChange,
   loading,
+  buttonVariant,
 }: {
-  buttonClassName: string;
+  buttonClassName?: string;
   dialogTitle: string;
   dialogDescription: ReactNode | string;
   triggerButtonContent: ReactNode | string;
   buttonContent: ReactNode | string;
   buttonAction: () => void;
+  buttonVariant?:
+    | "link"
+    | "default"
+    | "destructive"
+    | "outline"
+    | "secondary"
+    | "ghost"
+    | null
+    | undefined;
   open: boolean;
   onOpenChange: React.Dispatch<React.SetStateAction<boolean>>;
   loading: boolean;
@@ -36,7 +46,9 @@ const SingleActionDialog = ({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
-        <Button className={buttonClassName}>{triggerButtonContent}</Button>
+        <Button className={buttonClassName} variant={buttonVariant}>
+          {triggerButtonContent}
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -47,6 +59,7 @@ const SingleActionDialog = ({
           <LoadingButton
             loading={loading}
             onClick={buttonAction}
+            variant={buttonVariant}
             className="rounded-full font-semibold"
           >
             {buttonContent}

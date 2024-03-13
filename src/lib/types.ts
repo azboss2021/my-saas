@@ -34,6 +34,6 @@ export type DatabaseUser = {
   plan?: string;
   subscriptionId?: string;
   credits?: number;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
 };

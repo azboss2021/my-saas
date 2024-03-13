@@ -30,6 +30,15 @@ export const dateToShortDate = (date: Date): string => {
   return `${month}/${day}/${year}`;
 };
 
+export const stringDateToShortDate = (dateString: string): string => {
+  const date = new Date(dateString);
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const year = date.getFullYear();
+
+  return `${month}/${day}/${year}`;
+};
+
 export const convertToMonthDayYear = (timestamp: number) => {
   const date = new Date(timestamp * 1000);
 
