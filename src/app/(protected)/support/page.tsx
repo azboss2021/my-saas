@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { SAAS_DESCRIPTION, SAAS_NAME } from "@/lib/constants";
 import LeaveButton from "@/components/LeaveButton";
 import SupportForm from "@/components/SupportForm";
+import HomeFAQ from "@/components/HomeFAQ";
+import InfoBanner from "@/components/InfoBanner";
 
 export const metadata: Metadata = {
   title: `${SAAS_NAME} - Support`,
@@ -12,6 +14,7 @@ export const metadata: Metadata = {
 const SupportPage = () => {
   return (
     <>
+      <InfoBanner />
       <div className="border-b">
         <Navbar />
       </div>
@@ -24,6 +27,7 @@ const SupportPage = () => {
           it below and it will be read within 48 hours.
         </p>
         <SupportForm />
+        <HomeFAQ stack={true} />
       </section>
     </>
   );

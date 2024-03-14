@@ -28,6 +28,7 @@ export type DatabaseTransaction = {
 };
 
 export type DatabaseUser = {
+  _id: string;
   name: string;
   email: string;
   image: string;

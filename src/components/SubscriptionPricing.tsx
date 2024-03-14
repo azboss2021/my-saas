@@ -4,13 +4,14 @@ import { Badge } from "./ui/badge";
 import { FaCheckCircle } from "react-icons/fa";
 import { FaCircleXmark } from "react-icons/fa6";
 import Checkout from "./Checkout";
+import HomeCTAButton from "./HomeCTAButton";
 
 const SubscriptionPricing = ({
   id,
   subscriptionPlan,
 }: {
-  id: string;
-  subscriptionPlan: string;
+  id?: string;
+  subscriptionPlan?: string;
 }) => {
   return (
     <Tabs defaultValue="monthly" className="flex w-full flex-col items-center">
@@ -91,24 +92,26 @@ const SubscriptionPricing = ({
                   ))}
                 </div>
 
-                <Checkout
-                  product={plan.name}
-                  amount={
-                    parseFloat(
-                      (
-                        (plan.price * (1 - DISCOUNT) * (1 - ANNUAL_DISCOUNT)) /
-                        100
-                      ).toFixed(2),
-                    ) * 100
-                  }
-                  buyerId={id}
-                  monthly={true}
-                  subscriptionPlan={subscriptionPlan}
-                />
-
-                {/* <span className="text-center text-sm font-semibold text-muted-foreground">
-                  {plan.buttonExtra}
-                </span> */}
+                {id && subscriptionPlan ? (
+                  <Checkout
+                    product={plan.name}
+                    amount={
+                      parseFloat(
+                        (
+                          (plan.price *
+                            (1 - DISCOUNT) *
+                            (1 - ANNUAL_DISCOUNT)) /
+                          100
+                        ).toFixed(2),
+                      ) * 100
+                    }
+                    buyerId={id}
+                    monthly={true}
+                    subscriptionPlan={subscriptionPlan}
+                  />
+                ) : (
+                  <HomeCTAButton className="w-full" />
+                )}
               </div>
             </div>
           ))}
@@ -213,27 +216,27 @@ const SubscriptionPricing = ({
                   ))}
                 </div>
 
-                <Checkout
-                  product={plan.name}
-                  amount={
-                    parseFloat(
-                      (
-                        (plan.price *
-                          12 *
-                          (1 - DISCOUNT) *
-                          (1 - ANNUAL_DISCOUNT)) /
-                        100
-                      ).toFixed(2),
-                    ) * 100
-                  }
-                  buyerId={id}
-                  monthly={false}
-                  subscriptionPlan={subscriptionPlan}
-                />
-
-                {/* <span className="text-center text-sm font-semibold text-muted-foreground">
-                  {plan.buttonExtra}
-                </span> */}
+                {id && subscriptionPlan ? (
+                  <Checkout
+                    product={plan.name}
+                    amount={
+                      parseFloat(
+                        (
+                          (plan.price *
+                            12 *
+                            (1 - DISCOUNT) *
+                            (1 - ANNUAL_DISCOUNT)) /
+                          100
+                        ).toFixed(2),
+                      ) * 100
+                    }
+                    buyerId={id}
+                    monthly={false}
+                    subscriptionPlan={subscriptionPlan}
+                  />
+                ) : (
+                  <HomeCTAButton className="w-full" />
+                )}
               </div>
             </div>
           ))}

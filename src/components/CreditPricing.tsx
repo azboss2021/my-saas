@@ -3,8 +3,9 @@ import { Badge } from "./ui/badge";
 import { FaCheckCircle, FaCoins } from "react-icons/fa";
 import { FaCircleXmark } from "react-icons/fa6";
 import Checkout from "./Checkout";
+import HomeCTAButton from "./HomeCTAButton";
 
-const CreditPricing = ({ id }: { id: string }) => {
+const CreditPricing = ({ id }: { id?: string }) => {
   return (
     <section className="mx-auto flex w-full flex-col justify-center gap-4 md:flex-row">
       {CREDIT_PLANS.map((plan, index) => (
@@ -79,15 +80,19 @@ const CreditPricing = ({ id }: { id: string }) => {
               </div>
             )}
 
-            <Checkout
-              product={plan.name}
-              amount={
-                parseFloat(((plan.price * (1 - DISCOUNT)) / 100).toFixed(2)) *
-                100
-              }
-              buyerId={id}
-              credits={plan.credits}
-            />
+            {id ? (
+              <Checkout
+                product={plan.name}
+                amount={
+                  parseFloat(((plan.price * (1 - DISCOUNT)) / 100).toFixed(2)) *
+                  100
+                }
+                buyerId={id}
+                credits={plan.credits}
+              />
+            ) : (
+              <HomeCTAButton className="w-full" />
+            )}
           </div>
         </div>
       ))}

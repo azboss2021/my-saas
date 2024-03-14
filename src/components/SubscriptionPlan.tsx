@@ -2,7 +2,7 @@ import { getSubscription, getTransactionBySubscriptionId } from "@/lib/actions";
 import { convertToShortDate, getCurrencySymbol } from "@/lib/utils";
 import LogoImage from "./LogoImage";
 import SubscriptionButtons from "./SubscriptionButtons";
-import { FaRegGem, FaStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 
 const SubscriptionPlan = async ({
   id,

@@ -46,25 +46,29 @@ const questions = [
   },
 ];
 
-const HomeFAQ = () => {
+const HomeFAQ = ({ stack }: { stack?: boolean }) => {
   return (
     <section
       id="faq"
-      className={`mx-auto flex w-full max-w-7xl flex-col gap-6 px-8 py-20 lg:flex-row lg:py-48`}
+      className={`mx-auto flex w-full max-w-7xl flex-col gap-6 px-8 py-20 lg:flex-row lg:py-48 ${stack && "px-0 lg:flex-col lg:py-8"}`}
     >
       <div className="flex basis-1/2 flex-col items-start gap-2">
         {/* <h2 className="text-3xl font-extrabold">Frequently Asked Questions</h2> */}
-        <h3 className="title">Frequently Asked Questions</h3>
-        <p className="max-w-xl text-xl font-bold">
-          Have another question? Contact me on{" "}
-          <Link href={twitterLink} target="_blank" className="underline">
-            Twitter
-          </Link>{" "}
-          or by{" "}
-          <Link href={mailLink} target="_blank" className="underline">
-            email
-          </Link>
-        </p>
+        <h3 className={`${stack ? "text-3xl font-extrabold" : "title"}`}>
+          Frequently Asked Questions
+        </h3>
+        {stack ? null : (
+          <p className="max-w-xl text-xl font-bold">
+            Have another question? Contact me on{" "}
+            <Link href={twitterLink} target="_blank" className="underline">
+              Twitter
+            </Link>{" "}
+            or by{" "}
+            <Link href={mailLink} target="_blank" className="underline">
+              email
+            </Link>
+          </p>
+        )}
       </div>
       <Accordion type="single" collapsible className="w-full basis-1/2">
         {questions.map((question, index) => (

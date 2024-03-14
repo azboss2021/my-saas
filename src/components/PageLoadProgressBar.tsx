@@ -7,7 +7,7 @@ const PageLoadProgressBar = ({ children }: { children: React.ReactNode }) => {
     <>
       <ProgressBar
         color={"#3d61ff"}
-        height="3px"
+        height="4px"
         options={{ showSpinner: false }}
         shallowRouting
       />

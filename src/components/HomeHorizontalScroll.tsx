@@ -44,7 +44,7 @@ const speed = 25000;
 const HomeHorizontalScroll = () => {
   return (
     <>
-      <section className="relative mx-auto hidden w-full max-w-7xl flex-col items-center gap-8 py-24 md:flex">
+      <section className="relative mx-auto flex w-full max-w-7xl flex-col items-center gap-8 py-24">
         <h3 className="max-w-xl text-center text-xl font-bold">
           Featured on...
         </h3>

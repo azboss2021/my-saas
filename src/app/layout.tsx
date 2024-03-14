@@ -1,14 +1,19 @@
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import { Montserrat, Poppins } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import AuthProvider from "@/components/auth-provider";
-import { Toaster } from "@/components/ui/toaster";
 import { SAAS_NAME, SAAS_SLOGAN } from "@/lib/constants";
 import PageLoadProgressBar from "@/components/PageLoadProgressBar";
+import { Toaster } from "react-hot-toast";
 
 const montserrat = Montserrat({
   subsets: ["cyrillic"],
+});
+
+const poppins = Poppins({
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  subsets: ["devanagari", "latin", "latin-ext"],
 });
 
 export const metadata: Metadata = {
@@ -24,7 +29,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={montserrat.className}>
-        <Toaster />
         <PageLoadProgressBar>
           <ThemeProvider
             attribute="class"
@@ -32,6 +36,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <Toaster />
             <AuthProvider>{children}</AuthProvider>
           </ThemeProvider>
         </PageLoadProgressBar>

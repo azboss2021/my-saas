@@ -17,7 +17,9 @@ const DashboardPage = async () => {
         <Navbar />
       </div>
 
-      <section className="mx-auto max-w-7xl p-8">DashboardPage</section>
+      <section className="mx-auto max-w-7xl p-8">
+        <h2 className="text-3xl font-extrabold">Dashboard</h2>
+      </section>
     </>
   );
 };

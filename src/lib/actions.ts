@@ -1,10 +1,8 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
-
 import { connectToDatabase } from "./mongoose";
 import { handleError } from "./utils";
-import { Transaction, User } from "./models";
+import { DeletedUser, Transaction, User } from "./models";
 import Stripe from "stripe";
 import { redirect } from "next/navigation";
 import {
@@ -44,7 +42,7 @@ export async function getUserByEmail(email: string) {
 
     const user = await User.findOne({ email });
 
-    if (!user) throw new Error("User not found");
+    if (!user) return null;
 
     return JSON.parse(JSON.stringify(user));
   } catch (error) {
@@ -102,20 +100,18 @@ export async function updateUser(email: string, name: string, image: string) {
 }
 
 // DELETE
-export async function deleteUser(email: string) {
+export async function deleteUser(id: string) {
   try {
     await connectToDatabase();
 
-    // Find user to delete
-    const userToDelete = await User.findOne({ email });
+    const deletedUserCreated = await DeletedUser.create({ userId: id });
 
-    if (!userToDelete) {
-      throw new Error("User not found");
+    if (!deletedUserCreated) {
+      throw Error("Did not go into deleted users");
     }
 
     // Delete user
-    const deletedUser = await User.findByIdAndDelete(userToDelete._id);
-    revalidatePath("/");
+    const deletedUser = await User.findByIdAndDelete({ _id: id });
 
     return deletedUser ? JSON.parse(JSON.stringify(deletedUser)) : null;
   } catch (error) {
@@ -166,8 +162,8 @@ export async function checkoutCredits(transaction: TransactionParams) {
       buyerId: transaction.buyerId,
     },
     mode: "payment",
-    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/plan`,
-    cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/plan`,
+    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/plan?success=true`,
+    cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/plan?canceled=true`,
   });
   redirect(session.url!);
 }
@@ -199,8 +195,8 @@ export async function checkoutSubscription(transaction: TransactionParams) {
       buyerId: transaction.buyerId,
     },
     mode: "subscription",
-    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/plan`,
-    cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/plan`,
+    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/plan?success=true`,
+    cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/plan?canceled=true`,
   });
 
   redirect(session.url!);
@@ -229,8 +225,8 @@ export async function checkoutOneTime(transaction: TransactionParams) {
       buyerId: transaction.buyerId,
     },
     mode: "payment",
-    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/plan`,
-    cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/plan`,
+    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/plan?success=true`,
+    cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/plan?canceled=true`,
   });
   redirect(session.url!);
 }
@@ -292,7 +288,7 @@ export async function getTransactionsByUserId(userId: string) {
     await connectToDatabase();
     const transactions: DatabaseTransaction[] = await Transaction.find({
       buyerId: userId,
-    });
+    }).sort({ createdAt: -1 });
     if (transactions) return transactions;
     else return null;
   } catch (error) {
@@ -390,13 +386,11 @@ export async function sendEmail({
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     const emailResponse = await resend.emails.send({
-      from: `${SAAS_NAME} SUPPORT <support@cwilson.fun>`,
-      to: "calebjwilson14@gmail.com",
+      from: `${SAAS_NAME} support <support@cwilson.fun>`,
+      to: "cwilsonfun@gmail.com",
       subject: subject,
       react: EmailTemplate({ name, message, email }),
     });
-
-    console.log(emailResponse);
 
     return { success: true, emailResponse };
   } catch (error) {

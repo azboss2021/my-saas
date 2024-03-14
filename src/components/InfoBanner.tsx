@@ -19,21 +19,21 @@ const InfoBanner = async () => {
   return (
     showBanner &&
     INFO_BANNER.show && (
-      <section className="relative flex items-center justify-center gap-2 overflow-hidden border-b p-2">
-        <Image
+      <section className="relative flex items-center justify-center gap-2 overflow-hidden border-b bg-gradient-to-r from-blue-600 to-violet-600 p-2 font-semibold text-white">
+        {/* <Image
           src="/space_background.svg"
           height={2000}
           width={2000}
           alt="banner background"
           className="animate-slow-spin absolute -z-10 opacity-80"
           priority={true}
-        />
+        /> */}
         {INFO_BANNER.content}
 
         {INFO_BANNER.link && (
           <Link
             href={INFO_BANNER.link}
-            className="flex items-center gap-2 rounded-full bg-primary px-4 py-1 text-sm font-semibold text-secondary hover:bg-primary/80"
+            className="flex items-center gap-2 rounded-full bg-white px-4 py-1 text-sm font-semibold text-black hover:opacity-80"
           >
             {INFO_BANNER.buttonContent} <FaArrowRight size={12} />
           </Link>

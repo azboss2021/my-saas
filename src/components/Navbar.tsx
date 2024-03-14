@@ -6,7 +6,7 @@ import Link from "next/link";
 import { getUserByEmail } from "@/lib/actions";
 import { badgeVariants } from "@/components/ui/badge";
 import { NAVBAR_BADGE_LINK, PRODUCT_TYPE } from "@/lib/constants";
-import { FaCoins, FaCrown } from "react-icons/fa";
+import { FaCoins } from "react-icons/fa";
 
 const Navbar = async () => {
   const session = await getServerSession(options);
@@ -22,9 +22,7 @@ const Navbar = async () => {
               className={badgeVariants({ variant: "default" })}
               href={NAVBAR_BADGE_LINK}
             >
-              <span className="flex items-center gap-2 px-1 text-base">
-                <FaCrown /> {user.plan}
-              </span>
+              <span className="flex items-center gap-2">{user.plan}</span>
             </Link>
           )}
 
@@ -33,7 +31,7 @@ const Navbar = async () => {
             className={badgeVariants({ variant: "default" })}
             href={NAVBAR_BADGE_LINK}
           >
-            <span className="flex items-center gap-2 px-1 text-base">
+            <span className="flex items-center gap-2">
               <FaCoins /> {user.credits}
             </span>
           </Link>

@@ -5,12 +5,29 @@ import { dateToShortDate } from "@/lib/utils";
 import SingleActionDialog from "./SingleActionDialog";
 import { useState } from "react";
 import { FaTrash } from "react-icons/fa";
+import { deleteUser } from "@/lib/actions";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 const AccountInformation = ({ user }: { user: DatabaseUser }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-  const handleDelete = async () => {};
+  const handleDelete = async () => {
+    setLoading(true);
+    const toastId = toast.loading("Deleting account...");
+    const deleteResponse = await deleteUser(user._id);
+    if (!deleteResponse) {
+      toast.error("Failed to delete", { id: toastId });
+    } else {
+      setIsOpen(false);
+      await signOut();
+      toast.success("Deleted successfully", { duration: 4000, id: toastId });
+    }
+    setLoading(false);
+  };
 
   return (
     <section className="flex flex-col gap-6">
@@ -24,25 +41,27 @@ const AccountInformation = ({ user }: { user: DatabaseUser }) => {
           <span className="font-bold">Email: </span> {user.email}
         </span>
         <span>
-          <span className="font-bold">Date Created: </span>{" "}
+          <span className="font-bold">Created: </span>{" "}
           {dateToShortDate(new Date(user.createdAt))}
         </span>
-        <SingleActionDialog
-          buttonClassName="w-fit rounded-full font-semibold"
-          dialogTitle="Delete Account"
-          dialogDescription="This is a permanent action. This means you will lose ALL information related to your account."
-          triggerButtonContent={
-            <>
-              Delete Account <FaTrash className="ml-2" />
-            </>
-          }
-          buttonContent="Delete Account"
-          buttonAction={handleDelete}
-          open={isOpen}
-          onOpenChange={setIsOpen}
-          loading={loading}
-          buttonVariant="destructive"
-        />
+        <div className="flex justify-end">
+          <SingleActionDialog
+            buttonClassName="w-fit font-semibold"
+            dialogTitle="Delete Account"
+            dialogDescription="This is a permanent action. This means you will lose ALL information related to your account."
+            triggerButtonContent={
+              <>
+                Delete Account <FaTrash className="ml-2" />
+              </>
+            }
+            buttonContent="Delete Account"
+            buttonAction={handleDelete}
+            open={isOpen}
+            onOpenChange={setIsOpen}
+            loading={loading}
+            buttonVariant="destructive"
+          />
+        </div>
       </div>
     </section>
   );

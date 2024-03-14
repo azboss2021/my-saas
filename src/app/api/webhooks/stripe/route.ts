@@ -3,6 +3,7 @@ import { createTransaction } from "@/lib/actions";
 import { PRODUCT_TYPE } from "@/lib/constants";
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
+import toast from "react-hot-toast";
 import stripe from "stripe";
 
 export async function POST(request: Request) {
@@ -38,8 +39,6 @@ export async function POST(request: Request) {
 
       const newTransaction = await createTransaction(transaction);
 
-      revalidatePath("/plan");
-
       return NextResponse.json({ message: "OK", transaction: newTransaction });
     } else if (PRODUCT_TYPE === "credits") {
       const transaction = {
@@ -53,8 +52,6 @@ export async function POST(request: Request) {
 
       const newTransaction = await createTransaction(transaction);
 
-      revalidatePath("/plan");
-
       return NextResponse.json({ message: "OK", transaction: newTransaction });
     } else if (PRODUCT_TYPE === "one_time") {
       const transaction = {
@@ -66,8 +63,6 @@ export async function POST(request: Request) {
       };
 
       const newTransaction = await createTransaction(transaction);
-
-      revalidatePath("/plan");
 
       return NextResponse.json({ message: "OK", transaction: newTransaction });
     } else {

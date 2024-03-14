@@ -31,6 +31,17 @@ const UserSchema = new Schema(
   { timestamps: true },
 );
 
+const DeletedUserSchema = new Schema({
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
 // ===== TRANSACTION =====
 const TransactionSchema = new Schema({
   stripeId: {
@@ -63,7 +74,9 @@ const TransactionSchema = new Schema({
 });
 
 const User = models?.User || model("User", UserSchema);
+const DeletedUser =
+  models?.DeletedUser || model("DeletedUser", DeletedUserSchema);
 const Transaction =
   models?.Transaction || model("Transaction", TransactionSchema);
 
-export { User, Transaction };
+export { User, DeletedUser, Transaction };

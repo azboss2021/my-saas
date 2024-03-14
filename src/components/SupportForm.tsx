@@ -16,6 +16,7 @@ import LoadingButton from "./LoadingButton";
 import { FaPaperPlane } from "react-icons/fa";
 import { Textarea } from "./ui/textarea";
 import { sendEmail } from "@/lib/actions";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -27,12 +28,7 @@ const formSchema = z.object({
   message: z.string().min(10, {
     message: "Message must be at least 10 characters.",
   }),
-  email: z
-    .string()
-    .min(2, {
-      message: "Email must be at least 2 characters.",
-    })
-    .email(),
+  email: z.string().email(),
 });
 
 const SupportForm = () => {
@@ -48,6 +44,7 @@ const SupportForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const toastId = toast.loading("Sending out email...");
     const emailResponse = await sendEmail({
       name: values.name,
       subject: values.subject,
@@ -55,8 +52,10 @@ const SupportForm = () => {
       email: values.email,
     });
 
-    if (emailResponse.success) alert("DID WELL!");
-    else alert("SOMETHING WENT WRONG...");
+    if (emailResponse.success) {
+      toast.success("Email sent", { id: toastId });
+      form.reset();
+    } else toast.error("Something went wrong. Try again", { id: toastId });
   };
 
   return (
