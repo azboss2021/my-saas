@@ -49,24 +49,24 @@ const EmailInput = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-sm">
-        <div className="flex items-center gap-2">
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-xs">
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem className="w-full">
+              <FormControl>
+                <div className="flex items-center gap-2">
                   <Input placeholder="Enter email here" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <LoadingButton loading={form.formState.isSubmitting}>
-            Join <FaPaperPlane className="ml-2" />
-          </LoadingButton>
-        </div>
+                  <LoadingButton loading={form.formState.isSubmitting}>
+                    Join <FaPaperPlane className="ml-2" />
+                  </LoadingButton>
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
       </form>
     </Form>
   );

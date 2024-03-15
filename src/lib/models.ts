@@ -92,9 +92,9 @@ const TransactionSchema = new Schema({
 
 const User = models?.User || model("User", UserSchema);
 const DeletedUser =
-  models?.DeletedUser || model("DeletedUser", DeletedUserSchema);
+  models?.DeletedUser || model("Deleted_User", DeletedUserSchema);
 const MailSubscriber =
-  models?.MailSubscriber || model("MailSubscriber", MailSubscriberSchema);
+  models?.MailSubscriber || model("Mail_Subscriber", MailSubscriberSchema);
 const Transaction =
   models?.Transaction || model("Transaction", TransactionSchema);
 
