@@ -7,13 +7,11 @@ import { useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { deleteUser } from "@/lib/actions";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 
 const AccountInformation = ({ user }: { user: DatabaseUser }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   const handleDelete = async () => {
     setLoading(true);

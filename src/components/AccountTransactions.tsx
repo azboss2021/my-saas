@@ -2,9 +2,7 @@ import { DatabaseTransaction } from "@/lib/types";
 import { dateToShortDate } from "@/lib/utils";
 import {
   Card,
-  CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -22,7 +20,7 @@ const AccountTransactions = ({
           {transactions.map((transaction, index) => (
             <Card key={`transaction_index_${index}`} className="p-4">
               <CardHeader className="p-0">
-                <CardTitle className="flex justify-between">
+                <CardTitle className="flex justify-between font-bold">
                   {transaction.product}{" "}
                   <span>${(transaction.amount / 100).toFixed(2)}</span>
                 </CardTitle>

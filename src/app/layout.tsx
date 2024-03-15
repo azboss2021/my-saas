@@ -62,7 +62,7 @@ export default function RootLayout({
         <PageLoadProgressBar>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="light"
             enableSystem
             disableTransitionOnChange
           >

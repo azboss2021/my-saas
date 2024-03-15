@@ -2,7 +2,7 @@
 
 import { connectToDatabase } from "./mongoose";
 import { handleError } from "./utils";
-import { DeletedUser, Transaction, User } from "./models";
+import { DeletedUser, MailSubscriber, Transaction, User } from "./models";
 import Stripe from "stripe";
 import { redirect } from "next/navigation";
 import {
@@ -30,6 +30,24 @@ export async function createUser({
     const newUser = await User.create({ name, email, image });
 
     return JSON.parse(JSON.stringify(newUser));
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+export async function createMailSubscriber(email: string) {
+  try {
+    await connectToDatabase();
+
+    const alreadyExists = await MailSubscriber.findOne({ userEmail: email });
+
+    if (alreadyExists) return "ERROR: User already subscribed to mail";
+
+    const mailSubscriber = await MailSubscriber.create({ userEmail: email });
+
+    if (!mailSubscriber) return null;
+
+    return JSON.parse(JSON.stringify(mailSubscriber));
   } catch (error) {
     handleError(error);
   }

@@ -35,10 +35,23 @@ const UserSchema = new Schema(
   { timestamps: true },
 );
 
+// ===== Deleted Users to Track Transactions =====
 const DeletedUserSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
     ref: "User",
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+// ===== Mailing List =====
+const MailSubscriberSchema = new Schema({
+  userEmail: {
+    type: String,
+    unique: true,
   },
   createdAt: {
     type: Date,
@@ -80,7 +93,9 @@ const TransactionSchema = new Schema({
 const User = models?.User || model("User", UserSchema);
 const DeletedUser =
   models?.DeletedUser || model("DeletedUser", DeletedUserSchema);
+const MailSubscriber =
+  models?.MailSubscriber || model("MailSubscriber", MailSubscriberSchema);
 const Transaction =
   models?.Transaction || model("Transaction", TransactionSchema);
 
-export { User, DeletedUser, Transaction };
+export { User, DeletedUser, MailSubscriber, Transaction };

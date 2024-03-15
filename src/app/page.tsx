@@ -18,6 +18,7 @@ import HorizontalScroll from "@/components/HorizontalScroll";
 import { getServerSession } from "next-auth";
 import { options } from "./api/auth/[...nextauth]/options";
 import { redirect } from "next/navigation";
+import HomeEmailSection from "@/components/HomeEmailSection";
 
 const HomePage = async () => {
   const session = await getServerSession(options);
@@ -35,6 +36,8 @@ const HomePage = async () => {
       </div>
 
       <HomeHero />
+
+      <HomeEmailSection />
 
       {/* <HorizontalScroll /> */}
       <HomeHorizontalScroll />

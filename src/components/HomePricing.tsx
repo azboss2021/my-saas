@@ -1,27 +1,14 @@
-import { useRef } from "react";
-import { useIsVisible } from "@/lib/hooks";
-import { FaCheckCircle } from "react-icons/fa";
-import { FaCircleXmark } from "react-icons/fa6";
-import { Badge } from "./ui/badge";
-import HomeCTAExtraInfo from "./HomeCTAExtraInfo";
-import HomeCTAButton from "./HomeCTAButton";
 import { cn } from "@/lib/utils";
 import DiscountLabel from "./DiscountLabel";
 import OneTimePricing from "./OneTimePricing";
 import CreditPricing from "./CreditPricing";
 import SubscriptionPricing from "./SubscriptionPricing";
 import { PRODUCT_TYPE } from "@/lib/constants";
-import { getServerSession } from "next-auth";
-import { options } from "@/app/api/auth/[...nextauth]/options";
-import { getUserByEmail } from "@/lib/actions";
 
 // EDIT THESE
 const subtitle = "Affordable Pricing For The Best SaaS You Can Get";
 
 const HomePricing = async ({ className }: { className?: string }) => {
-  const session = await getServerSession(options);
-  const user = await getUserByEmail(session?.user?.email as string);
-
   return (
     <section
       id="pricing"

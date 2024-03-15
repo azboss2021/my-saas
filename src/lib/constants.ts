@@ -41,6 +41,18 @@ export const SIDE_BY_SIDE_BAD = {
   ],
 };
 
+export const DEMO = {
+  videoLink: "https://www.youtube.com/embed/GyJPzwM__v4?si=1FbXhbPuA8qh5mzh",
+  title: "Demo",
+  subtitle: "Covers Everything You Need To Know.",
+};
+
+export const MAILING_LIST = {
+  title: "Join the mailing list",
+  description:
+    "Receive the latest news about the best things happeneing every Saturday.",
+};
+
 export const ANNUAL_DISCOUNT = 0;
 export const DISCOUNT = 0.2;
 
@@ -52,7 +64,7 @@ type ProductType =
   | "one_time"
   | "physical_product"
   | "digital_product";
-export const PRODUCT_TYPE: ProductType = "subscription";
+export const PRODUCT_TYPE: ProductType = "credits";
 
 export const ONE_TIME_PLAN = {
   _id: 1,

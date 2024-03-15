@@ -1,5 +1,4 @@
 import NavLogo from "./NavLogo";
-import NavLinks from "./NavLinks";
 import Link from "next/link";
 import { ModeToggle } from "./theme-toggle";
 

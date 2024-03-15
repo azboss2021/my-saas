@@ -27,8 +27,8 @@ const UserDropdown = ({ image }: { image: string }) => {
         {image ? (
           <Image
             src={image}
-            width={45}
-            height={45}
+            width={42}
+            height={42}
             alt="profile image button"
             className="rounded-full"
           />
