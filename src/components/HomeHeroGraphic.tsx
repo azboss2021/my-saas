@@ -8,9 +8,9 @@ const image = {
   height: 1080,
 };
 
-const HomeHeroGraphic = () => {
+const HomeHeroGraphic = ({ className }: { className: string }) => {
   return (
-    <div className="relative w-full basis-1/2 max-md:-m-4">
+    <div className={className}>
       <Image
         src={image.link}
         width={image.width}

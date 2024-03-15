@@ -13,7 +13,7 @@ const Navbar = async () => {
   const user = await getUserByEmail(session?.user?.email as string);
 
   return (
-    <nav className="mx-auto flex w-full max-w-7xl items-center justify-between gap-8 p-6">
+    <nav className="mx-auto flex w-full max-w-7xl items-center justify-between gap-8 px-6 py-4">
       <NavLogo />
       <div className="flex items-center gap-3">
         {(PRODUCT_TYPE === "subscription" || PRODUCT_TYPE === "one_time") &&

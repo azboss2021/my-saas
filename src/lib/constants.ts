@@ -42,7 +42,7 @@ export const SIDE_BY_SIDE_BAD = {
 };
 
 export const ANNUAL_DISCOUNT = 0;
-export const DISCOUNT = 0.1;
+export const DISCOUNT = 0.2;
 
 export const PRICE_HIERARCHY = ["Free", "Basic", "Pro"];
 
@@ -52,7 +52,7 @@ type ProductType =
   | "one_time"
   | "physical_product"
   | "digital_product";
-export const PRODUCT_TYPE: ProductType = "one_time";
+export const PRODUCT_TYPE: ProductType = "subscription";
 
 export const ONE_TIME_PLAN = {
   _id: 1,
@@ -86,7 +86,7 @@ export const CREDIT_PLANS = [
     _id: 1,
     name: "Some Credits",
     description: "All you need to get started.",
-    price: 1000,
+    price: 1500,
     credits: 1000,
     bestChoice: false,
     useBadge: false,
@@ -202,9 +202,56 @@ export const BACK_BUTTON_GOTO = "/dashboard";
 export const PRICING_SUBTITLE =
   "Affordable Pricing For The Best SaaS You Can Get";
 
-export const INFO_BANNER = {
+export const INFO_BANNER_SUBSCRIPTION = {
   show: true,
-  content: "🚀 More features on Pro",
+  content: "More features on Pro",
   buttonContent: "Go Pro",
   link: "/plan",
 };
+
+export const INFO_BANNER_CREDITS = {
+  show: true,
+  content: "Out of credits?",
+  buttonContent: "Get More",
+  link: "/plan",
+};
+
+export const FAQ_LINKS = {
+  twitter: "https://twitter.com/cwilsonfun",
+  mailLink: "mailto:calebjwilson14@gmail.com",
+};
+
+export const FAQ_QUESTIONS = [
+  {
+    question: "What is the question?",
+    answer: "This is the answer to your question 1!",
+  },
+  {
+    question: "What is the question?",
+    answer: "This is the answer to your question 2!",
+  },
+  {
+    question: "What is the question?",
+    answer: "This is the answer to your question 3!",
+  },
+  {
+    question: "What is the question?",
+    answer: "This is the answer to your question 4!",
+  },
+  {
+    question: "What is the question?",
+    answer: "This is the answer to your question 5!",
+  },
+  {
+    question: "What is the question?",
+    answer: "This is the answer to your question 6!",
+  },
+  {
+    question: "What is the question?",
+    answer: "This is the answer to your question 7!",
+  },
+  {
+    question: "What is the question?",
+    answer: "This is the answer to your question 8!",
+  },
+];

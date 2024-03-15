@@ -8,7 +8,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
-import { FaTimesCircle } from "react-icons/fa";
 import { ReactNode } from "react";
 import LoadingButton from "./LoadingButton";
 

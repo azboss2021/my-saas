@@ -27,6 +27,10 @@ const UserSchema = new Schema(
       type: Number,
       default: 0,
     },
+    admin: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true },
 );

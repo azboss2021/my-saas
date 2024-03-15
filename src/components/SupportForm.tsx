@@ -59,76 +59,71 @@ const SupportForm = () => {
   };
 
   return (
-    <div>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="flex w-full flex-col items-center gap-4"
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex w-full flex-col items-center gap-4"
+      >
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem className="w-full">
+              <FormLabel className="font-semibold">Name</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter name here" {...field} autoFocus />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem className="w-full">
+              <FormLabel className="font-semibold">Email</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter email here" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="subject"
+          render={({ field }) => (
+            <FormItem className="w-full">
+              <FormLabel className="font-semibold">Subject</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter subject here" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="message"
+          render={({ field }) => (
+            <FormItem className="w-full">
+              <FormLabel className="font-semibold">Message</FormLabel>
+              <FormControl>
+                <Textarea placeholder="Enter message here" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <LoadingButton
+          loading={form.formState.isSubmitting}
+          className="ml-auto mt-4 font-semibold"
         >
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel className="font-semibold">Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="John Smith" {...field} autoFocus />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel className="font-semibold">Email</FormLabel>
-                <FormControl>
-                  <Input placeholder="johnsmith@mail.com" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="subject"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel className="font-semibold">Subject</FormLabel>
-                <FormControl>
-                  <Input placeholder="Reporting a Bug" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="message"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel className="font-semibold">Message</FormLabel>
-                <FormControl>
-                  <Textarea
-                    placeholder="Leave a message about a bug, a problem, criticism, anything!"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <LoadingButton
-            loading={form.formState.isSubmitting}
-            className="ml-auto mt-4 font-semibold"
-          >
-            Submit <FaPaperPlane className="ml-2" />
-          </LoadingButton>
-        </form>
-      </Form>
-    </div>
+          Submit <FaPaperPlane className="ml-2" />
+        </LoadingButton>
+      </form>
+    </Form>
   );
 };
 export default SupportForm;

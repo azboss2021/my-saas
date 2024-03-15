@@ -1,25 +1,37 @@
 import Link from "next/link";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowRight, FaCoins, FaRocket } from "react-icons/fa";
 import Image from "next/image";
 import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
-import { INFO_BANNER, PRODUCT_TYPE } from "@/lib/constants";
-import { getPlan } from "@/lib/actions";
+import {
+  INFO_BANNER_CREDITS,
+  INFO_BANNER_SUBSCRIPTION,
+  PRODUCT_TYPE,
+} from "@/lib/constants";
+import { getPlan, getUserByEmail } from "@/lib/actions";
 
 const InfoBanner = async () => {
   let showBanner = false;
+  let infoBanner = { content: "", link: "", buttonContent: "" };
   const session = await getServerSession(options);
 
   if (PRODUCT_TYPE === "subscription" || PRODUCT_TYPE === "one_time") {
     const plan = await getPlan(session?.user?.email as string);
     if (!plan) return null;
     showBanner = plan === "Free";
+    infoBanner = INFO_BANNER_SUBSCRIPTION;
+  } else if (PRODUCT_TYPE === "credits") {
+    const user = await getUserByEmail(session?.user?.email as string);
+    if (!user) return null;
+    showBanner = user.credits === 0;
+    infoBanner = INFO_BANNER_CREDITS;
   }
 
   return (
-    showBanner &&
-    INFO_BANNER.show && (
-      <section className="relative flex items-center justify-center gap-2 overflow-hidden border-b bg-gradient-to-r from-blue-600 to-violet-600 p-2 font-semibold text-white">
+    showBanner && (
+      // <section className="relative flex items-center justify-center gap-3 overflow-hidden border-b bg-gradient-to-r from-blue-600 to-violet-600 p-2 font-semibold text-white">
+
+      <section className="relative flex items-center justify-center gap-3 overflow-hidden border-b bg-black p-2 font-semibold text-white dark:bg-white dark:text-black">
         {/* <Image
           src="/space_background.svg"
           height={2000}
@@ -28,14 +40,22 @@ const InfoBanner = async () => {
           className="animate-slow-spin absolute -z-10 opacity-80"
           priority={true}
         /> */}
-        {INFO_BANNER.content}
+        {PRODUCT_TYPE === "credits" && <FaCoins size={20} />}
+        {(PRODUCT_TYPE === "subscription" || PRODUCT_TYPE === "one_time") && (
+          <FaRocket size={18} />
+        )}
+        {infoBanner.content}
 
-        {INFO_BANNER.link && (
+        {infoBanner.link && (
+          // <Link
+          //   href={infoBanner.link}
+          //   className="flex items-center gap-2 rounded-full bg-white px-4 py-1 text-sm font-semibold text-black hover:opacity-80"
+          // >
           <Link
-            href={INFO_BANNER.link}
-            className="flex items-center gap-2 rounded-full bg-white px-4 py-1 text-sm font-semibold text-black hover:opacity-80"
+            href={infoBanner.link}
+            className="flex items-center gap-2 rounded-full bg-white px-4 py-1 text-sm font-semibold text-black hover:opacity-80 dark:bg-black dark:text-white"
           >
-            {INFO_BANNER.buttonContent} <FaArrowRight size={12} />
+            {infoBanner.buttonContent} <FaArrowRight size={12} />
           </Link>
         )}
       </section>
