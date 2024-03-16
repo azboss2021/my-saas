@@ -62,7 +62,6 @@ export async function removeMailSubscriber(email: string) {
 
     const subscriber = await MailSubscriber.findOne({ userEmail: email });
 
-    console.log(Date.now() - new Date(subscriber.updatedAt).getTime());
     if (
       Date.now() - new Date(subscriber.updatedAt).getTime() <=
       MAIL_SUBSCRIBE_DELAY_MS
@@ -94,7 +93,6 @@ export async function addMailSubscriber(email: string) {
 
     const subscriber = await MailSubscriber.findOne({ userEmail: email });
 
-    console.log(Date.now() - new Date(subscriber.updatedAt).getTime());
     if (Date.now() - new Date(subscriber.updatedAt).getTime() <= 60000) {
       return "ERROR: Cannot update so often.";
     }
