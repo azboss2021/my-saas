@@ -19,6 +19,8 @@ export const NAVBAR_BADGE_LINK = "/plan";
 
 export const UPDATE_SUBSCRIPTION_REVALIDATE_PATH = "/plan";
 
+export const MAIL_SUBSCRIBE_DELAY_MS = 120000;
+
 export const SIDE_BY_SIDE_GOOD = {
   title: `With ${SAAS_NAME}`,
   features: [
@@ -54,7 +56,7 @@ export const MAILING_LIST = {
 };
 
 export const ANNUAL_DISCOUNT = 0;
-export const DISCOUNT = 0.2;
+export const DISCOUNT = 0.1;
 
 export const PRICE_HIERARCHY = ["Free", "Basic", "Pro"];
 
@@ -64,7 +66,7 @@ type ProductType =
   | "one_time"
   | "physical_product"
   | "digital_product";
-export const PRODUCT_TYPE: ProductType = "credits";
+export const PRODUCT_TYPE: ProductType = "subscription";
 
 export const ONE_TIME_PLAN = {
   _id: 1,

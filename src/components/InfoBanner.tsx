@@ -29,17 +29,16 @@ const InfoBanner = async () => {
 
   return (
     showBanner && (
-      // <section className="relative flex items-center justify-center gap-3 overflow-hidden border-b bg-gradient-to-r from-blue-600 to-violet-600 p-2 font-semibold text-white">
-
-      <section className="relative flex items-center justify-center gap-3 overflow-hidden border-b bg-black p-2 font-semibold text-white dark:bg-white dark:text-black">
-        {/* <Image
+      <section className="relative flex items-center justify-center gap-3 overflow-hidden border-b bg-gradient-to-r from-blue-600 to-violet-600 p-2 font-semibold text-white">
+        {/* // <section className="relative flex items-center justify-center gap-3 overflow-hidden border-b p-2"> */}
+        <Image
           src="/space_background.svg"
           height={2000}
           width={2000}
           alt="banner background"
           className="animate-slow-spin absolute -z-10 opacity-80"
           priority={true}
-        /> */}
+        />
         {PRODUCT_TYPE === "credits" && <FaCoins size={20} />}
         {(PRODUCT_TYPE === "subscription" || PRODUCT_TYPE === "one_time") && (
           <FaRocket size={18} />
@@ -53,7 +52,7 @@ const InfoBanner = async () => {
           // >
           <Link
             href={infoBanner.link}
-            className="flex items-center gap-2 rounded-full bg-white px-4 py-1 text-sm font-semibold text-black hover:opacity-80 dark:bg-black dark:text-white"
+            className="flex items-center gap-2 rounded-full bg-white px-4 py-1 text-sm font-semibold text-black hover:opacity-80"
           >
             {infoBanner.buttonContent} <FaArrowRight size={12} />
           </Link>

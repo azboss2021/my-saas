@@ -8,6 +8,7 @@ import { SAAS_DESCRIPTION, SAAS_NAME } from "@/lib/constants";
 import LeaveButton from "@/components/LeaveButton";
 import AccountTransactions from "@/components/AccountTransactions";
 import AccountInformation from "@/components/AccountInformation";
+import AccountActions from "@/components/AccountActions";
 
 export const metadata: Metadata = {
   title: `${SAAS_NAME} - Dashboard`,
@@ -29,6 +30,7 @@ const AccountPage = async () => {
       <section className="mx-auto flex max-w-3xl flex-col gap-8 p-8">
         <LeaveButton />
         <AccountInformation user={user} />
+        <AccountActions user={user} />
         <AccountTransactions transactions={transactions!} />
       </section>
     </>

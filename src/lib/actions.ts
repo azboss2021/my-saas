@@ -10,9 +10,10 @@ import {
   DatabaseTransaction,
   TransactionParams,
 } from "./types";
-import { PRODUCT_TYPE, SAAS_NAME } from "./constants";
+import { MAIL_SUBSCRIBE_DELAY_MS, PRODUCT_TYPE, SAAS_NAME } from "./constants";
 import EmailTemplate from "@/components/EmailTemplate";
 import { Resend } from "resend";
+import { revalidatePath } from "next/cache";
 
 // CREATE
 export async function createUser({
@@ -29,7 +30,88 @@ export async function createUser({
 
     const newUser = await User.create({ name, email, image });
 
+    const alreadyExists = await MailSubscriber.findOne({ userEmail: email });
+
+    if (!alreadyExists) {
+      const mailSubscriber = await MailSubscriber.create({ userEmail: email });
+
+      if (!mailSubscriber) throw Error("Could not create new mail subscriber");
+    }
+
     return JSON.parse(JSON.stringify(newUser));
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+export async function checkMailSubscribed(email: string) {
+  try {
+    await connectToDatabase();
+
+    const alreadyExists = await MailSubscriber.findOne({ userEmail: email });
+
+    return !!alreadyExists;
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+export async function removeMailSubscriber(email: string) {
+  try {
+    await connectToDatabase();
+
+    const subscriber = await MailSubscriber.findOne({ userEmail: email });
+
+    console.log(Date.now() - new Date(subscriber.updatedAt).getTime());
+    if (
+      Date.now() - new Date(subscriber.updatedAt).getTime() <=
+      MAIL_SUBSCRIBE_DELAY_MS
+    ) {
+      return "ERROR: Cannot update so often.";
+    }
+
+    const deletedSubscriber = await MailSubscriber.updateOne(
+      {
+        userEmail: email,
+      },
+      { subscribed: false },
+    );
+
+    if (!deletedSubscriber)
+      return "ERROR: User was not removed from subscription list";
+
+    revalidatePath("/account");
+
+    return JSON.parse(JSON.stringify(deletedSubscriber));
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+export async function addMailSubscriber(email: string) {
+  try {
+    await connectToDatabase();
+
+    const subscriber = await MailSubscriber.findOne({ userEmail: email });
+
+    console.log(Date.now() - new Date(subscriber.updatedAt).getTime());
+    if (Date.now() - new Date(subscriber.updatedAt).getTime() <= 60000) {
+      return "ERROR: Cannot update so often.";
+    }
+
+    const addedSubscriber = await MailSubscriber.updateOne(
+      {
+        userEmail: email,
+      },
+      { subscribed: true },
+    );
+
+    if (!addedSubscriber)
+      return "ERROR: User was not added to subscription list";
+
+    revalidatePath("/account");
+
+    return JSON.parse(JSON.stringify(addedSubscriber));
   } catch (error) {
     handleError(error);
   }
@@ -40,6 +122,8 @@ export async function createMailSubscriber(email: string) {
     await connectToDatabase();
 
     const alreadyExists = await MailSubscriber.findOne({ userEmail: email });
+
+    revalidatePath("/account");
 
     if (alreadyExists) return "ERROR: User already subscribed to mail";
 
@@ -118,7 +202,7 @@ export async function updateUser(email: string, name: string, image: string) {
 }
 
 // DELETE
-export async function deleteUser(id: string) {
+export async function deleteUser(id: string, email: string) {
   try {
     await connectToDatabase();
 
@@ -126,6 +210,12 @@ export async function deleteUser(id: string) {
 
     if (!deletedUserCreated) {
       throw Error("Did not go into deleted users");
+    }
+
+    const removeFromMail = await MailSubscriber.deleteOne({ userEmail: email });
+
+    if (!removeFromMail) {
+      throw Error("Did not remove from mail list");
     }
 
     // Delete user

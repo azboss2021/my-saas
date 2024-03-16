@@ -48,16 +48,19 @@ const DeletedUserSchema = new Schema({
 });
 
 // ===== Mailing List =====
-const MailSubscriberSchema = new Schema({
-  userEmail: {
-    type: String,
-    unique: true,
+const MailSubscriberSchema = new Schema(
+  {
+    userEmail: {
+      type: String,
+      unique: true,
+    },
+    subscribed: {
+      type: Boolean,
+      default: true,
+    },
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+  { timestamps: true },
+);
 
 // ===== TRANSACTION =====
 const TransactionSchema = new Schema({
@@ -92,9 +95,9 @@ const TransactionSchema = new Schema({
 
 const User = models?.User || model("User", UserSchema);
 const DeletedUser =
-  models?.DeletedUser || model("Deleted_User", DeletedUserSchema);
+  models?.DeletedUser || model("DeletedUser", DeletedUserSchema);
 const MailSubscriber =
-  models?.MailSubscriber || model("Mail_Subscriber", MailSubscriberSchema);
+  models?.MailSubscriber || model("MailSubscriber", MailSubscriberSchema);
 const Transaction =
   models?.Transaction || model("Transaction", TransactionSchema);
 

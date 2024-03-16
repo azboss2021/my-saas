@@ -110,7 +110,7 @@ const SubscriptionPricing = ({
                     subscriptionPlan={subscriptionPlan}
                   />
                 ) : (
-                  <HomeCTAButton className="w-full" />
+                  <HomeCTAButton className="w-full px-0" />
                 )}
               </div>
             </div>
@@ -235,7 +235,7 @@ const SubscriptionPricing = ({
                     subscriptionPlan={subscriptionPlan}
                   />
                 ) : (
-                  <HomeCTAButton className="w-full" />
+                  <HomeCTAButton className="w-full px-0" />
                 )}
               </div>
             </div>

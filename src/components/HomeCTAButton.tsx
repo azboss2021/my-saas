@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react";
 import { useState } from "react";
 import LoadingButton from "./LoadingButton";
 import { LOGIN_CALLBACK, SAAS_NAME } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 const HomeCTAButton = ({ className }: { className?: string }) => {
   const [loading, setLoading] = useState(false);
@@ -12,7 +13,10 @@ const HomeCTAButton = ({ className }: { className?: string }) => {
   return (
     <LoadingButton
       loading={loading}
-      className={`group flex w-fit gap-2 rounded-lg px-24 py-7 text-base font-semibold ${className}`}
+      className={cn(
+        "group flex w-fit gap-2 rounded-lg px-24 py-7 text-base font-semibold",
+        className,
+      )}
       onClick={async () => {
         if (loading) return;
         setLoading(true);

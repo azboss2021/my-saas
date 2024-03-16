@@ -87,7 +87,7 @@ const OneTimePricing = ({ id }: { id?: string }) => {
             subscriptionPlan={ONE_TIME_PLAN.name}
           />
         ) : (
-          <HomeCTAButton className="w-full" />
+          <HomeCTAButton className="w-full px-0" />
         )}
       </div>
     </div>

@@ -49,7 +49,7 @@ const EmailInput = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-xs">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-sm">
         <FormField
           control={form.control}
           name="email"

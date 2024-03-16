@@ -91,7 +91,7 @@ const CreditPricing = ({ id }: { id?: string }) => {
                 credits={plan.credits}
               />
             ) : (
-              <HomeCTAButton className="w-full" />
+              <HomeCTAButton className="w-full px-0" />
             )}
           </div>
         </div>
