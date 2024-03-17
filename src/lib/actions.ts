@@ -15,7 +15,6 @@ import EmailTemplate from "@/components/EmailTemplate";
 import { Resend } from "resend";
 import { revalidatePath } from "next/cache";
 
-// CREATE
 export async function createUser({
   name,
   email,
@@ -132,7 +131,6 @@ export async function createMailSubscriber(email: string) {
   }
 }
 
-// READ
 export async function getUserByEmail(email: string) {
   try {
     await connectToDatabase();
@@ -175,7 +173,6 @@ export async function checkUserExists(email: string) {
   }
 }
 
-// UPDATE
 export async function updateUser(email: string, name: string, image: string) {
   try {
     await connectToDatabase();
@@ -196,7 +193,6 @@ export async function updateUser(email: string, name: string, image: string) {
   }
 }
 
-// DELETE
 export async function deleteUser(id: string, email: string) {
   try {
     await connectToDatabase();
@@ -240,7 +236,6 @@ export async function increaseCredits(id: string, creditFee: number) {
   }
 }
 
-// STRIPE
 export async function checkoutCredits(transaction: TransactionParams) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
@@ -399,21 +394,6 @@ export async function getTransactionsByUserId(userId: string) {
   }
 }
 
-// export async function updatePlan(id: string, plan: string) {
-//   try {
-//     await connectToDatabase();
-//     const updatedUserPlan = await User.findOneAndUpdate(
-//       { _id: id },
-//       { plan },
-//       { new: true },
-//     );
-//     if (!updatedUserPlan) throw new Error("User plan update failed");
-//     return JSON.parse(JSON.stringify(updatedUserPlan));
-//   } catch (error) {
-//     handleError(error);
-//   }
-// }
-
 export async function updateSubscription(
   id: string,
   subscriptionId: string,
@@ -473,7 +453,6 @@ export async function createTransaction(transaction: CreateTransactionParams) {
   }
 }
 
-// RESEND EMAIL
 export async function sendEmail({
   userEmail,
   name,

@@ -8,7 +8,7 @@ import HomeCTAButton from "./HomeCTAButton";
 const OneTimePricing = ({ id }: { id?: string }) => {
   return (
     <div
-      className={`relative mx-auto w-full max-w-xs rounded-lg border px-6 py-6 shadow-xl transition-shadow ${ONE_TIME_PLAN.bestChoice && "border-2 border-primary"} bg-background`}
+      className={`relative mx-auto w-full max-w-xs rounded-lg border px-6 py-6 ${ONE_TIME_PLAN.bestChoice && "border-2 border-primary"} bg-background`}
     >
       {ONE_TIME_PLAN.bestChoice && (
         <div className="absolute -top-3 left-[124px] rounded-full bg-primary px-2 py-0.5 text-xs font-semibold text-white">

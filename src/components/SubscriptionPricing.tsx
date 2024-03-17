@@ -27,7 +27,7 @@ const SubscriptionPricing = ({
         <section className="flex w-full flex-col justify-center gap-4 md:flex-row">
           {SUBSCRIPTION_PLANS.map((plan, index) => (
             <div
-              className={`relative w-full max-w-xs rounded-lg border px-6 py-10 shadow-xl transition-shadow ${plan.bestChoice && "border-2 border-primary"} bg-background`}
+              className={`relative w-full max-w-xs rounded-lg border px-6 py-10 ${plan.bestChoice && "border-2 border-primary"} bg-background`}
               key={`price_card_${index}`}
             >
               {plan.bestChoice && (
@@ -121,7 +121,7 @@ const SubscriptionPricing = ({
         <section className="flex flex-col gap-4 md:flex-row">
           {SUBSCRIPTION_PLANS.map((plan, index) => (
             <div
-              className={`relative max-w-xs rounded-lg border px-6 py-10 shadow-xl transition-shadow ${plan.bestChoice && "border-2 border-primary"} bg-background`}
+              className={`relative max-w-xs rounded-lg border px-6 py-10 ${plan.bestChoice && "border-2 border-primary"} bg-background`}
               key={`price_card_${index}`}
             >
               {plan.bestChoice && (

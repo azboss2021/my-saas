@@ -10,7 +10,7 @@ const CreditPricing = ({ id }: { id?: string }) => {
     <section className="mx-auto flex w-full flex-col justify-center gap-4 md:flex-row">
       {CREDIT_PLANS.map((plan, index) => (
         <div
-          className={`relative w-full max-w-xs rounded-lg border px-6 py-10 shadow-xl transition-shadow ${plan.bestChoice && "border-2 border-primary"} bg-background`}
+          className={`relative w-full max-w-xs rounded-lg border px-6 py-10 ${plan.bestChoice && "border-2 border-primary"} bg-background`}
           key={`price_card_${index}`}
         >
           {plan.bestChoice && (
