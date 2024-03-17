@@ -57,7 +57,7 @@ export const MAILING_LIST = {
     "Receive the latest news about the best things happeneing every Saturday.",
 };
 
-export const ANNUAL_DISCOUNT = 0;
+export const ANNUAL_DISCOUNT = 0.2;
 export const DISCOUNT = 0.1;
 
 export const PRICE_HIERARCHY = ["Free", "Basic", "Pro"];

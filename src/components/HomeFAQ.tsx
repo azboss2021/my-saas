@@ -18,7 +18,7 @@ const HomeFAQ = ({ stack }: { stack?: boolean }) => {
       )}
     >
       <div className="flex basis-1/2 flex-col items-start gap-2">
-        <h3 className={`${stack ? "text-3xl font-extrabold" : "title"}`}>
+        <h3 className={`${stack ? "text-xl font-extrabold" : "title"}`}>
           Frequently Asked Questions
         </h3>
         {stack ? null : (
@@ -49,10 +49,10 @@ const HomeFAQ = ({ stack }: { stack?: boolean }) => {
             value={`faq_item_${index}`}
             key={`accordian_question_${index}`}
           >
-            <AccordionTrigger className="text-lg font-bold">
+            <AccordionTrigger className="text-lg font-semibold">
               {question.question}
             </AccordionTrigger>
-            <AccordionContent className="font-semibold text-muted-foreground">
+            <AccordionContent className="text-muted-foreground">
               {question.answer}
             </AccordionContent>
           </AccordionItem>

@@ -40,7 +40,7 @@ const UserDropdown = ({ image }: { image: string }) => {
         <DropdownMenuItem className="p-4" asChild>
           <Link
             href="/dashboard"
-            className="flex cursor-pointer items-center gap-2 p-4 font-semibold"
+            className="flex cursor-pointer items-center gap-2 p-4"
           >
             <FaHome size={14} /> Dashboard
           </Link>
@@ -48,7 +48,7 @@ const UserDropdown = ({ image }: { image: string }) => {
         <DropdownMenuItem className="p-4" asChild>
           <Link
             href="/account"
-            className="flex cursor-pointer items-center gap-2 p-4 font-semibold"
+            className="flex cursor-pointer items-center gap-2 p-4"
           >
             <FaUser size={14} /> Account
           </Link>
@@ -56,7 +56,7 @@ const UserDropdown = ({ image }: { image: string }) => {
         <DropdownMenuItem className="p-4" asChild>
           <Link
             href="/plan"
-            className="flex cursor-pointer items-center gap-2 p-4 font-semibold"
+            className="flex cursor-pointer items-center gap-2 p-4"
           >
             <FaCrown size={14} /> Plan
           </Link>
@@ -64,14 +64,14 @@ const UserDropdown = ({ image }: { image: string }) => {
         <DropdownMenuItem className="p-4" asChild>
           <Link
             href="/support"
-            className="flex cursor-pointer items-center gap-2 p-4 font-semibold"
+            className="flex cursor-pointer items-center gap-2 p-4"
           >
             <FaTools size={14} /> Support
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          className="flex cursor-pointer items-center gap-2 p-4 font-semibold"
+          className="flex cursor-pointer items-center gap-2 p-4"
           onClick={() =>
             theme === "dark" ? setTheme("light") : setTheme("dark")
           }
@@ -92,7 +92,7 @@ const UserDropdown = ({ image }: { image: string }) => {
             setLoading(true);
             await signOut({ callbackUrl: "/" });
           }}
-          className="flex cursor-pointer items-center gap-2 p-4 font-semibold"
+          className="flex cursor-pointer items-center gap-2 p-4"
         >
           {loading ? (
             <Loader2 className="h-4 w-4 animate-spin" size={14} />

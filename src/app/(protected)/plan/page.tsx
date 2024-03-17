@@ -18,7 +18,7 @@ const ProPage = () => {
 
       <section className="mx-auto flex max-w-3xl flex-col gap-8 p-8">
         <LeaveButton />
-        <h2 className="text-3xl font-extrabold">Pricing Plan</h2>
+        <h2 className="text-xl font-extrabold">Pricing Plan</h2>
         <Pricing />
       </section>
     </>

@@ -39,7 +39,7 @@ const InfoBanner = async () => {
           className="animate-slow-spin absolute -z-10 opacity-80"
           priority={true}
         />
-        {PRODUCT_TYPE === "credits" && <FaCoins size={20} />}
+        {PRODUCT_TYPE === "credits" && <FaCoins size={18} />}
         {(PRODUCT_TYPE === "subscription" || PRODUCT_TYPE === "one_time") && (
           <FaRocket size={18} />
         )}
