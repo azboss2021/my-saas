@@ -7,7 +7,9 @@ export const SAAS_DESCRIPTION =
 
 export const SAAS_URL = "mysaas.com";
 
-export const SUPPORT_EMAIL = "calebjwilson14@gmail.com";
+export const SAAS_AUTHOR = "Caleb Wilson";
+
+export const SUPPORT_EMAIL = "cwilsonfun@gmail.com";
 
 export const LOGIN_CALLBACK = "/dashboard";
 
@@ -231,8 +233,8 @@ export const INFO_BANNER_CREDITS = {
 };
 
 export const FAQ_LINKS = {
-  twitter: "https://twitter.com/cwilsonfun",
-  mailLink: "mailto:calebjwilson14@gmail.com",
+  twitter: "",
+  mailLink: "mailto:cwilsonfun@gmail.com",
 };
 
 export const FAQ_QUESTIONS = [

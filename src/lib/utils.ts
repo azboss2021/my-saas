@@ -22,6 +22,11 @@ export const handleError = (error: unknown) => {
   }
 };
 
+export const dateIsLessThan = (date: Date, timeMS: number): boolean => {
+  if (Date.now() - new Date(date).getTime() <= timeMS) return true;
+  else return false;
+};
+
 export const dateToShortDate = (date: Date): string => {
   const month = date.getMonth() + 1;
   const day = date.getDate();

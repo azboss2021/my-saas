@@ -29,7 +29,7 @@ const InfoBanner = async () => {
 
   return (
     showBanner && (
-      <section className="relative flex items-center justify-center gap-3 overflow-hidden border-b bg-gradient-to-r from-blue-600 to-violet-600 p-2 font-semibold text-white">
+      <section className="relative flex items-center justify-center gap-3 overflow-hidden border-b bg-gradient-to-r from-pink-500 to-violet-600 p-2 text-white">
         {/* // <section className="relative flex items-center justify-center gap-3 overflow-hidden border-b p-2"> */}
         <Image
           src="/space_background.svg"

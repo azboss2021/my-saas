@@ -23,15 +23,16 @@ const HomeFAQ = ({ stack }: { stack?: boolean }) => {
         </h3>
         {stack ? null : (
           <p className="max-w-xl text-xl font-bold">
-            Have another question? Contact me on{" "}
-            <Link
-              href={FAQ_LINKS.twitter}
-              target="_blank"
-              className="underline"
-            >
-              Twitter
-            </Link>{" "}
-            or by{" "}
+            Have another question? Contact me by{" "}
+            {FAQ_LINKS.twitter.length > 0 && (
+              <Link
+                href={FAQ_LINKS.twitter}
+                target="_blank"
+                className="underline"
+              >
+                Twitter or by{" "}
+              </Link>
+            )}
             <Link
               href={FAQ_LINKS.mailLink}
               target="_blank"

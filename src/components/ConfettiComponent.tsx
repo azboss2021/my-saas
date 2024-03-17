@@ -1,5 +1,6 @@
 "use client";
 
+import { dateIsLessThan } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
 
@@ -7,7 +8,7 @@ const ConfettiComponent = ({ createdAt }: { createdAt: Date }) => {
   const [newUser, setNewUser] = useState(false);
 
   useEffect(() => {
-    setNewUser(createdAt && Date.now() - new Date(createdAt).getTime() <= 5000);
+    setNewUser(createdAt && dateIsLessThan(createdAt, 5000));
   }, [createdAt]);
 
   if (!newUser) return null;

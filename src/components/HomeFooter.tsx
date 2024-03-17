@@ -3,6 +3,7 @@ import LogoImage from "./LogoImage";
 import Link from "next/link";
 import {
   DISCORD_LINK,
+  SAAS_AUTHOR,
   SAAS_NAME,
   SAAS_SLOGAN,
   SUPPORT_EMAIL,

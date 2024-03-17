@@ -1,7 +1,7 @@
 "use server";
 
 import { connectToDatabase } from "./mongoose";
-import { handleError } from "./utils";
+import { dateIsLessThan, handleError } from "./utils";
 import { DeletedUser, MailSubscriber, Transaction, User } from "./models";
 import Stripe from "stripe";
 import { redirect } from "next/navigation";
@@ -62,10 +62,7 @@ export async function removeMailSubscriber(email: string) {
 
     const subscriber = await MailSubscriber.findOne({ userEmail: email });
 
-    if (
-      Date.now() - new Date(subscriber.updatedAt).getTime() <=
-      MAIL_SUBSCRIBE_DELAY_MS
-    ) {
+    if (dateIsLessThan(subscriber.updatedAt, MAIL_SUBSCRIBE_DELAY_MS)) {
       return "ERROR: Cannot update so often.";
     }
 
@@ -93,7 +90,7 @@ export async function addMailSubscriber(email: string) {
 
     const subscriber = await MailSubscriber.findOne({ userEmail: email });
 
-    if (Date.now() - new Date(subscriber.updatedAt).getTime() <= 60000) {
+    if (dateIsLessThan(subscriber.updatedAt, MAIL_SUBSCRIBE_DELAY_MS)) {
       return "ERROR: Cannot update so often.";
     }
 
@@ -478,17 +475,27 @@ export async function createTransaction(transaction: CreateTransactionParams) {
 
 // RESEND EMAIL
 export async function sendEmail({
+  userEmail,
   name,
   subject,
   message,
   email,
 }: {
+  userEmail: string;
   name: string;
   subject: string;
   message: string;
   email: string;
 }) {
   try {
+    const user = await User.findOne({ email: userEmail });
+
+    if (user.emailSentAt && dateIsLessThan(user.emailSentAt, 43200000)) {
+      return {
+        error: "Could not process this request so soon. Try again later",
+      };
+    }
+
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     const emailResponse = await resend.emails.send({
@@ -497,6 +504,8 @@ export async function sendEmail({
       subject: subject,
       react: EmailTemplate({ name, message, email }),
     });
+
+    await User.updateOne({ email: userEmail }, { emailSentAt: Date.now() });
 
     return { success: true, emailResponse };
   } catch (error) {

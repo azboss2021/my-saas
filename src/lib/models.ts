@@ -31,6 +31,9 @@ const UserSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    emailSentAt: {
+      type: Date,
+    },
   },
   { timestamps: true },
 );

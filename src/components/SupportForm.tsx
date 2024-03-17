@@ -17,6 +17,7 @@ import { FaPaperPlane } from "react-icons/fa";
 import { Textarea } from "./ui/textarea";
 import { sendEmail } from "@/lib/actions";
 import toast from "react-hot-toast";
+import { useSession } from "next-auth/react";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -32,6 +33,8 @@ const formSchema = z.object({
 });
 
 const SupportForm = () => {
+  const { data: session } = useSession();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -45,12 +48,19 @@ const SupportForm = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const toastId = toast.loading("Sending out email...");
+
     const emailResponse = await sendEmail({
+      userEmail: session?.user?.email as string,
       name: values.name,
       subject: values.subject,
       message: values.message,
       email: values.email,
     });
+
+    if (emailResponse.error) {
+      toast.error(emailResponse.error as string, { id: toastId });
+      return;
+    }
 
     if (emailResponse.success) {
       toast.success("Email sent", { id: toastId });

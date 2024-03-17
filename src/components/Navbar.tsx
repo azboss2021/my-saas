@@ -22,9 +22,7 @@ const Navbar = async () => {
               className={badgeVariants({ variant: "default" })}
               href={NAVBAR_BADGE_LINK}
             >
-              <span className="flex items-center gap-2 text-base">
-                {user.plan}
-              </span>
+              <span className="flex items-center gap-2">{user.plan}</span>
             </Link>
           )}
 
@@ -33,7 +31,7 @@ const Navbar = async () => {
             className={badgeVariants({ variant: "default" })}
             href={NAVBAR_BADGE_LINK}
           >
-            <span className="flex items-center gap-2 text-base">
+            <span className="flex items-center gap-2">
               <FaCoins /> {user.credits}
             </span>
           </Link>
