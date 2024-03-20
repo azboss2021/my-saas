@@ -4,7 +4,7 @@ import { Badge } from "./ui/badge";
 import { FaCheckCircle } from "react-icons/fa";
 import { FaCircleXmark } from "react-icons/fa6";
 import Checkout from "./Checkout";
-import HomeCTAButton from "./HomeCTAButton";
+import HomeCTAButton from "./Home/HomeCTAButton";
 
 const SubscriptionPricing = ({
   id,

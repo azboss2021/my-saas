@@ -1,5 +1,5 @@
 import { MAILING_LIST } from "@/lib/constants";
-import EmailInput from "./EmailInput";
+import EmailInput from "../EmailInput";
 
 const HomeEmailSection = () => {
   return (

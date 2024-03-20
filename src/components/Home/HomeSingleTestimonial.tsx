@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { FaQuoteLeft } from "react-icons/fa";
-import { Badge } from "./ui/badge";
+import { Badge } from "../ui/badge";
 
 const user: {
   image: string | null;

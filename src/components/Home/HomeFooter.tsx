@@ -1,5 +1,5 @@
 import { FaCopyright, FaDiscord } from "react-icons/fa";
-import LogoImage from "./LogoImage";
+import LogoImage from "../LogoImage";
 import Link from "next/link";
 import {
   DISCORD_LINK,

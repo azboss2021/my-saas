@@ -1,9 +1,9 @@
 "use client";
 
-import LogoImage from "./LogoImage";
+import LogoImage from "../LogoImage";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
-import LoadingButton from "./LoadingButton";
+import LoadingButton from "../LoadingButton";
 import { LOGIN_CALLBACK, SAAS_NAME } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 

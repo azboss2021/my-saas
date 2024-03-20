@@ -1,8 +1,8 @@
 import { cn } from "@/lib/utils";
-import DiscountLabel from "./DiscountLabel";
-import OneTimePricing from "./OneTimePricing";
-import CreditPricing from "./CreditPricing";
-import SubscriptionPricing from "./SubscriptionPricing";
+import DiscountLabel from "../DiscountLabel";
+import OneTimePricing from "../OneTimePricing";
+import CreditPricing from "../CreditPricing";
+import SubscriptionPricing from "../SubscriptionPricing";
 import { PRODUCT_TYPE } from "@/lib/constants";
 
 // EDIT THESE

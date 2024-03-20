@@ -1,6 +1,6 @@
-import NavLogo from "./NavLogo";
+import NavLogo from "../NavLogo";
 import Link from "next/link";
-import { ModeToggle } from "./theme-toggle";
+import { ModeToggle } from "../theme-toggle";
 
 const HomeNavbar = () => {
   return (
